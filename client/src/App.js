@@ -1,4 +1,5 @@
 import './App.css';
+import Home from './components/Home';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import { useState, useEffect } from 'react';
@@ -19,8 +20,7 @@ function App() {
   }, []);
 
   function handleSignupSubmit(username, password, password_confirmation) {
-    console.log(password);
-    fetch('users', {
+    fetch('signup', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password, password_confirmation }),
@@ -31,6 +31,7 @@ function App() {
 
   return (
     <div>
+      <Home />
       <Login onLogin={onLogin} />
       <Signup handleSignupSubmit={handleSignupSubmit} />
     </div>
