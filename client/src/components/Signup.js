@@ -1,35 +1,33 @@
 import { TextField, Box, Button } from '@mui/material';
 import { useState } from 'react';
 
-function Login({ handleFormSubmit }) {
+function Signup({ handleSignupSubmit }) {
   // prettier-ignore
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
-  function handleSubmit() {
-    handleFormSubmit(username, password, passwordConfirmation);
+  function handleSubmit(e) {
+    e.preventDefault();
+    handleSignupSubmit(username, password, passwordConfirmation);
   }
 
   return (
     <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
       <TextField
-        required
         id="outlined-required"
         label="username"
         value={username}
         onChange={(e) => setUsername(e.target.value)}
       />
       <TextField
-        required
         label="password"
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
       <TextField
-        required
-        label="confirm"
+        label="confirm password"
         type="password"
         value={passwordConfirmation}
         onChange={(e) => setPasswordConfirmation(e.target.value)}
@@ -41,4 +39,4 @@ function Login({ handleFormSubmit }) {
   );
 }
 
-export default Login;
+export default Signup;

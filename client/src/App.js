@@ -1,17 +1,22 @@
 import './App.css';
-import Login from './components/Login';
+import Signup from './components/Signup';
 import { useState, useEffect } from 'react';
 
 function App() {
-  const [user, setUser] = useState('');
-
-  function handleFormSubmit(user, password, password_confirmation) {
-    setUser(user);
+  function handleSignupSubmit(username, password, password_confirmation) {
+    console.log(password);
+    fetch('users', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password, password_confirmation }),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
   }
 
   return (
     <div>
-      <Login handleFormSubmit={handleFormSubmit} />
+      <Signup handleSignupSubmit={handleSignupSubmit} />
     </div>
   );
 }
