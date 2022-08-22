@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_22_194406) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_22_224708) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -22,7 +22,21 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_22_194406) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "routine_lifts", force: :cascade do |t|
+    t.integer "routine_id"
+    t.integer "lift_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "routines", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "user_lifts", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "lift_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -30,6 +44,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_22_194406) do
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "password_digest"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "workout_lifts", force: :cascade do |t|
+    t.integer "workout_id"
+    t.integer "lift_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

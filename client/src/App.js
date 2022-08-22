@@ -1,8 +1,23 @@
 import './App.css';
 import Signup from './components/Signup';
+import Login from './components/Login';
 import { useState, useEffect } from 'react';
 
 function App() {
+  const [user, setUser] = useState('');
+
+  function onLogin(user) {
+    setUser(user);
+  }
+
+  useEffect(() => {
+    fetch('/me').then((res) => {
+      if (res.ok) {
+        res.json().then((user) => setUser(user));
+      }
+    });
+  }, []);
+
   function handleSignupSubmit(username, password, password_confirmation) {
     console.log(password);
     fetch('users', {
@@ -16,6 +31,7 @@ function App() {
 
   return (
     <div>
+      <Login onLogin={onLogin} />
       <Signup handleSignupSubmit={handleSignupSubmit} />
     </div>
   );

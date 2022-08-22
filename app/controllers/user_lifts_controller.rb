@@ -1,0 +1,2 @@
+class UserLiftsController < ApplicationController
+end

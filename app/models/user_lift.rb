@@ -1,0 +1,2 @@
+class UserLift < ApplicationRecord
+end

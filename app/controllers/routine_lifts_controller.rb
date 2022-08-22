@@ -1,0 +1,2 @@
+class RoutineLiftsController < ApplicationController
+end

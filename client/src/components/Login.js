@@ -1,15 +1,21 @@
 import { TextField, Box, Button } from '@mui/material';
 import { useState } from 'react';
 
-function Signup({ handleSignupSubmit }) {
+function Login({ onLogin }) {
   // prettier-ignore
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('');
-  const [passwordConfirmation, setPasswordConfirmation] = useState('');
 
-  function handleSubmit(e) {
-    e.preventDefault();
-    handleSignupSubmit(username, password, passwordConfirmation);
+  function handleSubmit() {
+    fetch('/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password }),
+    }).then((res) => {
+      if (res.ok) {
+        res.json().then((user) => onLogin(user));
+      }
+    });
   }
 
   return (
@@ -25,17 +31,11 @@ function Signup({ handleSignupSubmit }) {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
-      <TextField
-        label="confirm password"
-        type="password"
-        value={passwordConfirmation}
-        onChange={(e) => setPasswordConfirmation(e.target.value)}
-      />
       <Button variant="contained" type="submit">
-        Sign me up!
+        Log In
       </Button>
     </Box>
   );
 }
 
-export default Signup;
+export default Login;
