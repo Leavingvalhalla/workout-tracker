@@ -1,14 +1,18 @@
 import { Link } from 'react-router-dom';
-import { Button } from '@mui/material';
+import Login from './Login';
+import Workout from './Workout';
 
-function Home() {
+function Home({ user }) {
   return (
     <div>
       <h1>Workout Tracker</h1>
-      <Button>Log In</Button>
+      <Login />
       <p>
         Don't have an account? <Link to="/signup">Create one here.</Link>
       </p>
+
+      {user && <Workout user={user} />}
+      {console.log(user)}
     </div>
   );
 }

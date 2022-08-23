@@ -20,12 +20,22 @@ function App() {
     });
   }, []);
 
+  function onLogout() {
+    fetch('/logout', {
+      method: 'DELETE',
+    });
+    setUser('');
+  }
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/login" element={<Login onLogin={onLogin} />} />
+        <Route
+          path="/login"
+          element={<Login onLogin={onLogin} onLogout={onLogout} user={user} />}
+        />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home user={user} />} />
       </Routes>
     </BrowserRouter>
   );

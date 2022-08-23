@@ -11,6 +11,7 @@ function Signup() {
   const [failed, setFailed] = useState(false);
 
   function handleSubmit(e) {
+    e.preventDefault();
     setSignedup(false);
     setFailed(false);
     fetch('/signup', {
@@ -21,7 +22,7 @@ function Signup() {
       body: JSON.stringify({
         username,
         password,
-        password_confirmation: passwordConfirmation,
+        passwordConfirmation,
       }),
     })
       .then((res) => res.json())
