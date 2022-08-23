@@ -3,7 +3,6 @@ Rails.application.routes.draw do
   resources :routine_lifts
   resources :workout_lifts
   resources :routines
-  resources :lifts
   resources :workouts
   resources :users
 
@@ -11,6 +10,9 @@ Rails.application.routes.draw do
   get '/me', to: 'users#show'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
+  post '/newset/', to: 'userlifts#create'
+  get '/lifts/all', to: 'lifts#index'
+  get '/lifts/:liftname', to: 'lifts#show'
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
 
 end

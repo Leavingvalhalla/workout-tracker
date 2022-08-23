@@ -1,12 +1,12 @@
 import './App.css';
 import Home from './components/Home';
 import Signup from './components/Signup';
-import Login from './components/Login';
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
   const [user, setUser] = useState('');
+  const [lifts, setLifts] = useState([]);
 
   function onLogin(currentUser) {
     setUser(currentUser);
@@ -18,6 +18,9 @@ function App() {
         res.json().then((currentUser) => setUser(currentUser));
       }
     });
+    fetch('/lifts/all')
+      .then((res) => res.json())
+      .then((data) => setLifts(data));
   }, []);
 
   function onLogout() {
@@ -30,12 +33,18 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/login"
-          element={<Login onLogin={onLogin} onLogout={onLogout} user={user} />}
-        />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/" element={<Home user={user} />} />
+        <Route
+          path="/"
+          element={
+            <Home
+              user={user}
+              onLogin={onLogin}
+              onLogout={onLogout}
+              lifts={lifts}
+            />
+          }
+        />
       </Routes>
     </BrowserRouter>
   );

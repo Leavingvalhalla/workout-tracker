@@ -5,6 +5,7 @@ function Login({ onLogin, user, onLogout }) {
   // prettier-ignore
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('');
+  const [failed, setFailed] = useState(false);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -14,14 +15,17 @@ function Login({ onLogin, user, onLogout }) {
       body: JSON.stringify({ username, password }),
     }).then((res) => {
       if (res.ok) {
+        setFailed(false);
         res.json().then((userInfo) => onLogin(userInfo));
+      } else {
+        setFailed(true);
       }
     });
   }
 
   return (
     <Box component="form" noValidate autoComplete="off" onSubmit={handleSubmit}>
-      {user ? (
+      {!user ? (
         <>
           <TextField
             label="username"
@@ -39,9 +43,12 @@ function Login({ onLogin, user, onLogout }) {
           </Button>
         </>
       ) : (
-        <Button variant="contained" onClick={onLogout}>
+        <Button variant="contained" onClick={() => onLogout()}>
           Log Out
         </Button>
+      )}
+      {failed && (
+        <p>Sorry, that didn't work. Are you sure you have an account?</p>
       )}
     </Box>
   );
