@@ -3,38 +3,31 @@ import Home from './components/Home';
 import Signup from './components/Signup';
 import Login from './components/Login';
 import { useState, useEffect } from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
   const [user, setUser] = useState('');
 
-  function onLogin(user) {
-    setUser(user);
+  function onLogin(currentUser) {
+    setUser(currentUser);
   }
 
   useEffect(() => {
     fetch('/me').then((res) => {
       if (res.ok) {
-        res.json().then((user) => setUser(user));
+        res.json().then((currentUser) => setUser(currentUser));
       }
     });
   }, []);
 
-  function handleSignupSubmit(username, password, password_confirmation) {
-    fetch('signup', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username, password, password_confirmation }),
-    })
-      .then((res) => res.json())
-      .then((data) => console.log(data));
-  }
-
   return (
-    <div>
-      <Home />
-      <Login onLogin={onLogin} />
-      <Signup handleSignupSubmit={handleSignupSubmit} />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/login" element={<Login onLogin={onLogin} />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
