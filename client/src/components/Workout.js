@@ -6,6 +6,7 @@ function Workout({ user, lifts }) {
   const [liftId, setLiftId] = useState('');
   const [weight, setWeight] = useState(0);
   const [reps, setReps] = useState(0);
+  const [changed, setChanged] = useState(false);
 
   const defaultProps = {
     options: lifts,
@@ -13,35 +14,39 @@ function Workout({ user, lifts }) {
   };
 
   useEffect(() => {
-    fetch(`/lifts/${liftName}`, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-    })
-      .then((res) => res.json())
-      .then((data) => setLiftId(data));
+    if (changed) {
+      fetch(`/lifts/${liftName}`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      })
+        .then((res) => res.json())
+        .then((data) => setLiftId(data.id));
+    }
   }, [liftName]);
 
   function onLogSet() {
     fetch('/newset', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify({ user_id: user.id, lift_id: liftId, weight, reps }),
-    });
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
   }
 
   return (
     <>
-      {}
       <Box>
         <Autocomplete
           {...defaultProps}
-          renderInput={(params) => (
-            <TextField
-              value={liftName}
-              {...params}
-              onChange={(e) => setLiftName(e.target.value)}
-            />
-          )}
+          inputValue={liftName}
+          onInputChange={(e, val) => {
+            setChanged(true);
+            setLiftName(val);
+          }}
+          renderInput={(params) => <TextField {...params} />}
         />
         <TextField
           value={weight}

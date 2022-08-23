@@ -3,6 +3,8 @@ class CreateUserLifts < ActiveRecord::Migration[7.0]
     create_table :user_lifts do |t|
       t.integer "user_id"
       t.integer "lift_id"
+      t.integer "weight"
+      t.integer "reps"
       t.timestamps
     end
   end
