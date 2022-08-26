@@ -38,24 +38,31 @@ function Workout({ user, lifts }) {
   // update the workout. If not, create a new workout.
 
   function onLogSet() {
+    const date = new Date();
+    const [year, month, day] = [
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(),
+    ];
+    const today =
+      month.toString() + '/' + day.toString() + '/' + year.toString();
+
     fetch('/newset', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ user_id: user.id, lift_id: liftId, weight, reps }),
+      body: JSON.stringify({
+        user_id: user.id,
+        lift_id: liftId,
+        weight,
+        reps,
+        date: today,
+      }),
     })
       .then((res) => res.json())
       .then((data) => {
         setCurrentWorkout([...currentWorkout, data]);
-        fetch('/add_workout', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            user_lift_id: data.id,
-            date: data.created_at,
-          }),
-        });
       });
   }
 

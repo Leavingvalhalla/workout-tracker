@@ -13,8 +13,7 @@ Rails.application.routes.draw do
   post '/newset', to: 'user_lifts#create'
   get '/lifts/all', to: 'lifts#index'
   get '/lifts/:liftname', to: 'lifts#show'
-  get '/all_workouts/:user', to: 'workouts#show'
-  post '/add_workout', to: 'workouts#create'
+  get '/all_workouts/:user_id', to: 'user_lifts#show'
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
 
 end

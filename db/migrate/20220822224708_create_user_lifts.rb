@@ -5,7 +5,7 @@ class CreateUserLifts < ActiveRecord::Migration[7.0]
       t.integer :lift_id
       t.integer :weight
       t.integer :reps
-      t.datetime :date
+      t.string :date
       t.timestamps
     end
   end

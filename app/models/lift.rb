@@ -1,4 +1,4 @@
 class Lift < ApplicationRecord
-    belongs_to :routine, optional: true
-    belongs_to :user, optional: true
+    has_many :routines, through: :routine_lifts
+    has_many :users, through: :user_lifts
 end
