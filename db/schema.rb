@@ -48,14 +48,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_22_224708) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "workout_lifts", force: :cascade do |t|
-    t.integer "workout_id"
-    t.integer "lift_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "workouts", force: :cascade do |t|
+    t.integer "user_lift_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

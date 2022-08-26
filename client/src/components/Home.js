@@ -1,9 +1,8 @@
 import { Link } from 'react-router-dom';
-
+import { Button } from '@mui/material';
 import Login from './Login';
-import Workout from './Workout';
 
-function Home({ user, onLogin, onLogout, lifts }) {
+function Home({ user, onLogin, onLogout }) {
   return (
     <div>
       <h1>Workout Tracker</h1>
@@ -13,7 +12,17 @@ function Home({ user, onLogin, onLogout, lifts }) {
           Don't have an account? <Link to="/signup">Create one here.</Link>
         </p>
       )}
-      {user && <Workout user={user} lifts={lifts} />}
+
+      {user && (
+        <Button variant="contained">
+          <Link to="/workout">New Workout</Link>
+        </Button>
+      )}
+      {user && (
+        <Button variant="contained">
+          <Link to="/all_workouts">See previous workouts</Link>
+        </Button>
+      )}
     </div>
   );
 }

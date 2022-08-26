@@ -1,6 +1,8 @@
 import './App.css';
 import Home from './components/Home';
 import Signup from './components/Signup';
+import Workout from './components/Workout';
+import AllWorkouts from './components/AllWorkouts';
 import { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -33,8 +35,8 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/signup" element={<Signup />} />
         <Route
+          index
           path="/"
           element={
             <Home
@@ -45,6 +47,13 @@ function App() {
             />
           }
         />
+        <Route path="/signup" element={<Signup />} />
+
+        <Route
+          path="/workout"
+          element={<Workout user={user} lifts={lifts} />}
+        />
+        <Route path="/all_workouts" element={<AllWorkouts user={user} />} />
       </Routes>
     </BrowserRouter>
   );
