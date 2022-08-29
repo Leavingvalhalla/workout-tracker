@@ -6,21 +6,17 @@ import {
   Typography,
 } from '@mui/material';
 import { useState, useEffect } from 'react';
+import { MyConsumer } from './MyContext';
 import { Link } from 'react-router-dom';
 import NewLiftForm from './NewLiftForm';
 
-function Workout({ user, lifts }) {
+function Workout() {
   const [liftName, setLiftName] = useState('');
   const [liftId, setLiftId] = useState('');
   const [weight, setWeight] = useState('');
   const [reps, setReps] = useState('');
   const [changed, setChanged] = useState(false);
   const [currentWorkout, setCurrentWorkout] = useState([]);
-
-  const defaultProps = {
-    options: lifts,
-    getOptionLabel: (option) => option.name,
-  };
 
   useEffect(() => {
     if (changed) {
@@ -38,7 +34,7 @@ function Workout({ user, lifts }) {
   // if new set is created on same date as a workout already in the database,
   // update the workout. If not, create a new workout.
 
-  function onLogSet() {
+  function onLogSet(user) {
     const date = new Date();
     const [year, month, day] = [
       date.getFullYear(),
@@ -68,41 +64,46 @@ function Workout({ user, lifts }) {
   }
   // TODO: Add conditional rendering for NewLiftForm. Also actually make the form.
   return (
-    <>
-      <Link to="/">Back to Home</Link>
-      <Typography variant="h3">Current Workout</Typography>
-      {currentWorkout.map((set, index) => (
-        <Typography
-          key={`set ${index}`}
-          variant="h4"
-        >{`Lift: ${set.lift_name} Weight: ${set.weight}  Reps: ${set.reps}`}</Typography>
-      ))}
-      <Box>
-        <Autocomplete
-          {...defaultProps}
-          inputValue={liftName}
-          label="lift"
-          onInputChange={(e, val) => {
-            setChanged(true);
-            setLiftName(val);
-          }}
-          renderInput={(params) => <TextField {...params} />}
-        />
-        <TextField
-          value={weight}
-          label="weight"
-          onChange={(e) => setWeight(e.target.value)}
-        />
-        <TextField
-          value={reps}
-          label="reps"
-          onChange={(e) => setReps(e.target.value)}
-        />
-        <Button variant="contained" onClick={onLogSet}>
-          Log set
-        </Button>
-      </Box>
-    </>
+    <MyConsumer>
+      {(context) => (
+        <>
+          <Link to="/">Back to Home</Link>
+          <Typography variant="h3">Current Workout</Typography>
+          {currentWorkout.map((set, index) => (
+            <Typography
+              key={`set ${index}`}
+              variant="h4"
+            >{`Lift: ${set.lift_name} Weight: ${set.weight}  Reps: ${set.reps}`}</Typography>
+          ))}
+          <Box>
+            <Autocomplete
+              getOptionLabel={(option) => option.name}
+              options={context.lifts}
+              inputValue={liftName}
+              label="lift"
+              onInputChange={(e, val) => {
+                setChanged(true);
+                setLiftName(val);
+              }}
+              renderInput={(params) => <TextField {...params} />}
+            />
+            <TextField
+              value={weight}
+              label="weight"
+              onChange={(e) => setWeight(e.target.value)}
+            />
+            <TextField
+              value={reps}
+              label="reps"
+              onChange={(e) => setReps(e.target.value)}
+            />
+            <Button variant="contained" onClick={() => onLogSet(context.user)}>
+              Log set
+            </Button>
+          </Box>
+        </>
+      )}
+    </MyConsumer>
   );
 }
 
