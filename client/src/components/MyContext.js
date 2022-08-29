@@ -6,6 +6,18 @@ function MyProvider(props) {
   const [user, setUser] = useState('');
   const [lifts, setLifts] = useState([]);
   const [loginFailed, setLoginFailed] = useState(false);
+  const [workouts, setWorkouts] = useState([]);
+
+  useEffect(() => {
+    if (user) {
+      fetch(`/all_workouts/${user.id}`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
+      })
+        .then((res) => res.json())
+        .then((data) => setWorkouts(data));
+    }
+  }, [user.id]);
 
   useEffect(() => {
     fetch('/me').then((res) => {
@@ -49,6 +61,7 @@ function MyProvider(props) {
         onLogout: onLogout,
         onLogin: onLogin,
         loginFailed: loginFailed,
+        workouts: workouts,
       }}
     >
       {props.children}
