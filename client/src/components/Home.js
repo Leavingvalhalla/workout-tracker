@@ -17,14 +17,14 @@ function Home() {
           )}
 
           {context.user && (
-            <Button variant="contained">
-              <Link to="/workout">New Workout</Link>
-            </Button>
-          )}
-          {context.user && (
-            <Button variant="contained">
-              <Link to="/all_workouts">See previous workouts</Link>
-            </Button>
+            <>
+              <Button variant="contained">
+                <Link to="/workout">New Workout</Link>
+              </Button>
+              <Button variant="contained">
+                <Link to="/all_workouts">See previous workouts</Link>
+              </Button>
+            </>
           )}
         </div>
       )}

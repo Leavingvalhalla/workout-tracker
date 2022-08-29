@@ -17,6 +17,7 @@ function Workout() {
   const [reps, setReps] = useState('');
   const [changed, setChanged] = useState(false);
   const [currentWorkout, setCurrentWorkout] = useState([]);
+  const [liftFormVisible, setLiftFormVisible] = useState(false);
 
   useEffect(() => {
     if (changed) {
@@ -44,7 +45,7 @@ function Workout() {
     const today =
       month.toString() + '/' + day.toString() + '/' + year.toString();
 
-    fetch('/newset', {
+    fetch('/user_lifts', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -61,6 +62,10 @@ function Workout() {
       .then((data) => {
         setCurrentWorkout([...currentWorkout, data]);
       });
+  }
+
+  function toggleLiftForm() {
+    setLiftFormVisible((liftFormVisible) => !liftFormVisible);
   }
   // TODO: Add conditional rendering for NewLiftForm. Also actually make the form.
   return (
@@ -101,6 +106,8 @@ function Workout() {
               Log set
             </Button>
           </Box>
+          <Button onClick={() => toggleLiftForm()}>Add new lift</Button>
+          {liftFormVisible && <NewLiftForm toggleLiftForm={toggleLiftForm} />}
         </>
       )}
     </MyConsumer>

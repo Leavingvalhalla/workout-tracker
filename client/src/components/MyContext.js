@@ -10,7 +10,7 @@ function MyProvider(props) {
 
   useEffect(() => {
     if (user) {
-      fetch(`/all_workouts/${user.id}`, {
+      fetch(`/user_lifts/${user.id}`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json' },
       })
@@ -25,7 +25,7 @@ function MyProvider(props) {
         res.json().then((currentUser) => setUser(currentUser));
       }
     });
-    fetch('/lifts/all')
+    fetch('/lifts')
       .then((res) => res.json())
       .then((data) => setLifts(data));
   }, []);
@@ -53,6 +53,10 @@ function MyProvider(props) {
     });
   }
 
+  function addLift(e, liftName) {
+    fetch('');
+  }
+
   return (
     <MyContext.Provider
       value={{
@@ -62,6 +66,7 @@ function MyProvider(props) {
         onLogin: onLogin,
         loginFailed: loginFailed,
         workouts: workouts,
+        addLift: addLift,
       }}
     >
       {props.children}
