@@ -7,6 +7,7 @@ import {
 } from '@mui/material';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import NewLiftForm from './NewLiftForm';
 
 function Workout({ user, lifts }) {
   const [liftName, setLiftName] = useState('');
@@ -54,7 +55,7 @@ function Workout({ user, lifts }) {
       },
       body: JSON.stringify({
         user_id: user.id,
-        lift_id: liftId,
+        lift_name: liftName,
         weight,
         reps,
         date: today,
@@ -65,16 +66,16 @@ function Workout({ user, lifts }) {
         setCurrentWorkout([...currentWorkout, data]);
       });
   }
-
+  // TODO: Add conditional rendering for NewLiftForm. Also actually make the form.
   return (
     <>
       <Link to="/">Back to Home</Link>
       <Typography variant="h3">Current Workout</Typography>
       {currentWorkout.map((set, index) => (
         <Typography
-          id={`set ${index}`}
+          key={`set ${index}`}
           variant="h4"
-        >{`Weight: ${set.weight}  Reps: ${set.reps}`}</Typography>
+        >{`Lift: ${set.lift_name} Weight: ${set.weight}  Reps: ${set.reps}`}</Typography>
       ))}
       <Box>
         <Autocomplete
