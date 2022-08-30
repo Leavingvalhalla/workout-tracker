@@ -21,7 +21,7 @@ function Home() {
               <Button variant="contained">
                 <Link to="/workout">New Workout</Link>
               </Button>
-              <Button variant="contained">
+              <Button onClick={() => context.getLifts()} variant="contained">
                 <Link to="/all_workouts">See previous workouts</Link>
               </Button>
             </>

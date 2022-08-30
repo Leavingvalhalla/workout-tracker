@@ -8,16 +8,14 @@ function MyProvider(props) {
   const [loginFailed, setLoginFailed] = useState(false);
   const [workouts, setWorkouts] = useState([]);
 
-  useEffect(() => {
-    if (user) {
-      fetch(`/user_lifts/${user.id}`, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      })
-        .then((res) => res.json())
-        .then((data) => console.log(data));
-    }
-  }, [user.id, user]);
+  function getLifts() {
+    fetch(`/user_lifts/${user.id}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((res) => res.json())
+      .then((data) => setWorkouts(data));
+  }
 
   useEffect(() => {
     fetch('/me').then((res) => {
@@ -67,6 +65,7 @@ function MyProvider(props) {
         loginFailed: loginFailed,
         workouts: workouts,
         addLift: addLift,
+        getLifts: getLifts,
       }}
     >
       {props.children}

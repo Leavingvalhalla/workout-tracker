@@ -5,31 +5,18 @@ import {
   Button,
   Typography,
 } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { MyConsumer } from './MyContext';
 import { Link } from 'react-router-dom';
 import NewLiftForm from './NewLiftForm';
 
 function Workout() {
   const [liftName, setLiftName] = useState('');
-  // const [liftId, setLiftId] = useState('');
   const [weight, setWeight] = useState('');
   const [reps, setReps] = useState('');
-  const [changed, setChanged] = useState(false);
   const [currentWorkout, setCurrentWorkout] = useState([]);
   const [workoutId, setWorkoutId] = useState([]);
   const [liftFormVisible, setLiftFormVisible] = useState(false);
-
-  // useEffect(() => {
-  //   if (changed) {
-  //     fetch(`/lifts/${liftName}`, {
-  //       method: 'GET',
-  //       headers: { 'Content-Type': 'application/json' },
-  //     })
-  //       .then((res) => res.json())
-  //       .then((data) => setLiftId(data.id));
-  //   }
-  // }, [liftName, changed]);
 
   // get todays date as a string to save to a Workout
   function getToday() {
@@ -56,11 +43,9 @@ function Workout() {
         .then((data) => {
           setWorkoutId(data.id);
           post_lift(data.id);
-          console.log(`posting lift without workoutId -- ${data.id}`);
         });
     } else {
       post_lift(workoutId);
-      console.log(`posting lift with ${workoutId}`);
     }
   }
 
@@ -105,10 +90,7 @@ function Workout() {
               options={context.lifts}
               inputValue={liftName}
               label="lift"
-              onInputChange={(e, val) => {
-                setChanged(true);
-                setLiftName(val);
-              }}
+              onInputChange={(e, val) => setLiftName(val)}
               renderInput={(params) => <TextField {...params} />}
             />
             <TextField
