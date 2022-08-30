@@ -15,7 +15,7 @@ function Workout() {
   const [weight, setWeight] = useState('');
   const [reps, setReps] = useState('');
   const [currentWorkout, setCurrentWorkout] = useState([]);
-  const [workoutId, setWorkoutId] = useState([]);
+  const [workoutId, setWorkoutId] = useState('');
   const [liftFormVisible, setLiftFormVisible] = useState(false);
 
   // get todays date as a string to save to a Workout
@@ -31,7 +31,7 @@ function Workout() {
 
   // creates new Workout, then new user_lift with current workout_id
   function onLogSet(user) {
-    if (workoutId !== '') {
+    if (!workoutId) {
       const today = getToday();
 
       fetch('/workouts', {
@@ -75,7 +75,6 @@ function Workout() {
     <MyConsumer>
       {(context) => (
         <>
-          <p>{workoutId}</p>
           <Link to="/">Back to Home</Link>
           <Typography variant="h3">Current Workout</Typography>
           {currentWorkout.map((set, index) => (

@@ -10,10 +10,11 @@ class UserLiftsController < ApplicationController
     # TODO: Create join table that can pass on lift_name, rather than just lift_id
     def show
         info = Workout.where(user_id: session[:user_id])
-
+        
         array = []
         info.each do |x|
-            array << UserLift.find(x.id)
+            lift = UserLift.find(x.id)
+            array << {date: x.date, weight: lift.weight, reps: lift.reps, id: x.id}
         end
 
         render json: array

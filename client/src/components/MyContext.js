@@ -7,6 +7,7 @@ function MyProvider(props) {
   const [lifts, setLifts] = useState([]);
   const [loginFailed, setLoginFailed] = useState(false);
   const [workouts, setWorkouts] = useState([]);
+  const [workoutData, setWorkoutData] = useState([]);
 
   function getLifts() {
     fetch(`/user_lifts/${user.id}`, {
@@ -55,6 +56,15 @@ function MyProvider(props) {
     fetch('');
   }
 
+  function expandWorkout(workout_id) {
+    fetch(`/workouts/${workout_id}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((res) => res.json())
+      .then((data) => setWorkoutData(data));
+  }
+
   return (
     <MyContext.Provider
       value={{
@@ -66,6 +76,8 @@ function MyProvider(props) {
         workouts: workouts,
         addLift: addLift,
         getLifts: getLifts,
+        expandWorkout: expandWorkout,
+        workoutData: workoutData,
       }}
     >
       {props.children}

@@ -11,5 +11,5 @@ class LiftsController < ApplicationController
     def create
         render json: Lift.create(name: params[:liftName]), status: :created
     end
-    
+
 end
