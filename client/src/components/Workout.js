@@ -44,33 +44,43 @@ function Workout() {
 
   // creates new Workout, then new user_lift with current workout_id
   function onLogSet(user) {
-    const today = getToday();
+    if (workoutId !== '') {
+      const today = getToday();
 
-    fetch('/workouts', {
+      fetch('/workouts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user_id: user.id, date: today }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setWorkoutId(data.id);
+          post_lift(data.id);
+          console.log(`posting lift without workoutId -- ${data.id}`);
+        });
+    } else {
+      post_lift(workoutId);
+      console.log(`posting lift with ${workoutId}`);
+    }
+  }
+
+  function post_lift(id) {
+    fetch('/user_lifts', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ user_id: user.id, date: today }),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        workout_id: id,
+        lift_name: liftName,
+        weight,
+        reps,
+      }),
     })
       .then((res) => res.json())
-      .then((data) => setWorkoutId(data.id))
-      .then(
-        fetch('/user_lifts', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            workout_id: workoutId,
-            lift_name: liftName,
-            weight,
-            reps,
-          }),
-        })
-          .then((res) => res.json())
-          .then((data) => {
-            setCurrentWorkout([...currentWorkout, data]);
-          })
-      );
+      .then((data) => {
+        setCurrentWorkout([...currentWorkout, data]);
+      });
   }
 
   function toggleLiftForm() {
@@ -80,6 +90,7 @@ function Workout() {
     <MyConsumer>
       {(context) => (
         <>
+          <p>{workoutId}</p>
           <Link to="/">Back to Home</Link>
           <Typography variant="h3">Current Workout</Typography>
           {currentWorkout.map((set, index) => (
