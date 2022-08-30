@@ -12,55 +12,65 @@ import NewLiftForm from './NewLiftForm';
 
 function Workout() {
   const [liftName, setLiftName] = useState('');
-  const [liftId, setLiftId] = useState('');
+  // const [liftId, setLiftId] = useState('');
   const [weight, setWeight] = useState('');
   const [reps, setReps] = useState('');
   const [changed, setChanged] = useState(false);
   const [currentWorkout, setCurrentWorkout] = useState([]);
+  const [workoutId, setWorkoutId] = useState([]);
   const [liftFormVisible, setLiftFormVisible] = useState(false);
 
-  useEffect(() => {
-    if (changed) {
-      fetch(`/lifts/${liftName}`, {
-        method: 'GET',
-        headers: { 'Content-Type': 'application/json' },
-      })
-        .then((res) => res.json())
-        .then((data) => setLiftId(data.id));
-    }
-  }, [liftName, changed]);
+  // useEffect(() => {
+  //   if (changed) {
+  //     fetch(`/lifts/${liftName}`, {
+  //       method: 'GET',
+  //       headers: { 'Content-Type': 'application/json' },
+  //     })
+  //       .then((res) => res.json())
+  //       .then((data) => setLiftId(data.id));
+  //   }
+  // }, [liftName, changed]);
 
-  //   TODO: add validators to make sure you need a liftID to post a lift
-
-  // if new set is created on same date as a workout already in the database,
-  // update the workout. If not, create a new workout.
-
-  function onLogSet(user) {
+  // get todays date as a string to save to a Workout
+  function getToday() {
     const date = new Date();
     const [year, month, day] = [
       date.getFullYear(),
       date.getMonth(),
       date.getDate(),
     ];
-    const today =
-      month.toString() + '/' + day.toString() + '/' + year.toString();
+    return year.toString() + '/' + month.toString() + '/' + day.toString();
+  }
 
-    fetch('/user_lifts', {
+  // creates new Workout, then new user_lift with current workout_id
+  function onLogSet(user) {
+    const today = getToday();
+
+    fetch('/workouts', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        user_id: user.id,
-        lift_name: liftName,
-        weight,
-        reps,
-      }),
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ user_id: user.id, date: today }),
     })
       .then((res) => res.json())
-      .then((data) => {
-        setCurrentWorkout([...currentWorkout, data]);
-      });
+      .then((data) => setWorkoutId(data.id))
+      .then(
+        fetch('/user_lifts', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            workout_id: workoutId,
+            lift_name: liftName,
+            weight,
+            reps,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            setCurrentWorkout([...currentWorkout, data]);
+          })
+      );
   }
 
   function toggleLiftForm() {

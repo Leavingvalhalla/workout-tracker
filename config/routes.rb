@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   resources :user_lifts, only: [:create, :show]
+  resources :workouts, only: [:create]
   resources :routine_lifts
   resources :routines
   resources :users, only: [:create, :show]

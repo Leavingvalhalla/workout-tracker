@@ -17,7 +17,7 @@ function MyProvider(props) {
         .then((res) => res.json())
         .then((data) => setWorkouts(data));
     }
-  }, [user.id]);
+  }, [user.id, user]);
 
   useEffect(() => {
     fetch('/me').then((res) => {
