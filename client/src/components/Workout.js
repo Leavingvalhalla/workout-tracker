@@ -55,7 +55,6 @@ function Workout() {
         lift_name: liftName,
         weight,
         reps,
-        date: today,
       }),
     })
       .then((res) => res.json())
@@ -67,7 +66,6 @@ function Workout() {
   function toggleLiftForm() {
     setLiftFormVisible((liftFormVisible) => !liftFormVisible);
   }
-  // TODO: Add conditional rendering for NewLiftForm. Also actually make the form.
   return (
     <MyConsumer>
       {(context) => (
