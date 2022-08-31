@@ -27,3 +27,40 @@ Lift.create([
     {name: 'Deadlift'},
     {name: 'Dip'},
     ])
+
+User.create(username: 'asdf', password_digest: BCrypt::Password.create('1234'))
+
+Workout.create([{user_id: 1, date: '2022/8/23'}, {user_id: 1, date:'2022/8/24'},
+    {user_id: 1, date: '2022/8/27'}, {user_id: 1, date: '2022/8/27'}])
+
+UserLift.create([{lift_id: 10, workout_id: 1, weight: 70, reps: 5}, 
+    {lift_id: 10, workout_id: 1, weight: 80, reps: 5},
+    {lift_id: 10, workout_id: 1, weight: 90, reps: 6},
+    {lift_id: 10, workout_id: 1, weight: 70, reps: 10},
+    {lift_id: 4, workout_id: 1, weight: 65, reps: 10},
+    {lift_id: 4, workout_id: 1, weight: 75, reps: 10},
+    {lift_id: 4, workout_id: 1, weight: 85, reps: 10},
+    {lift_id: 18, workout_id: 2, weight: 190, reps: 5},
+    {lift_id: 18, workout_id: 2, weight: 210, reps: 5},
+    {lift_id: 18, workout_id: 2, weight: 250, reps: 6},
+    {lift_id: 18, workout_id: 2, weight: 190, reps: 10},
+    {lift_id: 2, workout_id: 2, weight: 65, reps: 10},
+    {lift_id: 2, workout_id: 2, weight: 75, reps: 10},
+    {lift_id: 2, workout_id: 2, weight: 85, reps: 10},
+    {lift_id: 3, workout_id: 3, weight: 85, reps: 5},
+    {lift_id: 3, workout_id: 3, weight: 100, reps: 5},
+    {lift_id: 3, workout_id: 3, weight: 115, reps: 10},
+    {lift_id: 3, workout_id: 3, weight: 85, reps: 10},
+    {lift_id: 5, workout_id: 3, weight: 55, reps: 10},
+    {lift_id: 5, workout_id: 3, weight: 70, reps: 10},
+    {lift_id: 5, workout_id: 3, weight: 80, reps: 10},
+    {lift_id: 12, workout_id: 3, weight: 20, reps: 10},
+    {lift_id: 12, workout_id: 3, weight: 20, reps: 10},
+    {lift_id: 12, workout_id: 3, weight: 20, reps: 10},
+    {lift_id: 1, workout_id: 4, weight: 120, reps: 5},
+    {lift_id: 1, workout_id: 4, weight: 135, reps: 5},
+    {lift_id: 1, workout_id: 4, weight: 155, reps: 5},
+    {lift_id: 7, workout_id: 4, weight: 100, reps: 10},
+    {lift_id: 7, workout_id: 4, weight: 120, reps: 10},
+    {lift_id: 7, workout_id: 4, weight: 140, reps: 10},
+    ])

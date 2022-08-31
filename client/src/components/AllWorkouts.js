@@ -99,10 +99,10 @@ function AllWorkouts() {
             </Button>
           </Box>
           {expand &&
-            context.workoutData.map((workout) => (
+            context.workoutData.map((workout, index) => (
               <Card
                 onClick={() => fillForm(workout)}
-                key={workout.id}
+                key={`workout ${index}`}
                 variant="outlined"
                 sx={{ maxWidth: 175 }}
               >

@@ -4,3 +4,9 @@ class User < ApplicationRecord
     has_many :user_lifts
     has_many :lifts, through: :user_lifts
 end
+
+def User.digest(string)
+    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
+                                                  BCrypt::Engine.cost
+    BCrypt::Password.create(string, cost: cost)
+  end

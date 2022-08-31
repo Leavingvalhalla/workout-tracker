@@ -16,7 +16,10 @@ function MyProvider(props) {
       headers: { 'Content-Type': 'application/json' },
     })
       .then((res) => res.json())
-      .then((data) => setWorkouts(data));
+      .then((data) => {
+        console.log(data);
+        setWorkouts(data);
+      });
   }
 
   // checks if user is logged in and seeds the Autocomplete for the Workout component
