@@ -71,6 +71,23 @@ function Workout() {
   function toggleLiftForm() {
     setLiftFormVisible((liftFormVisible) => !liftFormVisible);
   }
+
+  function decreaseWeight() {
+    setWeight((weight) => (weight === '' || weight === 0 ? 0 : weight - 1));
+  }
+
+  function increaseWeight() {
+    setWeight((weight) => (weight === '' ? 5 : parseInt(weight) + 5));
+  }
+
+  function decreaseReps() {
+    setReps((reps) => (reps === '' || reps === 0 ? 0 : reps - 1));
+  }
+
+  function increaseReps() {
+    setReps((reps) => (reps === '' ? 1 : parseInt(reps) + 1));
+  }
+
   return (
     <MyConsumer>
       {(context) => (
@@ -85,6 +102,7 @@ function Workout() {
           ))}
           <Box>
             <Autocomplete
+              sx={{ maxWidth: 275 }}
               getOptionLabel={(option) => option.name}
               options={context.lifts}
               inputValue={liftName}
@@ -92,16 +110,20 @@ function Workout() {
               onInputChange={(e, val) => setLiftName(val)}
               renderInput={(params) => <TextField {...params} />}
             />
+            <Button onClick={() => decreaseWeight()}>-</Button>
             <TextField
               value={weight}
               label="weight"
               onChange={(e) => setWeight(e.target.value)}
             />
+            <Button onClick={() => increaseWeight()}>+</Button>
+            <Button onClick={() => decreaseReps()}>-</Button>
             <TextField
               value={reps}
               label="reps"
               onChange={(e) => setReps(e.target.value)}
             />
+            <Button onClick={() => increaseReps()}>+</Button>
             <Button variant="contained" onClick={() => onLogSet(context.user)}>
               Log set
             </Button>

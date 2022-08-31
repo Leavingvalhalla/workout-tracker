@@ -22,13 +22,8 @@ function AllWorkouts() {
   const [workoutId, setWorkoutId] = useState('');
   const [failed, setFailed] = useState(false);
 
-  // TODO: Have one page (probably this one) for editing old workouts. Make a form that autofills with the set you click on,
-  // then have an update and delete for it.
-
   // but ALSO get ready to have a separate page that tracks your Dates in a meaningful way. That won't be easy to actually
   // map with anything until you get some decent seed data in there, but it'll be doable. You got this!
-
-  // TODO: make delete button that changes to update if you change anything on the form
 
   function fillForm(workout) {
     console.log(workout);

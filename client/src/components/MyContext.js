@@ -9,6 +9,7 @@ function MyProvider(props) {
   const [workouts, setWorkouts] = useState([]);
   const [workoutData, setWorkoutData] = useState([]);
 
+  // retrieves all workouts for a user (AllWorkouts component)
   function getLifts() {
     fetch(`/user_lifts/${user.id}`, {
       method: 'GET',
@@ -18,6 +19,7 @@ function MyProvider(props) {
       .then((data) => setWorkouts(data));
   }
 
+  // checks if user is logged in and seeds the Autocomplete for the Workout component
   useEffect(() => {
     fetch('/me').then((res) => {
       if (res.ok) {
@@ -52,10 +54,19 @@ function MyProvider(props) {
     });
   }
 
+  // Adds new lift options to the autocomplete
   function addLift(e, liftName) {
-    fetch('');
+    e.preventDefault();
+    fetch('/lifts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name: liftName }),
+    })
+      .then((res) => res.json())
+      .then((data) => setLifts([lifts, data]));
   }
 
+  // retrieves the lifts from a specific workout
   function expandWorkout(workout_id) {
     fetch(`/workouts/${workout_id}`, {
       method: 'GET',
