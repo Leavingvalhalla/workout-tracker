@@ -68,7 +68,7 @@ function MyProvider(props) {
   function onDeleteUserLift(id) {
     fetch(`/user_lifts/${id}`, { method: 'DELETE' }).then(
       setWorkoutData((workoutData) =>
-        workoutData.filter((lift) => lift.id !== id)
+        workoutData.filter((lift) => lift.user_lift_id !== id)
       )
     );
   }
@@ -83,13 +83,25 @@ function MyProvider(props) {
         weight,
         reps,
       }),
-    }).then(
-      setWorkoutData((workoutData) =>
-        workoutData.filter((lift) =>
-          lift.id !== id ? lift : { id, lift_id, workout_id, weight, reps }
-        )
-      )
-    );
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setWorkoutData((workoutData) =>
+          workoutData.map((lift) =>
+            lift.user_lift_id !== id
+              ? lift
+              : {
+                  name: data.name,
+                  id: data.id,
+                  lift_id: data.lift_id,
+                  workout_id: data.workout_id,
+                  weight: data.weight,
+                  reps: data.reps,
+                }
+          )
+        );
+      });
   }
 
   return (

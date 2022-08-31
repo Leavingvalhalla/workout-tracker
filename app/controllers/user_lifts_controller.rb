@@ -14,7 +14,7 @@ class UserLiftsController < ApplicationController
         array = []
         info.each do |x|
             lift = UserLift.find(x.id)
-            array << {date: x.date, weight: lift.weight, reps: lift.reps, id: x.id}
+            array << {date: x.date, weight: lift.weight, reps: lift.reps, id: x.id, user_lift_id: lift.id}
         end
 
         render json: array
@@ -27,12 +27,16 @@ class UserLiftsController < ApplicationController
 
     def update
         lift = UserLift.find(params[:id])
+        name = Lift.find(params[:lift_id])
         lift.update(lift_id: params[:lift_id], workout_id: params[:workout_id], weight: params[:weight], reps: params[:reps])
+        render json: {name: name.name, lift_id: params[:lift_id], workout_id: params[:workout_id], weight: params[:weight], reps: params[:reps]}, status: :ok
+        
     end
 
     def destroy
         lift = UserLift.find(params[:id])
         lift.destroy
+
     end
 
 
