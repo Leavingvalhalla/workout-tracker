@@ -22,7 +22,7 @@ function Home() {
                 <Link to="/workout">New Workout</Link>
               </Button>
               <Button onClick={() => context.getLifts()} variant="contained">
-                <Link to="/all_workouts">See previous workouts</Link>
+                <Link to="/all_workouts">Edit workouts</Link>
               </Button>
             </>
           )}

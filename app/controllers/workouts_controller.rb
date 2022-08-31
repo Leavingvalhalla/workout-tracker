@@ -10,7 +10,8 @@ class WorkoutsController < ApplicationController
         array = []
         lifts.each do |lift|
             lift_name = Lift.find(lift.lift_id)
-            array << {id: lift.id, name: lift_name.name, reps: lift.reps, weight: lift.weight, workout_id: lift.workout_id, lift_id: lift.workout_id}
+            workout = Workout.find(lift.workout_id)
+            array << {user_lift_id: lift.id, lift_id: lift.lift_id, name: lift_name.name, reps: lift.reps, weight: lift.weight, workout_id: lift.workout_id, date: workout.date, user_lift_id: lift.id}
         end
         render json: array
     end

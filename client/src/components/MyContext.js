@@ -65,6 +65,33 @@ function MyProvider(props) {
       .then((data) => setWorkoutData(data));
   }
 
+  function onDeleteUserLift(id) {
+    fetch(`/user_lifts/${id}`, { method: 'DELETE' }).then(
+      setWorkoutData((workoutData) =>
+        workoutData.filter((lift) => lift.id !== id)
+      )
+    );
+  }
+
+  function onUpdateUserLift(id, lift_id, workout_id, weight, reps) {
+    fetch(`/user_lifts/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        lift_id,
+        workout_id,
+        weight,
+        reps,
+      }),
+    }).then(
+      setWorkoutData((workoutData) =>
+        workoutData.filter((lift) =>
+          lift.id !== id ? lift : { id, lift_id, workout_id, weight, reps }
+        )
+      )
+    );
+  }
+
   return (
     <MyContext.Provider
       value={{
@@ -78,6 +105,8 @@ function MyProvider(props) {
         getLifts: getLifts,
         expandWorkout: expandWorkout,
         workoutData: workoutData,
+        onDeleteUserLift: onDeleteUserLift,
+        onUpdateUserLift: onUpdateUserLift,
       }}
     >
       {props.children}

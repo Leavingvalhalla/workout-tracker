@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  resources :user_lifts, only: [:create, :show]
+  resources :user_lifts
   resources :workouts, only: [:create, :show]
-  resources :routine_lifts
-  resources :routines
+  # resources :routine_lifts
+  # resources :routines
   resources :users, only: [:create, :show]
   resources :lifts, except: [:destroy, :update, :show]
 

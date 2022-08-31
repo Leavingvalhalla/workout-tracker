@@ -19,10 +19,21 @@ class UserLiftsController < ApplicationController
 
         render json: array
 
-        end
+    end
 
         # .where(user_id: params[:user_id])
         # render json: UserLift.where(user_id: params[:user_id]), status: :ok
+
+
+    def update
+        lift = UserLift.find(params[:id])
+        lift.update(lift_id: params[:lift_id], workout_id: params[:workout_id], weight: params[:weight], reps: params[:reps])
+    end
+
+    def destroy
+        lift = UserLift.find(params[:id])
+        lift.destroy
+    end
 
 
     private
