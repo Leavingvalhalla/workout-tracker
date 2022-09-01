@@ -17,7 +17,6 @@ function MyProvider(props) {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setWorkouts(data);
       });
   }
@@ -77,7 +76,6 @@ function MyProvider(props) {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setWorkoutData(data);
       });
   }
