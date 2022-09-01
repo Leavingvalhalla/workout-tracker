@@ -29,3 +29,6 @@ group :development do
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 end
+gem "rspec", "~> 3.11"
+
+gem "require_all", "~> 3.0"

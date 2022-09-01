@@ -11,7 +11,7 @@ function MyProvider(props) {
 
   // retrieves all workouts for a user (AllWorkouts component)
   function getLifts() {
-    fetch(`/user_lifts/${user.id}`, {
+    fetch(`/workouts/${user.id}`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     })
@@ -71,12 +71,15 @@ function MyProvider(props) {
 
   // retrieves the lifts from a specific workout
   function expandWorkout(workout_id) {
-    fetch(`/workouts/${workout_id}`, {
+    fetch(`/user_lifts/${workout_id}`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     })
       .then((res) => res.json())
-      .then((data) => setWorkoutData(data));
+      .then((data) => {
+        console.log(data);
+        setWorkoutData(data);
+      });
   }
 
   function onDeleteUserLift(id) {
