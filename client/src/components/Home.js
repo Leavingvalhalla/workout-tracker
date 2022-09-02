@@ -24,6 +24,12 @@ function Home() {
               <Button onClick={() => context.getLifts()} variant="contained">
                 <Link to="/all_workouts">Edit workouts</Link>
               </Button>
+              <Button>
+                <Link to="/workout_data">Workout data</Link>
+              </Button>
+              <Button>
+                <Link to="/date_picker">Date picker</Link>
+              </Button>
             </>
           )}
         </div>

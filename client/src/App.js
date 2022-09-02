@@ -4,6 +4,8 @@ import Signup from './components/Signup';
 import Workout from './components/Workout';
 import AllWorkouts from './components/AllWorkouts';
 import NewLiftForm from './components/NewLiftForm';
+import WorkoutData from './components/WorkoutData';
+import DatePicker from './components/DatePicker';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 function App() {
@@ -15,6 +17,8 @@ function App() {
         <Route path="/workout" element={<Workout />} />
         <Route path="/all_workouts" element={<AllWorkouts />} />
         <Route path="/add_lift" element={<NewLiftForm />} />
+        <Route path="/workout_data" element={<WorkoutData />} />
+        <Route path="/date_picker" element={<DatePicker />} />
       </Routes>
     </BrowserRouter>
   );
