@@ -10,7 +10,8 @@ Rails.application.routes.draw do
   get '/me', to: 'users#show'
   post '/login', to: 'sessions#create'
   delete '/logout', to: 'sessions#destroy'
-  get 'lifts/:liftName', to: 'lifts#getId'
+  get 'lifts/:lift_name', to: 'lifts#getId'
+  get 'chart/:lift_name/:period/:graph', to: 'user_lifts#get_chart'
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
 
 end

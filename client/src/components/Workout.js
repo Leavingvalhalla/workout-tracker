@@ -29,7 +29,7 @@ function Workout() {
     return (
       year.toString() +
       '-' +
-      month.toString() +
+      (month + 1).toString() +
       '-' +
       day.toString() +
       'T17:00:00'
@@ -40,6 +40,7 @@ function Workout() {
   function onLogSet(user) {
     if (!workoutId) {
       const today = getToday();
+      console.log(today);
 
       fetch('/workouts', {
         method: 'POST',

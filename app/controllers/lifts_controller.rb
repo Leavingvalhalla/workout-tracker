@@ -5,11 +5,11 @@ class LiftsController < ApplicationController
     end
 
     def getId
-        render json: Lift.find_by(name: params[:liftName]), status: :ok
+        render json: Lift.find_by(name: params[:lift_name]), status: :ok
     end
 
     def create
-        render json: Lift.create(name: params[:liftName]), status: :created
+        render json: Lift.create(name: params[:lift_name]), status: :created
     end
 
 end

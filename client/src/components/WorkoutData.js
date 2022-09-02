@@ -14,12 +14,10 @@ function WorkoutData() {
   const charts = ['Estimated 1RM', 'Max Weight', 'Max Reps', 'Workout Volume'];
 
   function handleChartSubmit() {
-    fetch('/', {
+    fetch(`/chart/${liftName}/${period}/${chart}`, {
       method: 'GET',
-      headers: { 'Content-Type': 'application.json' },
-      body: JSON.stringify(liftName, period, chart),
     })
-      .then((res) => res.json)
+      .then((res) => res.json())
       .then((data) => console.log(data));
   }
 
