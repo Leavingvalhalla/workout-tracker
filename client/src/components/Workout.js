@@ -26,7 +26,14 @@ function Workout() {
       date.getMonth(),
       date.getDate(),
     ];
-    return year.toString() + '/' + month.toString() + '/' + day.toString();
+    return (
+      year.toString() +
+      '-' +
+      month.toString() +
+      '-' +
+      day.toString() +
+      'T17:00:00'
+    );
   }
 
   // creates new Workout, then new user_lift with current workout_id

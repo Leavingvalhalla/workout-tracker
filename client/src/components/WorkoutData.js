@@ -41,11 +41,15 @@ export const options = {
 // Max Reps
 // Workout Volume
 
-//Periods:
-// 1m, 3m, 6m, 1y, all
-
 function WorkoutData() {
   const [liftName, setLiftName] = useState('');
+  const [period, setPeriod] = useState('');
+  const [chart, setChart] = useState('');
+  //   const labels, setLabels] = useState('')
+
+  const periods = ['1m', '3m', '6m', '1y', 'all'];
+
+  const charts = ['Estimated 1RM', 'Max Weight', 'Max Reps', 'Workout Volume'];
 
   const labels = [
     'January',
@@ -83,6 +87,7 @@ function WorkoutData() {
     <MyConsumer>
       {(context) => (
         <>
+          <p>Lift</p>
           <Autocomplete
             sx={{ maxWidth: 275 }}
             getOptionLabel={(option) => option.name}
@@ -90,6 +95,26 @@ function WorkoutData() {
             inputValue={liftName}
             label="lift"
             onInputChange={(e, val) => setLiftName(val)}
+            renderInput={(params) => <TextField {...params} />}
+          />
+          <p>Period</p>
+          <Autocomplete
+            sx={{ maxWidth: 150 }}
+            getOptionLabel={(option) => option}
+            options={periods}
+            inputValue={period}
+            label="period"
+            onInputChange={(e, val) => setPeriod(val)}
+            renderInput={(params) => <TextField {...params} />}
+          />
+          <p>Graph</p>
+          <Autocomplete
+            sx={{ maxWidth: 225 }}
+            getOptionLabel={(option) => option}
+            options={charts}
+            inputValue={chart}
+            label="period"
+            onInputChange={(e, val) => setChart(val)}
             renderInput={(params) => <TextField {...params} />}
           />
           <Line options={options} data={data} />
