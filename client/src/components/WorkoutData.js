@@ -1,87 +1,27 @@
 import { useState } from 'react';
-import { Autocomplete, TextField } from '@mui/material';
+import { Autocomplete, TextField, Button } from '@mui/material';
 import { MyConsumer } from './MyContext';
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend,
-} from 'chart.js';
-import { Line } from 'react-chartjs-2';
-import { faker } from '@faker-js/faker';
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top',
-    },
-    title: {
-      display: true,
-      text: 'Chart.js Line Chart',
-    },
-  },
-};
-
-// Charts:
-// Estimated 1RM
-// Max Weight
-// Max Reps
-// Workout Volume
+import Chart from './Chart';
 
 function WorkoutData() {
   const [liftName, setLiftName] = useState('');
-  const [period, setPeriod] = useState('');
-  const [chart, setChart] = useState('');
+  const [period, setPeriod] = useState('1m');
+  const [chart, setChart] = useState('Estimated 1RM');
   //   const labels, setLabels] = useState('')
 
   const periods = ['1m', '3m', '6m', '1y', 'all'];
 
   const charts = ['Estimated 1RM', 'Max Weight', 'Max Reps', 'Workout Volume'];
 
-  const labels = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-  ];
-
-  const data = {
-    labels,
-    datasets: [
-      {
-        label: 'Dataset 1',
-        data: labels.map(() =>
-          faker.datatype.number({ min: -1000, max: 1000 })
-        ),
-        borderColor: 'rgb(255, 99, 132)',
-        backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      },
-      {
-        label: 'Dataset 2',
-        data: labels.map(() =>
-          faker.datatype.number({ min: -1000, max: 1000 })
-        ),
-        borderColor: 'rgb(53, 162, 235)',
-        backgroundColor: 'rgba(53, 162, 235, 0.5)',
-      },
-    ],
-  };
+  function handleChartSubmit() {
+    fetch('/', {
+      method: 'GET',
+      headers: { 'Content-Type': 'application.json' },
+      body: JSON.stringify(liftName, period, chart),
+    })
+      .then((res) => res.json)
+      .then((data) => console.log(data));
+  }
 
   return (
     <MyConsumer>
@@ -117,7 +57,8 @@ function WorkoutData() {
             onInputChange={(e, val) => setChart(val)}
             renderInput={(params) => <TextField {...params} />}
           />
-          <Line options={options} data={data} />
+          <Button onClick={handleChartSubmit}>Submit</Button>
+          <Chart />
         </>
       )}
     </MyConsumer>
