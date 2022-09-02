@@ -7,6 +7,8 @@ function WorkoutData() {
   const [liftName, setLiftName] = useState('');
   const [period, setPeriod] = useState('1m');
   const [chart, setChart] = useState('Estimated 1RM');
+  const [workoutData, setWorkoutData] = useState([]);
+  const [topic, setTopic] = useState('');
   //   const labels, setLabels] = useState('')
 
   const periods = ['1m', '3m', '6m', '1y', 'all'];
@@ -18,7 +20,10 @@ function WorkoutData() {
       method: 'GET',
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        setWorkoutData(data);
+        setTopic(chart);
+      });
   }
 
   return (
@@ -56,7 +61,7 @@ function WorkoutData() {
             renderInput={(params) => <TextField {...params} />}
           />
           <Button onClick={handleChartSubmit}>Submit</Button>
-          <Chart />
+          <Chart chartInfo={workoutData} chartTopic={topic} />
         </>
       )}
     </MyConsumer>

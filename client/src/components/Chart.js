@@ -9,7 +9,6 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import { faker } from '@faker-js/faker';
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -20,53 +19,42 @@ ChartJS.register(
   Legend
 );
 
-function Chart() {
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        position: 'top',
-      },
-      title: {
-        display: true,
-        text: 'Your Lifts',
-      },
-    },
-  };
-
-  const labels = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-  ];
+function Chart({ chartInfo, chartTopic }) {
+  function parseInfo(workout) {
+    if (chartTopic === '1RM' || chartTopic === 'Max Weight') {
+      return workout.weight;
+    } else if (chartTopic === 'Max Reps');
+    {
+      return workout.reps;
+    }
+  }
 
   const data = {
-    labels,
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: true,
+          text: chartTopic,
+        },
+      },
+    },
+
+    labels: chartInfo.map((workout) => workout.date.slice(0, -14)),
     datasets: [
       {
-        label: 'Dataset 1',
-        data: labels.map(() =>
-          faker.datatype.number({ min: -1000, max: 1000 })
-        ),
+        label: chartTopic,
+        data: chartInfo.map((workout) => parseInfo(workout)),
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
-      },
-      {
-        label: 'Dataset 2',
-        data: labels.map(() =>
-          faker.datatype.number({ min: -1000, max: 1000 })
-        ),
-        borderColor: 'rgb(53, 162, 235)',
-        backgroundColor: 'rgba(53, 162, 235, 0.5)',
       },
     ],
   };
 
-  return <Line options={options} data={data} />;
+  return <Line options={data.options} data={data} />;
 }
 
 export default Chart;
