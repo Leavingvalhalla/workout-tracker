@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Autocomplete, TextField, Button } from '@mui/material';
 import { MyConsumer } from './MyContext';
 import Chart from './Chart';
@@ -30,6 +31,9 @@ function WorkoutData() {
     <MyConsumer>
       {(context) => (
         <>
+          <Button>
+            <Link to="/">Back to Home</Link>
+          </Button>
           <p>Lift</p>
           <Autocomplete
             sx={{ maxWidth: 275 }}

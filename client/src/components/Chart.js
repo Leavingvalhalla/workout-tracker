@@ -19,13 +19,18 @@ ChartJS.register(
   Legend
 );
 
+// TODO: Handle no data errors
+
 function Chart({ chartInfo, chartTopic }) {
   function parseInfo(workout) {
-    if (chartTopic === '1RM' || chartTopic === 'Max Weight') {
+    if (chartTopic === 'Estimated 1RM') {
+      return workout.weight * workout.reps * 0.0333 + workout.weight;
+    } else if (chartTopic === 'Max Weight') {
       return workout.weight;
-    } else if (chartTopic === 'Max Reps');
-    {
+    } else if (chartTopic === 'Max Reps') {
       return workout.reps;
+    } else {
+      return workout.volume;
     }
   }
 

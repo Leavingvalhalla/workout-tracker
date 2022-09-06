@@ -52,7 +52,7 @@ function AllWorkouts() {
                 }}
                 key={`date ${index}`}
               >
-                {workout.date.slice(0, -9)}
+                {workout.date.slice(0, -14)}
               </Button>
             </div>
           ))}

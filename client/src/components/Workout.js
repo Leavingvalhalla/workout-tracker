@@ -81,7 +81,7 @@ function Workout() {
   }
 
   function decreaseWeight() {
-    setWeight((weight) => (weight === '' || weight === 0 ? 0 : weight - 1));
+    setWeight((weight) => (weight === '' || weight === 0 ? 0 : weight - 5));
   }
 
   function increaseWeight() {

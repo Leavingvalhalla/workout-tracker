@@ -19,33 +19,39 @@ class UserLiftsController < ApplicationController
         render json: lifts_array
     end
 
+    
     def get_chart
-        lift = Lift.find_by(name: params[:lift_name])
         user = User.find(session[:user_id])
-        today = DateTime.now
-        
+        lift = Lift.find_by(name: params[:lift_name])
         workouts_all_dates = Workout.select('workouts.*, user_lifts.*').joins(:user_lifts).where(['user_lifts.lift_id = ? and user_id = ?', lift.id, user.id])
 
-        case params[:period]
-        when '1m'
-            period = 30
-        when '3m'
-            period = 60
-        when '6m'
-            period = 180
-        when '1y'
-            period = 365
-        else
-            period = false
-        end
-        
 
-        if period
-            workouts = workouts_all_dates.filter {|workout| workout.date.to_date > today - period}
-        else
-            workouts = workouts_all_dates
+        def parse_period(workouts_all_dates, period)
+            case period
+            when '1m'
+                num = 30
+            when '3m'
+                num = 60
+            when '6m'
+                num = 180
+            when '1y'
+                num = 365
+            else
+                false
+            end
+
+            # selects workouts for selected period, else case is for all workouts
+            if num
+                today = DateTime.now
+                workouts_all_dates.filter {|workout| workout.date.to_date > today - num}
+            else
+                workouts_all_dates
+            end
+            
         end
-        
+
+        workouts = parse_period(workouts_all_dates, params[:period])
+
         def is_bigger(current, max)
             case params[:chart]
             when 'Max Weight'
@@ -56,23 +62,50 @@ class UserLiftsController < ApplicationController
                 current.reps * current.weight * 0.0333 + current.weight > max.reps * max.weight * 0.0333 + max.weight ? true : false
             end
         end
+    
 
-        workout_array = []
-        id = workouts[0].workout_id
-        max = workouts[0]
-        workouts.each do |workout|
-            if workout.workout_id == id
-                if is_bigger(workout, max)
+        if params[:chart] == 'Workout Volume'
+            workout_array = []
+            date = workouts[0].date
+            workout_volume = 0
+            workouts.each do |workout|
+                if workout == workouts[-1]
+                    workout_volume += workout.reps * workout.weight
+                    workout_array << {date: workout.date, volume: workout_volume}
+                elsif workout.date == date
+                    workout_volume += workout.reps * workout.weight
+                else
+                    workout_array << {date: workout.date, volume: workout_volume}
+                    date = workout.date
+                    workout_volume = workout.reps * workout.weight
+                end
+            end
+            render json: workout_array, status: :ok
+
+        else
+            workout_array = []
+            id = workouts[0].workout_id
+            max = workouts[0]
+            workouts.each do |workout|
+                if workout == workouts[-1]
+                    if is_bigger(workout, max)
+                        max = workout
+                    end
+                    workout_array << max
+                elsif workout.workout_id == id
+                    if is_bigger(workout, max)
+                        max = workout
+                    end
+                else
+                    workout_array << max
+                    id = workout.workout_id
                     max = workout
                 end
-            else
-                workout_array << max
-                id = workout.workout_id
-                max = workout
             end
-        end
+    
+            render json: workout_array    
 
-        render json: workout_array
+        end     
 
     end
 
