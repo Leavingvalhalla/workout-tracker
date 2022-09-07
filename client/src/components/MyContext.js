@@ -27,10 +27,7 @@ function MyProvider(props) {
       method: 'GET',
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setQuoteInfo(data);
-      });
+      .then((data) => setQuoteInfo(data));
   }
 
   // checks if user is logged in and seeds the Autocomplete for the Workout component

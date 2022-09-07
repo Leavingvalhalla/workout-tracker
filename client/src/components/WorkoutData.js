@@ -37,9 +37,11 @@ function WorkoutData() {
   return (
     <MyConsumer>
       {(context) => (
-        <>
-          <Button>
-            <Link to="/">Back to Home</Link>
+        <div className="app">
+          <Button variant="contained">
+            <Link style={{ textDecoration: 'none', color: 'white' }} to="/">
+              Back to Home
+            </Link>
           </Button>
           <p>Lift</p>
           <Autocomplete
@@ -71,10 +73,12 @@ function WorkoutData() {
             onInputChange={(e, val) => setChart(val)}
             renderInput={(params) => <TextField {...params} />}
           />
-          <Button onClick={handleChartSubmit}>Submit</Button>
+          <Button className="button" onClick={handleChartSubmit}>
+            Submit
+          </Button>
           {!chartFailed && <Chart chartInfo={workoutData} chartTopic={topic} />}
           {chartFailed && <p>We don't seem to have any data for that.</p>}
-        </>
+        </div>
       )}
     </MyConsumer>
   );

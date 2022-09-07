@@ -11,6 +11,7 @@ function Login() {
     <MyConsumer>
       {(context) => (
         <Box
+          className="app"
           component="form"
           noValidate
           autoComplete="off"
@@ -29,14 +30,10 @@ function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <Button variant="contained" type="submit">
-                Log In
-              </Button>
+              <Button type="submit">Log In</Button>
             </>
           ) : (
-            <Button variant="contained" onClick={() => context.onLogout()}>
-              Log Out
-            </Button>
+            <Button onClick={() => context.onLogout()}>Log Out</Button>
           )}
           {context.loginFailed && (
             <p>Sorry, that didn't work. Are you sure you have an account?</p>

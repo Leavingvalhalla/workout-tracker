@@ -36,7 +36,7 @@ function Signup() {
   }
 
   return (
-    <div>
+    <div className="app">
       <Box
         component="form"
         noValidate
@@ -60,7 +60,7 @@ function Signup() {
           value={passwordConfirmation}
           onChange={(e) => setPasswordConfirmation(e.target.value)}
         />
-        <Button variant="contained" type="submit">
+        <Button className="button" variant="contained" type="submit">
           Sign me up!
         </Button>
       </Box>

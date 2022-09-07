@@ -99,8 +99,13 @@ function Workout() {
   return (
     <MyConsumer>
       {(context) => (
-        <>
-          <Link to="/">Back to Home</Link>
+        <div className="app">
+          <Button variant="contained">
+            <Link style={{ textDecoration: 'none', color: 'white' }} to="/">
+              Back to Home
+            </Link>
+          </Button>
+
           <Typography variant="h3">Current Workout</Typography>
           {currentWorkout.map((set, index) => (
             <Typography
@@ -118,20 +123,32 @@ function Workout() {
               onInputChange={(e, val) => setLiftName(val)}
               renderInput={(params) => <TextField {...params} />}
             />
-            <Button onClick={() => decreaseWeight()}>-</Button>
+            <Button size="large" onClick={() => decreaseWeight()}>
+              -
+            </Button>
             <TextField
               value={weight}
               label="weight"
               onChange={(e) => setWeight(e.target.value)}
             />
-            <Button onClick={() => increaseWeight()}>+</Button>
-            <Button onClick={() => decreaseReps()}>-</Button>
+            <Button
+              size="large"
+              className="button"
+              onClick={() => increaseWeight()}
+            >
+              +
+            </Button>
+            <Button size="large" onClick={() => decreaseReps()}>
+              -
+            </Button>
             <TextField
               value={reps}
               label="reps"
               onChange={(e) => setReps(e.target.value)}
             />
-            <Button onClick={() => increaseReps()}>+</Button>
+            <Button size="large" onClick={() => increaseReps()}>
+              +
+            </Button>
             <Button variant="contained" onClick={() => onLogSet(context.user)}>
               Log set
             </Button>
@@ -143,7 +160,7 @@ function Workout() {
               "{context.quoteInfo.quote}"<br /> -{context.quoteInfo.author}
             </Typography>
           )}
-        </>
+        </div>
       )}
     </MyConsumer>
   );

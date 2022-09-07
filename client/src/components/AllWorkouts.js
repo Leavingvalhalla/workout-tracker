@@ -37,13 +37,16 @@ function AllWorkouts() {
   return (
     <MyConsumer>
       {(context) => (
-        <>
-          <Button variant="contained">
-            <Link to="/">Back to home</Link>
+        <div className="app">
+          <Button className="button" variant="contained">
+            <Link style={{ textDecoration: 'none', color: 'white' }} to="/">
+              Back to home
+            </Link>
           </Button>
           {context.workouts.map((workout, index) => (
             <div key={`div ${index}`}>
               <Button
+                className="button"
                 onClick={(e) => {
                   context.expandWorkout(workout.id);
                   setExpand((expand) => !expand);
@@ -80,6 +83,7 @@ function AllWorkouts() {
               onChange={(e) => setNewDate(e.target.value)}
             />
             <Button
+              className="button"
               onClick={() =>
                 context.onUpdateUserLift(
                   userLiftId,
@@ -92,7 +96,10 @@ function AllWorkouts() {
             >
               Update
             </Button>
-            <Button onClick={() => context.onDeleteUserLift(userLiftId)}>
+            <Button
+              className="button"
+              onClick={() => context.onDeleteUserLift(userLiftId)}
+            >
               Delete
             </Button>
           </Box>
@@ -111,7 +118,7 @@ function AllWorkouts() {
                 </CardContent>
               </Card>
             ))}
-        </>
+        </div>
       )}
     </MyConsumer>
   );

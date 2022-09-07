@@ -25,8 +25,7 @@ class UsersController < ApplicationController
     end
 
 
-    # TODO: See if this new way of doing things works. First, does the new way to store API key work? Then, does the backend method of response work?
-    # If yes, push to repo first thing. Then, start making the site pretty. You made a stupid logo that you can use, but you can also just use
+    # TODO: start making the site pretty. You made a stupid logo that you can use, but you can also just use
     # the name as a header. Probably first step after (or even before) the header is figuring out how to set primary 
     # and secondary colors on material ui.
 

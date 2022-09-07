@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Button } from '@mui/material';
+import { Button, Box } from '@mui/material';
 import Login from './Login';
 import { MyConsumer } from './MyContext';
 
@@ -7,8 +7,8 @@ function Home() {
   return (
     <MyConsumer>
       {(context) => (
-        <div>
-          <h1>Workout Tracker</h1>
+        <div className="app">
+          <img src="swole.png" alt="Swole" />
           <Login />
           {!context.user && (
             <p>
@@ -17,20 +17,48 @@ function Home() {
           )}
 
           {context.user && (
-            <>
-              <Button onClick={() => context.getQuote()} variant="contained">
-                <Link to="/workout">New Workout</Link>
+            <Box>
+              <Button
+                sx={{ margin: '1%' }}
+                onClick={() => context.getQuote()}
+                variant="contained"
+              >
+                <Link
+                  style={{ textDecoration: 'none', color: 'white' }}
+                  to="/workout"
+                >
+                  New Workout
+                </Link>
               </Button>
-              <Button onClick={() => context.getLifts()} variant="contained">
-                <Link to="/all_workouts">Edit workouts</Link>
+              <Button
+                sx={{ margin: '1%' }}
+                onClick={() => context.getLifts()}
+                variant="contained"
+              >
+                <Link
+                  style={{ textDecoration: 'none', color: 'white' }}
+                  to="/all_workouts"
+                >
+                  Edit workouts
+                </Link>
               </Button>
-              <Button>
-                <Link to="/workout_data">Workout data</Link>
+              <Button sx={{ margin: '1%' }} variant="contained">
+                <Link
+                  style={{ textDecoration: 'none', color: 'white' }}
+                  to="/workout_data"
+                >
+                  Workout data
+                </Link>
               </Button>
-              <Button>
-                <Link to="/date_picker">Date picker</Link>
+              <Button sx={{ margin: '1%' }} variant="contained">
+                <Link
+                  style={{ textDecoration: 'none', color: 'white' }}
+                  to="/date_picker"
+                >
+                  Date picker
+                </Link>
               </Button>
-            </>
+            </Box>
           )}
         </div>
       )}

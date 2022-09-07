@@ -8,7 +8,7 @@ function NewLiftForm({ toggleLiftForm }) {
   return (
     <MyConsumer>
       {(context) => (
-        <div>
+        <div className="app">
           <Box onSubmit={(e) => context.addLift(e, liftName)}>
             <TextField
               onChange={(e) => setLiftName(e.target.value)}
@@ -16,6 +16,7 @@ function NewLiftForm({ toggleLiftForm }) {
               label="Lift Name"
             />
             <Button
+              className="button"
               variant="contained"
               type="submit"
               onClick={() => toggleLiftForm}
