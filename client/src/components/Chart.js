@@ -19,8 +19,6 @@ ChartJS.register(
   Legend
 );
 
-// TODO: Handle no data errors
-
 function Chart({ chartInfo, chartTopic }) {
   function parseInfo(workout) {
     if (chartTopic === 'Estimated 1RM') {
@@ -41,10 +39,10 @@ function Chart({ chartInfo, chartTopic }) {
         legend: {
           position: 'top',
         },
-        title: {
-          display: true,
-          text: chartTopic,
-        },
+        // title: {
+        //   display: true,
+        //   text: chartTopic,
+        // },
       },
     },
 

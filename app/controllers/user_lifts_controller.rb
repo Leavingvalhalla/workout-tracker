@@ -26,6 +26,7 @@ class UserLiftsController < ApplicationController
         workouts_all_dates = Workout.select('workouts.*, user_lifts.*').joins(:user_lifts).where(['user_lifts.lift_id = ? and user_id = ?', lift.id, user.id])
 
 
+
         def parse_period(workouts_all_dates, period)
             case period
             when '1m'
@@ -64,7 +65,9 @@ class UserLiftsController < ApplicationController
         end
     
 
-        if params[:chart] == 'Workout Volume'
+        if workouts  == []
+            render json: {error: 'no such data'}, status: :unprocessable_entity
+        elsif params[:chart] == 'Workout Volume'
             workout_array = []
             date = workouts[0].date
             workout_volume = 0

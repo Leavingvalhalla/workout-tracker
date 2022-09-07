@@ -138,6 +138,11 @@ function Workout() {
           </Box>
           <Button onClick={() => toggleLiftForm()}>Add new lift</Button>
           {liftFormVisible && <NewLiftForm toggleLiftForm={toggleLiftForm} />}
+          {context.quoteInfo && (
+            <Typography>
+              "{context.quoteInfo.quote}"<br /> -{context.quoteInfo.author}
+            </Typography>
+          )}
         </>
       )}
     </MyConsumer>

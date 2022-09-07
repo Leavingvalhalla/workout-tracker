@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   get 'lifts/:lift_name', to: 'lifts#getId'
   get 'chart/:lift_name/:period/:chart', to: 'user_lifts#get_chart'
+  get '/quote', to: 'users#get_quote'
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
 
 end

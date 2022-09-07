@@ -18,7 +18,7 @@ function Home() {
 
           {context.user && (
             <>
-              <Button variant="contained">
+              <Button onClick={() => context.getQuote()} variant="contained">
                 <Link to="/workout">New Workout</Link>
               </Button>
               <Button onClick={() => context.getLifts()} variant="contained">

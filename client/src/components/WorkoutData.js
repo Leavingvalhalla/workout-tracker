@@ -10,6 +10,7 @@ function WorkoutData() {
   const [chart, setChart] = useState('Estimated 1RM');
   const [workoutData, setWorkoutData] = useState([]);
   const [topic, setTopic] = useState('');
+  const [chartFailed, setChartFailed] = useState(false);
   //   const labels, setLabels] = useState('')
 
   const periods = ['1m', '3m', '6m', '1y', 'all'];
@@ -22,9 +23,15 @@ function WorkoutData() {
     })
       .then((res) => res.json())
       .then((data) => {
-        setWorkoutData(data);
-        setTopic(chart);
+        data.error ? setChartFailed(true) : dataResponse(data);
+        // ;
       });
+  }
+
+  function dataResponse(data) {
+    setChartFailed(false);
+    setWorkoutData(data);
+    setTopic(chart);
   }
 
   return (
@@ -65,7 +72,8 @@ function WorkoutData() {
             renderInput={(params) => <TextField {...params} />}
           />
           <Button onClick={handleChartSubmit}>Submit</Button>
-          <Chart chartInfo={workoutData} chartTopic={topic} />
+          {!chartFailed && <Chart chartInfo={workoutData} chartTopic={topic} />}
+          {chartFailed && <p>We don't seem to have any data for that.</p>}
         </>
       )}
     </MyConsumer>

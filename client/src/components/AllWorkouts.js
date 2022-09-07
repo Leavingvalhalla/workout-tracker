@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 import {
   Button,
   Card,
-  CardActions,
   CardContent,
   Typography,
   Box,
@@ -20,7 +19,6 @@ function AllWorkouts() {
   const [liftId, setLiftId] = useState('');
   const [userLiftId, setUserLiftId] = useState('');
   const [workoutId, setWorkoutId] = useState('');
-  const [failed, setFailed] = useState(false);
 
   // but ALSO get ready to have a separate page that tracks your Dates in a meaningful way. That won't be easy to actually
   // map with anything until you get some decent seed data in there, but it'll be doable. You got this!
