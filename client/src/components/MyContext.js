@@ -22,14 +22,6 @@ function MyProvider(props) {
       });
   }
 
-  function getQuote() {
-    fetch('/quote', {
-      method: 'GET',
-    })
-      .then((res) => res.json())
-      .then((data) => setQuoteInfo(data));
-  }
-
   // checks if user is logged in and seeds the Autocomplete for the Workout component
   useEffect(() => {
     fetch('/me').then((res) => {
@@ -143,8 +135,6 @@ function MyProvider(props) {
         workoutData: workoutData,
         onDeleteUserLift: onDeleteUserLift,
         onUpdateUserLift: onUpdateUserLift,
-        getQuote: getQuote,
-        quoteInfo: quoteInfo,
       }}
     >
       {props.children}
