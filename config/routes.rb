@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get 'lifts/:lift_name', to: 'lifts#getId'
   get 'chart/:lift_name/:period/:chart', to: 'user_lifts#get_chart'
   get '/quote', to: 'users#get_quote'
+  get '/workouts/byDate/:date', to: 'workouts#show_by_date'
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
 
 end

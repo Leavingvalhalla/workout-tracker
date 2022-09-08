@@ -4,60 +4,78 @@ import {
   Card,
   CardContent,
   Typography,
-  Box,
   TextField,
+  Stack,
 } from '@mui/material';
 import { MyConsumer } from './MyContext';
 import { useState } from 'react';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import dayjs from 'dayjs';
 
 function AllWorkouts() {
   const [expand, setExpand] = useState(false);
   const [newLift, setNewLift] = useState('');
   const [newWeight, setNewWeight] = useState('');
   const [newReps, setNewReps] = useState('');
-  const [newDate, setNewDate] = useState('');
   const [liftId, setLiftId] = useState('');
   const [userLiftId, setUserLiftId] = useState('');
   const [workoutId, setWorkoutId] = useState('');
-
-  // but ALSO get ready to have a separate page that tracks your Dates in a meaningful way. That won't be easy to actually
-  // map with anything until you get some decent seed data in there, but it'll be doable. You got this!
+  const [date, setDate] = useState(dayjs('2022-08-01T17:00:00'));
 
   function fillForm(workout) {
     console.log(workout);
     setNewLift(workout.name);
     setNewWeight(workout.weight);
     setNewReps(workout.reps);
-    setNewDate(workout.date);
     setLiftId(workout.lift_id);
     setWorkoutId(workout.workout_id);
     setUserLiftId(workout.user_lift_id);
   }
 
+  function handleDateChange(newDate) {
+    setDate(newDate);
+    let parsedDate = date.$y + '/' + (date.$M + 1) + '/' + date.$H;
+    fetch(`/workouts/byDate/${parsedDate}`, {
+      method: 'GET',
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  }
   return (
     <MyConsumer>
       {(context) => (
         <div className="app">
-          <Button className="button" variant="contained">
-            <Link style={{ textDecoration: 'none', color: 'white' }} to="/">
-              Back to home
-            </Link>
-          </Button>
-          {context.workouts.map((workout, index) => (
-            <div key={`div ${index}`}>
-              <Button
-                className="button"
-                onClick={(e) => {
-                  context.expandWorkout(workout.id);
-                  setExpand((expand) => !expand);
+          <Stack sx={{ margin: '1%' }} spacing={3}>
+            <Button
+              sx={{ maxWidth: 150 }}
+              className="button"
+              variant="contained"
+            >
+              <Link
+                style={{
+                  textDecoration: 'none',
+                  color: 'white',
                 }}
-                key={`date ${index}`}
+                to="/"
               >
-                {workout.date.slice(0, -14)}
-              </Button>
-            </div>
-          ))}
-          <Box>
+                Back to home
+              </Link>
+            </Button>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DesktopDatePicker
+                label="Workout Date"
+                inputFormat="MM/DD/YYYY"
+                value={date}
+                onChange={handleDateChange}
+                renderInput={(params) => (
+                  <TextField sx={{ width: 150 }} {...params} />
+                )}
+              />
+            </LocalizationProvider>
+          </Stack>
+          <Stack sx={{ margin: '1%' }} spacing={2} direction="row">
             <TextField
               value={newLift}
               label="Lift"
@@ -75,12 +93,6 @@ function AllWorkouts() {
               label="Reps"
               name="Reps"
               onChange={(e) => setNewReps(e.target.value)}
-            />
-            <TextField
-              value={newDate}
-              label="Date"
-              name="Date"
-              onChange={(e) => setNewDate(e.target.value)}
             />
             <Button
               className="button"
@@ -102,7 +114,7 @@ function AllWorkouts() {
             >
               Delete
             </Button>
-          </Box>
+          </Stack>
           {expand &&
             context.workoutData.map((workout, index) => (
               <Card

@@ -11,7 +11,6 @@ function WorkoutData() {
   const [workoutData, setWorkoutData] = useState([]);
   const [topic, setTopic] = useState('');
   const [chartFailed, setChartFailed] = useState(false);
-  //   const labels, setLabels] = useState('')
 
   const periods = ['1m', '3m', '6m', '1y', 'all'];
 
