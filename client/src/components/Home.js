@@ -19,6 +19,7 @@ function Home() {
           {context.user && (
             <Box>
               <Button
+                size="large"
                 sx={{ margin: '1%' }}
                 onClick={() => context.getQuote()}
                 variant="contained"
@@ -33,26 +34,26 @@ function Home() {
               <Button
                 sx={{ margin: '1%' }}
                 onClick={() => context.getLifts()}
-                variant="contained"
+                variant="outlined"
               >
                 <Link
-                  style={{ textDecoration: 'none', color: 'white' }}
+                  style={{ textDecoration: 'none', color: '#aa2c2d' }}
                   to="/all_workouts"
                 >
                   Edit workouts
                 </Link>
               </Button>
-              <Button sx={{ margin: '1%' }} variant="contained">
+              <Button sx={{ margin: '1%' }} variant="outlined">
                 <Link
-                  style={{ textDecoration: 'none', color: 'white' }}
+                  style={{ textDecoration: 'none', color: '#aa2c2d' }}
                   to="/workout_data"
                 >
                   Workout data
                 </Link>
               </Button>
-              <Button sx={{ margin: '1%' }} variant="contained">
+              <Button sx={{ margin: '1%' }} variant="outlined">
                 <Link
-                  style={{ textDecoration: 'none', color: 'white' }}
+                  style={{ textDecoration: 'none', color: '#aa2c2d' }}
                   to="/date_picker"
                 >
                   Date picker
