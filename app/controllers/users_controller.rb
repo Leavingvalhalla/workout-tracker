@@ -24,11 +24,6 @@ class UsersController < ApplicationController
         end
     end
 
-
-    # TODO: start making the site pretty. You made a stupid logo that you can use, but you can also just use
-    # the name as a header. Probably first step after (or even before) the header is figuring out how to set primary 
-    # and secondary colors on material ui.
-
     def get_quote
 
         url = URI("https://bodybuilding-quotes1.p.rapidapi.com/random-quote")

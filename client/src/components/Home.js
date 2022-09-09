@@ -46,6 +46,14 @@ function Home() {
                   See the stats
                 </Link>
               </Button>
+              <Button sx={{ margin: '1%' }} variant="outlined">
+                <Link
+                  style={{ textDecoration: 'none', color: '#aa2c2d' }}
+                  to="/workout_data"
+                >
+                  Pick a routine
+                </Link>
+              </Button>
             </Box>
           )}
         </div>

@@ -9,14 +9,12 @@ class WorkoutsController < ApplicationController
     end
 
     def show_by_date
-        workout = Workout.find_by(date: params[:date])
-        render json: workout
+        date = Date.parse(params[:date])
+        workout = Workout.where(date: date, user_id: session[:user_id]).first
+        lifts = Lift.select('lifts.*, user_lifts.*').joins(:user_lifts).where('user_lifts.workout_id =?', workout.id)
+        render json: lifts
     end
 
 end
-
-
-# TODO: Get show_by_date working. You can change the date format for everything to be with dashes instead, or you could 
-# just send it over as a string and parse it on the backend. Or you could make the shift to datetime. 
 
 # after that, It's probably time to start figuring out the routine thing.

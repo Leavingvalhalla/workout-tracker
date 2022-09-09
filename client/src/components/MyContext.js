@@ -68,55 +68,12 @@ function MyProvider(props) {
       .then((data) => setLifts([lifts, data]));
   }
 
-  // retrieves the lifts from a specific workout
-  function expandWorkout(workout_id) {
-    fetch(`/user_lifts/${workout_id}`, {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json' },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setWorkoutData(data);
-      });
-  }
-
   function onDeleteUserLift(id) {
     fetch(`/user_lifts/${id}`, { method: 'DELETE' }).then(
       setWorkoutData((workoutData) =>
         workoutData.filter((lift) => lift.user_lift_id !== id)
       )
     );
-  }
-
-  function onUpdateUserLift(id, lift_id, workout_id, weight, reps) {
-    fetch(`/user_lifts/${id}`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        lift_id,
-        workout_id,
-        weight,
-        reps,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setWorkoutData((workoutData) =>
-          workoutData.map((lift) =>
-            lift.user_lift_id !== id
-              ? lift
-              : {
-                  name: data.name,
-                  id: data.id,
-                  lift_id: data.lift_id,
-                  workout_id: data.workout_id,
-                  weight: data.weight,
-                  reps: data.reps,
-                }
-          )
-        );
-      });
   }
 
   return (
@@ -130,10 +87,7 @@ function MyProvider(props) {
         workouts: workouts,
         addLift: addLift,
         getLifts: getLifts,
-        expandWorkout: expandWorkout,
-        workoutData: workoutData,
         onDeleteUserLift: onDeleteUserLift,
-        onUpdateUserLift: onUpdateUserLift,
       }}
     >
       {props.children}

@@ -15,14 +15,14 @@ import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import dayjs from 'dayjs';
 
 function AllWorkouts() {
-  const [expand, setExpand] = useState(false);
   const [newLift, setNewLift] = useState('');
   const [newWeight, setNewWeight] = useState('');
   const [newReps, setNewReps] = useState('');
   const [liftId, setLiftId] = useState('');
   const [userLiftId, setUserLiftId] = useState('');
   const [workoutId, setWorkoutId] = useState('');
-  const [date, setDate] = useState(dayjs('2022-08-01T17:00:00'));
+  const [date, setDate] = useState(dayjs('2022-08-01'));
+  const [liftsByDate, setLiftsByDate] = useState([]);
 
   function fillForm(workout) {
     console.log(workout);
@@ -31,18 +31,59 @@ function AllWorkouts() {
     setNewReps(workout.reps);
     setLiftId(workout.lift_id);
     setWorkoutId(workout.workout_id);
-    setUserLiftId(workout.user_lift_id);
+    setUserLiftId(workout.id);
   }
 
   function handleDateChange(newDate) {
     setDate(newDate);
-    let parsedDate = date.$y + '/' + (date.$M + 1) + '/' + date.$H;
+    let parsedDate =
+      newDate.$y.toString() +
+      '-' +
+      (newDate.$M + 1).toString() +
+      '-' +
+      newDate.$D.toString();
     fetch(`/workouts/byDate/${parsedDate}`, {
       method: 'GET',
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        setLiftsByDate(data);
+      });
   }
+
+  function onUpdateUserLift(id, lift_id, workout_id, weight, reps) {
+    fetch(`/user_lifts/${id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        lift_id,
+        workout_id,
+        weight,
+        reps,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(id);
+        console.log(liftsByDate);
+        console.log(data);
+        setLiftsByDate((liftsByDate) =>
+          liftsByDate.map((lift) =>
+            lift.user_lift_id === id
+              ? {
+                  name: data.name,
+                  id: data.id,
+                  lift_id: data.lift_id,
+                  workout_id: data.workout_id,
+                  weight: data.weight,
+                  reps: data.reps,
+                }
+              : lift
+          )
+        );
+      });
+  }
+
   return (
     <MyConsumer>
       {(context) => (
@@ -65,9 +106,9 @@ function AllWorkouts() {
             </Button>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DesktopDatePicker
+                value={date}
                 label="Workout Date"
                 inputFormat="MM/DD/YYYY"
-                value={date}
                 onChange={handleDateChange}
                 renderInput={(params) => (
                   <TextField sx={{ width: 150 }} {...params} />
@@ -97,7 +138,7 @@ function AllWorkouts() {
             <Button
               className="button"
               onClick={() =>
-                context.onUpdateUserLift(
+                onUpdateUserLift(
                   userLiftId,
                   liftId,
                   workoutId,
@@ -115,18 +156,18 @@ function AllWorkouts() {
               Delete
             </Button>
           </Stack>
-          {expand &&
-            context.workoutData.map((workout, index) => (
+          {liftsByDate !== [] &&
+            liftsByDate.map((lift, index) => (
               <Card
-                onClick={() => fillForm(workout)}
-                key={`workout ${index}`}
+                onClick={() => fillForm(lift)}
+                key={`lift ${index}`}
                 variant="outlined"
-                sx={{ maxWidth: 175 }}
+                sx={{ width: 175, margin: '1%', display: 'inline-flex' }}
               >
                 <CardContent>
-                  <Typography>{workout.name}</Typography>
-                  <Typography>{workout.weight} lbs</Typography>
-                  <Typography>{workout.reps} reps</Typography>
+                  <Typography>{lift.name}</Typography>
+                  <Typography>{lift.weight} lbs</Typography>
+                  <Typography>{lift.reps} reps</Typography>
                 </CardContent>
               </Card>
             ))}

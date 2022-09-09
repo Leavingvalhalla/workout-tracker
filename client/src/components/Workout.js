@@ -41,12 +41,7 @@ function Workout() {
       date.getDate(),
     ];
     return (
-      year.toString() +
-      '-' +
-      (month + 1).toString() +
-      '-' +
-      day.toString() +
-      'T17:00:00'
+      year.toString() + '-' + (month + 1).toString() + '-' + day.toString()
     );
   }
 

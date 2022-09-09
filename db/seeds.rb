@@ -1,3 +1,5 @@
+require 'date'
+
 Lift.create([
     {name: 'Back Squat'}, 
     {name: 'Front Squat'},
@@ -28,7 +30,8 @@ arms_weight = rand(95..135)
 reps = rand(1..10)
 
 (1..30).each do |i|
-    Workout.create({user_id: 1, date: "2022-07-#{i}T17:00:00"})
+    date = Date.new(2022,8,i)
+    Workout.create({user_id: 1, date: date})
     (1..2).each do |j|
         x = rand(8..18)
         (1..3).each do 
@@ -42,18 +45,19 @@ reps = rand(1..10)
         end
     end
 end
-(31..60).each do |i|
-    Workout.create({user_id: 2, date: "2022-08-#{i}T17:00:00"})
-    (1..2).each do |j|
-        x = rand(8..18)
-        (1..3).each do 
-            UserLift.create({lift_id: x, workout_id: i, weight: rand(95..135), reps: rand(1..10)})
-        end
-    end
-    (1..2).each do |j|
-        x = rand(1..7)
-        (1..3).each do 
-            UserLift.create({lift_id: x, workout_id: i, weight: rand(135..275), reps: rand(1..10)})
-        end
-    end
-end
+# (31..60).each do |i|
+#     date = Date.new(2022,8,i)
+#     Workout.create({user_id: 2, date: date})
+#     (1..2).each do |j|
+#         x = rand(8..18)
+#         (1..3).each do 
+#             UserLift.create({lift_id: x, workout_id: i, weight: rand(95..135), reps: rand(1..10)})
+#         end
+#     end
+#     (1..2).each do |j|
+#         x = rand(1..7)
+#         (1..3).each do 
+#             UserLift.create({lift_id: x, workout_id: i, weight: rand(135..275), reps: rand(1..10)})
+#         end
+#     end
+# end
