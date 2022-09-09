@@ -49,7 +49,7 @@ function Home() {
               <Button sx={{ margin: '1%' }} variant="outlined">
                 <Link
                   style={{ textDecoration: 'none', color: '#aa2c2d' }}
-                  to="/workout_data"
+                  to="/routines"
                 >
                   Pick a routine
                 </Link>

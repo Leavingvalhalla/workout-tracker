@@ -46,7 +46,7 @@ function Chart({ chartInfo, chartTopic }) {
       },
     },
 
-    labels: chartInfo.map((workout) => workout.date.slice(0, -14)),
+    labels: chartInfo.map((workout) => workout.date.slice(5)),
     datasets: [
       {
         label: chartTopic,

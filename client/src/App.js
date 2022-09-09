@@ -5,7 +5,7 @@ import Workout from './components/Workout';
 import AllWorkouts from './components/AllWorkouts';
 import NewLiftForm from './components/NewLiftForm';
 import WorkoutData from './components/WorkoutData';
-import DatePicker from './components/DatePicker';
+import Routines from './components/Routines';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -79,11 +79,11 @@ function App() {
           }
         />
         <Route
-          path="/date_picker"
+          path="/routines"
           element={
             <ThemeProvider theme={theme}>
               <CssBaseline />
-              <DatePicker />
+              <Routines />
             </ThemeProvider>
           }
         />
