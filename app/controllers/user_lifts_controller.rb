@@ -19,7 +19,7 @@ class UserLiftsController < ApplicationController
         render json: lifts_array
     end
 
-    
+     
     def get_chart
         user = User.find(session[:user_id])
         lift = Lift.find_by(name: params[:lift_name])
