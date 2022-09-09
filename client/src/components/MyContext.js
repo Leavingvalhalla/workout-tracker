@@ -68,14 +68,6 @@ function MyProvider(props) {
       .then((data) => setLifts([lifts, data]));
   }
 
-  function onDeleteUserLift(id) {
-    fetch(`/user_lifts/${id}`, { method: 'DELETE' }).then(
-      setWorkoutData((workoutData) =>
-        workoutData.filter((lift) => lift.user_lift_id !== id)
-      )
-    );
-  }
-
   return (
     <MyContext.Provider
       value={{
@@ -87,7 +79,6 @@ function MyProvider(props) {
         workouts: workouts,
         addLift: addLift,
         getLifts: getLifts,
-        onDeleteUserLift: onDeleteUserLift,
       }}
     >
       {props.children}

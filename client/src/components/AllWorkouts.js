@@ -64,12 +64,9 @@ function AllWorkouts() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(id);
-        console.log(liftsByDate);
-        console.log(data);
         setLiftsByDate((liftsByDate) =>
           liftsByDate.map((lift) =>
-            lift.user_lift_id === id
+            lift.id === id
               ? {
                   name: data.name,
                   id: data.id,
@@ -82,6 +79,14 @@ function AllWorkouts() {
           )
         );
       });
+  }
+
+  function onDeleteUserLift(id) {
+    fetch(`/user_lifts/${id}`, { method: 'DELETE' });
+
+    console.log(id);
+    console.log(liftsByDate);
+    setLiftsByDate(liftsByDate.filter((lift) => lift.id !== id));
   }
 
   return (
@@ -151,26 +156,25 @@ function AllWorkouts() {
             </Button>
             <Button
               className="button"
-              onClick={() => context.onDeleteUserLift(userLiftId)}
+              onClick={() => onDeleteUserLift(userLiftId)}
             >
               Delete
             </Button>
           </Stack>
-          {liftsByDate !== [] &&
-            liftsByDate.map((lift, index) => (
-              <Card
-                onClick={() => fillForm(lift)}
-                key={`lift ${index}`}
-                variant="outlined"
-                sx={{ width: 175, margin: '1%', display: 'inline-flex' }}
-              >
-                <CardContent>
-                  <Typography>{lift.name}</Typography>
-                  <Typography>{lift.weight} lbs</Typography>
-                  <Typography>{lift.reps} reps</Typography>
-                </CardContent>
-              </Card>
-            ))}
+          {liftsByDate.map((lift, index) => (
+            <Card
+              onClick={() => fillForm(lift)}
+              key={`lift ${index}`}
+              variant="outlined"
+              sx={{ width: 175, margin: '1%', display: 'inline-flex' }}
+            >
+              <CardContent>
+                <Typography>{lift.name}</Typography>
+                <Typography>{lift.weight} lbs</Typography>
+                <Typography>{lift.reps} reps</Typography>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       )}
     </MyConsumer>
