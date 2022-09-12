@@ -17,11 +17,11 @@ function Workout() {
   const [liftName, setLiftName] = useState('');
   const [weight, setWeight] = useState('');
   const [reps, setReps] = useState('');
-  const [liftId, setLiftId] = useState('');
+  // const [liftId, setLiftId] = useState('');
   const [currentWorkout, setCurrentWorkout] = useState([]);
   const [workoutId, setWorkoutId] = useState('');
   const [liftFormVisible, setLiftFormVisible] = useState(false);
-  const [update, setUpdate] = useState(false);
+  // const [update, setUpdate] = useState(false);
   const [quoteInfo, setQuoteInfo] = useState('');
 
   useEffect(() => {
@@ -71,13 +71,13 @@ function Workout() {
     setReps('');
   }
 
-  function onSetClick(set) {
-    setUpdate(true);
-    setLiftName(set.liftname);
-    setWeight(set.weight);
-    setReps(set.reps);
-    setLiftId(set.id);
-  }
+  // function onSetClick(set) {
+  //   setUpdate(true);
+  //   setLiftName(set.liftname);
+  //   setWeight(set.weight);
+  //   setReps(set.reps);
+  //   setLiftId(set.id);
+  // }
 
   function post_lift(id) {
     fetch('/user_lifts', {
@@ -95,7 +95,6 @@ function Workout() {
       .then((res) => res.json())
       .then((data) => {
         setCurrentWorkout([...currentWorkout, data]);
-        console.log(currentWorkout);
       });
   }
 
@@ -181,7 +180,7 @@ function Workout() {
                 +
               </Button>
             </Stack>
-            {update ? (
+            {/* {update ? (
               <Stack sx={{ margin: '1%' }} spacing={2} direction="row">
                 <Button
                   variant="contained"
@@ -193,19 +192,19 @@ function Workout() {
                   delete
                 </Button>
               </Stack>
-            ) : (
-              <Stack sx={{ margin: '1%' }} spacing={2} direction="row">
-                <Button
-                  variant="contained"
-                  onClick={() => onLogSet(context.user)}
-                >
-                  Save
-                </Button>
-                <Button variant="contained" onClick={() => clearForm()}>
-                  Clear
-                </Button>
-              </Stack>
-            )}
+            ) : ( */}
+            <Stack sx={{ margin: '1%' }} spacing={2} direction="row">
+              <Button
+                variant="contained"
+                onClick={() => onLogSet(context.user)}
+              >
+                Save
+              </Button>
+              <Button variant="contained" onClick={() => clearForm()}>
+                Clear
+              </Button>
+            </Stack>
+            {/* )} */}
           </Box>
           <Button sx={{ margin: '1%' }} onClick={() => toggleLiftForm()}>
             Add new lift
@@ -219,7 +218,7 @@ function Workout() {
 
           {currentWorkout.map((set, index) => (
             <Card
-              onClick={() => onSetClick(set)}
+              // onClick={() => onSetClick(set)}
               variant="outlined"
               key={`set ${index}`}
               sx={{ maxWidth: 200, margin: '1%' }}

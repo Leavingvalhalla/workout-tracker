@@ -7,7 +7,6 @@ function MyProvider(props) {
   const [lifts, setLifts] = useState([]);
   const [loginFailed, setLoginFailed] = useState(false);
   const [workouts, setWorkouts] = useState([]);
-  const [workoutData, setWorkoutData] = useState([]);
 
   // retrieves all workouts for a user (AllWorkouts component)
   function getLifts() {

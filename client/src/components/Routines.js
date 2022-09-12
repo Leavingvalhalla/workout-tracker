@@ -1,6 +1,5 @@
 import { Stack, Typography, Card, Button } from '@mui/material';
 import { useState } from 'react';
-import Workout from './Workout';
 
 function Routines() {
   const [wendler, setWendler] = useState(false);
