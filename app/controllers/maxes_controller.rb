@@ -1,0 +1,2 @@
+class MaxesController < ApplicationController
+end

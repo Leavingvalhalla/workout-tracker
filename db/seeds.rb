@@ -21,6 +21,28 @@ Lift.create([
     {name: 'Dip'},
     ])
 
+
+Routine.create(name: 'r/Fitness Beginner Routine')
+
+RoutineLift.create([
+    {routine_id: 1, lift_id: 11, weight: 1, reps: 5, position: 1, amrap: false},
+    {routine_id: 1, lift_id: 11, weight: 1, reps: 5, position: 1, amrap: false},
+    {routine_id: 1, lift_id: 11, weight: 1, reps: 5, position: 1, amrap: true},
+    {routine_id: 1, lift_id: 8, weight: 1, reps: 5, position: 1, amrap: false},
+    {routine_id: 1, lift_id: 8, weight: 1, reps: 5, position: 1, amrap: false},
+    {routine_id: 1, lift_id: 8, weight: 1, reps: 5, position: 1, amrap: true},
+    {routine_id: 1, lift_id: 1, weight: 1, reps: 5, position: 1, amrap: false},
+    {routine_id: 1, lift_id: 1, weight: 1, reps: 5, position: 1, amrap: false},
+    {routine_id: 1, lift_id: 1, weight: 1, reps: 5, position: 1, amrap: true},
+    {routine_id: 1, lift_id: 16, weight: 1, reps: 5, position: 2, amrap: false},
+    {routine_id: 1, lift_id: 16, weight: 1, reps: 5, position: 2, amrap: false},
+    {routine_id: 1, lift_id: 16, weight: 1, reps: 5, position: 2, amrap: true},
+    {routine_id: 1, lift_id: 3, weight: 1, reps: 5, position: 2, amrap: false},
+    {routine_id: 1, lift_id: 3, weight: 1, reps: 5, position: 2, amrap: false},
+    {routine_id: 1, lift_id: 3, weight: 1, reps: 5, position: 2, amrap: true},
+    
+])
+
 User.create([{username: 'asdf', password_digest: BCrypt::Password.create('1234')}, {username: 'fdsa', password_digest: BCrypt::Password.create('4321')}])
 
 legs = rand(1..7)

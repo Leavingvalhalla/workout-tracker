@@ -1,4 +1,4 @@
 class RoutineLift < ApplicationRecord
     belongs_to :routine
-    belongs_to :lifts
+    belongs_to :lift
 end

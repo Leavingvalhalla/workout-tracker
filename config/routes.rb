@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :maxes
   resources :user_lifts
   resources :workouts, only: [:create, :show]
   # resources :routine_lifts

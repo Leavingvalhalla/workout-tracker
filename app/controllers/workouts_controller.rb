@@ -16,5 +16,3 @@ class WorkoutsController < ApplicationController
     end
 
 end
-
-# after that, It's probably time to start figuring out the routine thing.

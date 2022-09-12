@@ -89,6 +89,8 @@ function AllWorkouts() {
     setLiftsByDate(liftsByDate.filter((lift) => lift.id !== id));
   }
 
+  // TODO: Change selected lift card to contained
+
   return (
     <MyConsumer>
       {(context) => (

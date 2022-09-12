@@ -3,6 +3,8 @@ class User < ApplicationRecord
     belongs_to :routine, optional: true
     has_many :user_lifts
     has_many :lifts, through: :user_lifts
+    has_many :maxes
+    has_many :lifts, through: :maxes
 end
 
 def User.digest(string)
