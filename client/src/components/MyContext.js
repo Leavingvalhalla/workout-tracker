@@ -7,6 +7,7 @@ function MyProvider(props) {
   const [lifts, setLifts] = useState([]);
   const [loginFailed, setLoginFailed] = useState(false);
   const [workouts, setWorkouts] = useState([]);
+  const [todaysLifts, setTodaysLifts] = useState([]);
 
   // retrieves all workouts for a user (AllWorkouts component)
   function getLifts() {
@@ -31,6 +32,16 @@ function MyProvider(props) {
       .then((res) => res.json())
       .then((data) => setLifts(data));
   }, []);
+
+  useEffect(() => {
+    if (user) {
+      fetch(`/routines/${user.routine_id}/${user.routine_positions}`, {
+        method: 'GET',
+      })
+        .then((res) => res.json())
+        .then((data) => setTodaysLifts(data));
+    }
+  }, [user]);
 
   function onLogout() {
     fetch('/logout', {
@@ -67,6 +78,16 @@ function MyProvider(props) {
       .then((data) => setLifts([lifts, data]));
   }
 
+  function setRoutine(routine_id) {
+    fetch(`/users/${user.id}`, {
+      method: 'PATCH',
+      headers: { 'Content-Type': 'Application/json' },
+      body: JSON.stringify({ routine_id, routine_position: 1 }),
+    })
+      .then((res) => res.json())
+      .then((data) => setUser(data));
+  }
+
   return (
     <MyContext.Provider
       value={{
@@ -78,6 +99,8 @@ function MyProvider(props) {
         workouts: workouts,
         addLift: addLift,
         getLifts: getLifts,
+        setRoutine: setRoutine,
+        todaysLifts: todaysLifts,
       }}
     >
       {props.children}

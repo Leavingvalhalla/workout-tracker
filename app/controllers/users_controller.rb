@@ -40,6 +40,11 @@ class UsersController < ApplicationController
         render json: response.read_body
     end
 
+    def update
+        user = User.find(params[:id])
+        render json: user.update(routine_id: params[:routine_id], routine_position: [params[:routine_position]]), status: :ok
+    end
+
     private
 
     def user_params

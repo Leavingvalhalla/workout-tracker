@@ -6,6 +6,8 @@ import AllWorkouts from './components/AllWorkouts';
 import NewLiftForm from './components/NewLiftForm';
 import WorkoutData from './components/WorkoutData';
 import Routines from './components/Routines';
+import ContinueRoutine from './components/ContinueRoutine';
+import Maxes from './components/Maxes';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -84,6 +86,24 @@ function App() {
             <ThemeProvider theme={theme}>
               <CssBaseline />
               <Routines />
+            </ThemeProvider>
+          }
+        />
+        <Route
+          path="/maxes"
+          element={
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <Maxes />
+            </ThemeProvider>
+          }
+        />
+        <Route
+          path="/continue"
+          element={
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <ContinueRoutine />
             </ThemeProvider>
           }
         />

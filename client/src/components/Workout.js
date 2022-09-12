@@ -22,15 +22,18 @@ function Workout() {
   const [workoutId, setWorkoutId] = useState('');
   const [liftFormVisible, setLiftFormVisible] = useState(false);
   // const [update, setUpdate] = useState(false);
-  const [quoteInfo, setQuoteInfo] = useState('');
+  // const [quoteInfo, setQuoteInfo] = useState('');
 
-  useEffect(() => {
-    fetch('/quote', {
-      method: 'GET',
-    })
-      .then((res) => res.json())
-      .then((data) => setQuoteInfo(data));
-  }, []);
+  // useEffect(() => {
+  //   fetch('/quote', {
+  //     method: 'GET',
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setQuoteInfo(data);
+  //       console.log(data);
+  //     });
+  // }, []);
 
   // get todays date as a string to save to a Workout
   function getToday() {
@@ -210,11 +213,11 @@ function Workout() {
             Add new lift
           </Button>
           {liftFormVisible && <NewLiftForm toggleLiftForm={toggleLiftForm} />}
-          {quoteInfo !== '' && (
+          {/* {quoteInfo !== '' && (
             <Typography>
               "{quoteInfo.quote}"<br /> -{quoteInfo.author}
             </Typography>
-          )}
+          )} */}
 
           {currentWorkout.map((set, index) => (
             <Card

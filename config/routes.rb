@@ -1,10 +1,10 @@
 Rails.application.routes.draw do
-  resources :maxes
+  resources :maxes, only: [:create, :update, :show]
   resources :user_lifts
   resources :workouts, only: [:create, :show]
   # resources :routine_lifts
   # resources :routines
-  resources :users, only: [:create, :show]
+  resources :users, except: [:destroy]
   resources :lifts, except: [:destroy, :update, :show]
 
   post '/signup', to: 'users#create'

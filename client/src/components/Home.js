@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Button, Box } from '@mui/material';
+import { Button, Stack, Box } from '@mui/material';
 import Login from './Login';
 import { MyConsumer } from './MyContext';
 
@@ -18,14 +18,24 @@ function Home() {
 
           {context.user && (
             <Box>
-              <Button size="large" sx={{ margin: '5%' }} variant="contained">
-                <Link
-                  style={{ textDecoration: 'none', color: 'white' }}
-                  to="/workout"
-                >
-                  Get Lifting
-                </Link>
-              </Button>
+              <Stack direction="row">
+                <Button size="large" sx={{ margin: '3%' }} variant="contained">
+                  <Link
+                    style={{ textDecoration: 'none', color: 'white' }}
+                    to="/continue"
+                  >
+                    Continue Routine
+                  </Link>
+                </Button>
+                <Button size="large" sx={{ margin: '3%' }} variant="contained">
+                  <Link
+                    style={{ textDecoration: 'none', color: 'white' }}
+                    to="/workout"
+                  >
+                    Custom Workout
+                  </Link>
+                </Button>
+              </Stack>
               <Button
                 sx={{ margin: '1% 1% 1% 5%' }}
                 onClick={() => context.getLifts()}
@@ -35,7 +45,7 @@ function Home() {
                   style={{ textDecoration: 'none', color: '#aa2c2d' }}
                   to="/all_workouts"
                 >
-                  Previous workouts
+                  Edit workouts
                 </Link>
               </Button>
               <Button sx={{ margin: '1%' }} variant="outlined">
@@ -51,7 +61,15 @@ function Home() {
                   style={{ textDecoration: 'none', color: '#aa2c2d' }}
                   to="/routines"
                 >
-                  Pick a routine
+                  Pick new routine
+                </Link>
+              </Button>
+              <Button sx={{ margin: '1%' }} variant="outlined">
+                <Link
+                  style={{ textDecoration: 'none', color: '#aa2c2d' }}
+                  to="/maxes"
+                >
+                  Set Your Maxes
                 </Link>
               </Button>
             </Box>

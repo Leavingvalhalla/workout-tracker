@@ -22,7 +22,7 @@ Lift.create([
     ])
 
 
-Routine.create(name: 'r/Fitness Beginner Routine')
+Routine.create([{name: 'r/Fitness Beginner Routine'}, {name: 'Strong Curves'}, {name: '531'}, {name: 'nSuns'}])
 
 RoutineLift.create([
     {routine_id: 1, lift_id: 11, weight: 1, reps: 5, position: 1, amrap: false},
