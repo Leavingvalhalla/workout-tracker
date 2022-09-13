@@ -1,5 +1,6 @@
 import { Stack, Typography, Card, Button } from '@mui/material';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { MyConsumer } from './MyContext';
 
 function Routines() {
@@ -7,6 +8,7 @@ function Routines() {
   const [reddit, setReddit] = useState(false);
   const [strongCurves, setStrongCurves] = useState(false);
   const [nSuns, setNSuns] = useState(false);
+  const [signedUp, setSignedUp] = useState(false);
 
   return (
     <MyConsumer>
@@ -20,7 +22,13 @@ function Routines() {
             <Button onClick={() => setReddit((reddit) => !reddit)}>
               {reddit ? 'Hide' : 'see'} sample workout
             </Button>
-            <Button onClick={() => context.setRoutine(1)} variant="contained">
+            <Button
+              onClick={() => {
+                setSignedUp(true);
+                context.setRoutine(1);
+              }}
+              variant="contained"
+            >
               Start Routine
             </Button>
             {reddit && (
@@ -42,7 +50,13 @@ function Routines() {
             >
               {strongCurves ? 'Hide' : 'see'} sample workout
             </Button>
-            <Button onClick={() => context.setRoutine(2)} variant="contained">
+            <Button
+              onClick={() => {
+                setSignedUp(true);
+                context.setRoutine(2);
+              }}
+              variant="contained"
+            >
               Start Routine
             </Button>
             {strongCurves && (
@@ -64,7 +78,13 @@ function Routines() {
             <Button onClick={() => setWendler((wendler) => !wendler)}>
               {wendler ? 'Hide' : 'see'} sample workout
             </Button>
-            <Button onClick={() => context.setRoutine(3)} variant="contained">
+            <Button
+              onClick={() => {
+                setSignedUp(true);
+                context.setRoutine(3);
+              }}
+              variant="contained"
+            >
               Start Routine
             </Button>
             {wendler && (
@@ -105,24 +125,19 @@ function Routines() {
               </ul>
             )}
           </Card>
+          {signedUp && (
+            <Typography>
+              Great, you're all set! Don't forget to
+              <Link to="/maxes"> add your starting weights.</Link>
+            </Typography>
+          )}
         </Stack>
       )}
     </MyConsumer>
   );
 }
 
-// Thoughts: They're going to need to be able to set a 1RM. Do you set it before you start? If not, is there a way to
-// do it automatically at the beginning? Do you just leave those numbers up all the time that can be changed on the routine page?
-
-// You could have separate inputs for each lift of a Workout. Is that better or worse than having one that autofills? Probably better.
-
-// Probably want the 1RMs to be attached to the User. Almost certainly.
-
-// Biggest question: How to make the migrations for the Routines? Could make a RoutineLift table that stores a routine_id - probably worth doing.
-// How, then, to cycle through the lifts, how to know where you are in the routine in a given workout? RoutineLifts could have a 'position'
-// number, and the User could save the position they're currently at. If you do that, you could do a whole day workout as one position,
-// as long as you do the "all the inputs on one page" thing. I think that's the way to do it, because it's nice to see your whole workout
-// at once. Then maybe a button to say "okay, I'm done with this workout", because with assistance stuff there's no way to be sure
-// a workout is done automatically.
+// TODO: Add a "Great, you're signed up, now make sure you set your maxes" with a link to that page.
+// ALSO make sure the maxes that need adding are rendered based on their routine.
 
 export default Routines;
