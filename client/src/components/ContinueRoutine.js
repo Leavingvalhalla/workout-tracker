@@ -1,14 +1,13 @@
 import {
   Box,
   TextField,
-  Autocomplete,
   Button,
   Typography,
   Card,
   CardContent,
   Stack,
 } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { MyConsumer } from './MyContext';
 import { Link } from 'react-router-dom';
 
@@ -37,7 +36,7 @@ function ContinueRoutine() {
             </Link>
           </Button>
           <Box>
-            {context.todaysLifts.map((lift, index) => {
+            {context.todaysLifts.map((lift, index) => (
               <div key={`lift ${index}`}>
                 <Typography sx={{ margin: '2% 1%' }} variant="h3">
                   {lift.name}
@@ -70,8 +69,8 @@ function ContinueRoutine() {
                     Save
                   </Button>
                 </Stack>
-              </div>;
-            })}
+              </div>
+            ))}
           </Box>
 
           {context.todaysLifts.map((set, index) => (
@@ -96,5 +95,7 @@ function ContinueRoutine() {
     </MyConsumer>
   );
 }
+
+// TODO: figure out how to get startingweights/maxes for rendering here
 
 export default ContinueRoutine;

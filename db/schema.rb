@@ -49,7 +49,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_12_195552) do
   create_table "user_lifts", force: :cascade do |t|
     t.integer "lift_id"
     t.integer "workout_id"
-    t.float "weight"
+    t.integer "weight"
     t.integer "reps"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
