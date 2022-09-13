@@ -8,6 +8,7 @@ function MyProvider(props) {
   const [loginFailed, setLoginFailed] = useState(false);
   const [workouts, setWorkouts] = useState([]);
   const [todaysLifts, setTodaysLifts] = useState([]);
+  const [routineLifts, setRoutineLifts] = useState([]);
 
   // retrieves all workouts for a user (AllWorkouts component)
   function getLifts() {
@@ -35,15 +36,21 @@ function MyProvider(props) {
 
   useEffect(() => {
     if (user) {
-      console.log(user);
       fetch(`/routine_lifts/${user.routine_id}/${user.routine_position}`, {
         method: 'GET',
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           setTodaysLifts(data);
         });
+    }
+  }, [user]);
+
+  useEffect(() => {
+    if (user) {
+      fetch(`/routine_lifts/${user.routine_id}`)
+        .then((res) => res.json())
+        .then((data) => setRoutineLifts(data));
     }
   }, [user]);
 
@@ -107,6 +114,7 @@ function MyProvider(props) {
         getLifts: getLifts,
         setRoutine: setRoutine,
         todaysLifts: todaysLifts,
+        routineLifts: routineLifts,
       }}
     >
       {props.children}

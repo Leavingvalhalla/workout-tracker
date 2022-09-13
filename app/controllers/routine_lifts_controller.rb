@@ -10,4 +10,8 @@ class RoutineLiftsController < ApplicationController
 
     end
 
+    def all_lifts_for_routine
+        render json: Lift.select('name').joins(:routine_lifts).where('routine_lifts.routine_id = ?', params[:id]).distinct, status: :ok
+    end
+
 end

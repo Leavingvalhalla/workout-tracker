@@ -67,6 +67,10 @@ reps = rand(1..10)
         end
     end
 end
+
+(1..16).each do |i|
+    Max.create({user_id: 1, lift_id: i, max: rand(135..225)})
+end
 # (31..60).each do |i|
 #     date = Date.new(2022,8,i)
 #     Workout.create({user_id: 2, date: date})

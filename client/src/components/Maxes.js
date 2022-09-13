@@ -129,6 +129,12 @@ function Maxes() {
               Save
             </Button>
           </Stack>
+          <Stack>
+            <Typography>Your routine includes these lifts:</Typography>
+            {context.routineLifts.map((lift) => (
+              <Typography key={lift.name}>{lift.name}</Typography>
+            ))}
+          </Stack>
         </div>
       )}
     </MyConsumer>
