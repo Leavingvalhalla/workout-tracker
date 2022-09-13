@@ -35,7 +35,7 @@ function MyProvider(props) {
 
   useEffect(() => {
     if (user) {
-      fetch(`/routines/${user.routine_id}/${user.routine_positions}`, {
+      fetch(`/routines/${user.routine_id}/${user.routine_position}`, {
         method: 'GET',
       })
         .then((res) => res.json())
@@ -85,7 +85,10 @@ function MyProvider(props) {
       body: JSON.stringify({ routine_id, routine_position: 1 }),
     })
       .then((res) => res.json())
-      .then((data) => setUser(data));
+      .then((data) => {
+        console.log(data);
+        setUser(data);
+      });
   }
 
   return (
