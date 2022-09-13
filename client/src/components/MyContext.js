@@ -35,11 +35,15 @@ function MyProvider(props) {
 
   useEffect(() => {
     if (user) {
-      fetch(`/routines/${user.routine_id}/${user.routine_position}`, {
+      console.log(user);
+      fetch(`/routine_lifts/${user.routine_id}/${user.routine_position}`, {
         method: 'GET',
       })
         .then((res) => res.json())
-        .then((data) => setTodaysLifts(data));
+        .then((data) => {
+          console.log(data);
+          setTodaysLifts(data);
+        });
     }
   }, [user]);
 
@@ -86,7 +90,6 @@ function MyProvider(props) {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setUser(data);
       });
   }

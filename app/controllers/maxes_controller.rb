@@ -9,4 +9,6 @@ class MaxesController < ApplicationController
         end
     end
 
+    
+
 end

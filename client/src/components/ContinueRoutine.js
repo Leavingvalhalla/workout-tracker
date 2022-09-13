@@ -14,7 +14,6 @@ import { Link } from 'react-router-dom';
 
 function ContinueRoutine() {
   const [reps, setReps] = useState('');
-  const [currentWorkout, setCurrentWorkout] = useState([]);
 
   function decreaseReps() {
     setReps((reps) => (reps === '' || reps === 0 ? 0 : reps - 1));
@@ -75,7 +74,7 @@ function ContinueRoutine() {
             })}
           </Box>
 
-          {currentWorkout.map((set, index) => (
+          {context.todaysLifts.map((set, index) => (
             <Card
               // onClick={() => onSetClick(set)}
               variant="outlined"
