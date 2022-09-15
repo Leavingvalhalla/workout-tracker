@@ -1,12 +1,4 @@
-import {
-  Box,
-  TextField,
-  Button,
-  Typography,
-  Card,
-  CardContent,
-  Stack,
-} from '@mui/material';
+import { Box, TextField, Button, Typography, Card, Stack } from '@mui/material';
 import { useState } from 'react';
 import { MyConsumer } from './MyContext';
 import { Link } from 'react-router-dom';
@@ -37,20 +29,26 @@ function ContinueRoutine() {
           </Button>
           <Box>
             {context.todaysLifts.map((lift, index) => (
-              <div key={`lift ${index}`}>
-                <Typography sx={{ margin: '2% 1%' }} variant="h3">
-                  {lift.name}
-                </Typography>
-                <Typography sx={{ margin: '2% 1%' }} variant="h3">
-                  {lift.weight}
-                </Typography>
+              <Card
+                variant="outlined"
+                sx={{ margin: '1%', width: 250, display: 'inline-block' }}
+                key={`lift ${index}`}
+              >
+                <Stack direction="row">
+                  <Typography sx={{ margin: '2% 1%' }} variant="h6">
+                    {lift.name}
+                  </Typography>
+                  <Typography sx={{ margin: '2% 1%' }} variant="h6">
+                    {lift.weight} lbs
+                  </Typography>
+                </Stack>
                 <Stack sx={{ margin: '1%' }} spacing={2} direction="row">
                   <Button sx={{ fontSize: 25 }} onClick={() => decreaseReps()}>
                     -
                   </Button>
                   <TextField
                     value={reps}
-                    label="reps"
+                    label={lift.amrap ? lift.reps : `${lift.reps}+`}
                     onChange={(e) => setReps(e.target.value)}
                   />
                   <Button
@@ -69,33 +67,19 @@ function ContinueRoutine() {
                     Save
                   </Button>
                 </Stack>
-              </div>
+              </Card>
             ))}
           </Box>
-
-          {context.todaysLifts.map((set, index) => (
-            <Card
-              // onClick={() => onSetClick(set)}
-              variant="outlined"
-              key={`set ${index}`}
-              sx={{ maxWidth: 200, margin: '1%' }}
-            >
-              <CardContent>
-                <Typography variant="h6" gutterBottom>
-                  {set.lift_name}
-                </Typography>
-                <Typography variant="7">
-                  {set.weight} lbs x {set.reps}
-                </Typography>
-              </CardContent>
-            </Card>
-          ))}
         </div>
       )}
     </MyConsumer>
   );
 }
 
-// TODO: figure out how to get startingweights/maxes for rendering here
+// TODO: figure out how to get startingweights/maxes for rendering here. Also make sure sets go in order, because AMRAP
+// placement makes a difference.
+
+// Maybe still figure out a way to render things differently if they're different lift names. Would be good for this
+// page and the regular workout page.
 
 export default ContinueRoutine;
