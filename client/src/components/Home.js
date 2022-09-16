@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { Button, Stack, Box } from '@mui/material';
-import Login from './Login';
 import { MyConsumer } from './MyContext';
 
 function Home() {
@@ -8,14 +7,6 @@ function Home() {
     <MyConsumer>
       {(context) => (
         <div className="app">
-          <img src="swole.png" alt="Swole" />
-          <Login />
-          {!context.user && (
-            <p>
-              Don't have an account? <Link to="/signup">Create one here.</Link>
-            </p>
-          )}
-
           {context.user && (
             <Box>
               <Stack direction="row">

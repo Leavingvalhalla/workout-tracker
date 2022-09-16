@@ -37,11 +37,6 @@ function WorkoutData() {
     <MyConsumer>
       {(context) => (
         <div className="app">
-          <Button variant="contained">
-            <Link style={{ textDecoration: 'none', color: 'white' }} to="/">
-              Back to Home
-            </Link>
-          </Button>
           <p>Lift</p>
           <Autocomplete
             sx={{ maxWidth: 275 }}

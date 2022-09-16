@@ -23,9 +23,9 @@ function AllWorkouts() {
   const [workoutId, setWorkoutId] = useState('');
   const [date, setDate] = useState(dayjs('2022-08-01'));
   const [liftsByDate, setLiftsByDate] = useState([]);
+  const [selected, setSelected] = useState('');
 
   function fillForm(workout) {
-    console.log(workout);
     setNewLift(workout.name);
     setNewWeight(workout.weight);
     setNewReps(workout.reps);
@@ -96,21 +96,6 @@ function AllWorkouts() {
       {(context) => (
         <div className="app">
           <Stack sx={{ margin: '1%' }} spacing={3}>
-            <Button
-              sx={{ maxWidth: 150 }}
-              className="button"
-              variant="contained"
-            >
-              <Link
-                style={{
-                  textDecoration: 'none',
-                  color: 'white',
-                }}
-                to="/"
-              >
-                Back to home
-              </Link>
-            </Button>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DesktopDatePicker
                 value={date}
@@ -165,15 +150,32 @@ function AllWorkouts() {
           </Stack>
           {liftsByDate.map((lift, index) => (
             <Card
-              onClick={() => fillForm(lift)}
+              onClick={() => {
+                // console.log(lift.id);
+                // console.log(index);
+                setSelected(lift.id);
+                fillForm(lift);
+              }}
               key={`lift ${index}`}
               variant="outlined"
               sx={{ width: 175, margin: '1%', display: 'inline-flex' }}
             >
               <CardContent>
-                <Typography>{lift.name}</Typography>
-                <Typography>{lift.weight} lbs</Typography>
-                <Typography>{lift.reps} reps</Typography>
+                <Typography
+                  sx={{ color: selected == lift.id ? '#aa2c2d' : 'black' }}
+                >
+                  {lift.name}
+                </Typography>
+                <Typography
+                  sx={{ color: selected == lift.id ? '#aa2c2d' : 'black' }}
+                >
+                  {lift.weight} lbs
+                </Typography>
+                <Typography
+                  sx={{ color: selected == lift.id ? '#aa2c2d' : 'black' }}
+                >
+                  {lift.reps} reps
+                </Typography>
               </CardContent>
             </Card>
           ))}

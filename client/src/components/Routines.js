@@ -125,7 +125,4 @@ function Routines() {
   );
 }
 
-// TODO: Add a "Great, you're signed up, now make sure you set your maxes" with a link to that page.
-// ALSO make sure the maxes that need adding are rendered based on their routine.
-
 export default Routines;

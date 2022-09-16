@@ -40,10 +40,7 @@ function MyProvider(props) {
         method: 'GET',
       })
         .then((res) => res.json())
-        .then((data) => {
-          console.log(data);
-          setTodaysLifts(data);
-        });
+        .then((data) => setTodaysLifts(data));
     }
   }, [user]);
 

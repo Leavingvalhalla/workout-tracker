@@ -50,11 +50,6 @@ function Maxes() {
     <MyConsumer>
       {(context) => (
         <div>
-          <Button sx={{ margin: '1%' }} variant="contained">
-            <Link style={{ textDecoration: 'none', color: 'white' }} to="/">
-              Back to Home
-            </Link>
-          </Button>
           <Box sx={{ margin: '1%' }}>
             <Autocomplete
               sx={{ maxWidth: 275, margin: '1% 1% 1% 5%' }}

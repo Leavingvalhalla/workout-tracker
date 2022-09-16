@@ -125,11 +125,6 @@ function Workout() {
     <MyConsumer>
       {(context) => (
         <div className="app">
-          <Button sx={{ margin: '1%' }} variant="contained">
-            <Link style={{ textDecoration: 'none', color: 'white' }} to="/">
-              Back to Home
-            </Link>
-          </Button>
           <Typography sx={{ margin: '2% 1%' }} variant="h3">
             Current Workout
           </Typography>

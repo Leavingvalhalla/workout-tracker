@@ -1,4 +1,5 @@
 import './App.css';
+import Header from './components/Header';
 import Home from './components/Home';
 import Signup from './components/Signup';
 import Workout from './components/Workout';
@@ -24,6 +25,11 @@ function App() {
 
   return (
     <BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <Header />
+      </ThemeProvider>
+
       <Routes>
         <Route
           index
@@ -31,7 +37,7 @@ function App() {
           element={
             <ThemeProvider theme={theme}>
               <CssBaseline />
-              <Home className="app" />
+              <Home />
             </ThemeProvider>
           }
         />

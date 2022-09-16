@@ -22,11 +22,6 @@ function ContinueRoutine() {
     <MyConsumer>
       {(context) => (
         <div className="app">
-          <Button sx={{ margin: '1%' }} variant="contained">
-            <Link style={{ textDecoration: 'none', color: 'white' }} to="/">
-              Back to Home
-            </Link>
-          </Button>
           <Box>
             {context.todaysLifts.map((lift, index) => (
               <Card
