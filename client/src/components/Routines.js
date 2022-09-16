@@ -7,7 +7,7 @@ function Routines() {
   const [wendler, setWendler] = useState(false);
   const [reddit, setReddit] = useState(false);
   const [strongCurves, setStrongCurves] = useState(false);
-  const [nSuns, setNSuns] = useState(false);
+  const [german, setGerman] = useState(false);
   const [signedUp, setSignedUp] = useState(false);
 
   return (
@@ -42,8 +42,8 @@ function Routines() {
           <Card variant="outlined" sx={{ margin: '1%', width: 450 }}>
             <Typography variant="h4">Strong Curves</Typography>
             <Typography variant="h6">
-              A good intro program for women who want to get stronger while
-              maintaining a focus on aesthetics.
+              A good intro program with a healthy balance of strength and
+              aesthetics.
             </Typography>
             <Button
               onClick={() => setStrongCurves((strongCurves) => !strongCurves)}
@@ -96,32 +96,20 @@ function Routines() {
             )}
           </Card>
           <Card variant="outlined" sx={{ margin: '1%', width: 450 }}>
-            <Typography variant="h4">nSuns LP</Typography>
-            <Typography variant="h6">I hope you like volume.</Typography>
-            <Button onClick={() => setNSuns((nSuns) => !nSuns)}>
-              {nSuns ? 'Hide' : 'see'} sample workout
+            <Typography variant="h4">German Volume Training</Typography>
+            <Typography variant="h6">Try not to die.</Typography>
+            <Button onClick={() => setGerman((german) => !german)}>
+              {german ? 'Hide' : 'see'} sample workout
             </Button>
             <Button onClick={() => context.setRoutine(4)} variant="contained">
               Start Routine
             </Button>
-            {nSuns && (
+            {german && (
               <ul>
-                <li>1x8 Bench Press</li>
-                <li>1x6 Bench Press</li>
-                <li>3x4 Bench Press</li>
-                <li>1x5 Bench Press</li>
-                <li>1x6 Bench Press</li>
-                <li>1x7 Bench Press</li>
-                <li>1x8 Bench Press</li>
-                <li>1x6 Overhead Press</li>
-                <li>1x5 Overhead Press</li>
-                <li>1x3 Overhead Press</li>
-                <li>1x5 Overhead Press</li>
-                <li>1x7 Overhead Press</li>
-                <li>1x4 Overhead Press</li>
-                <li>1x6 Overhead Press</li>
-                <li>1x8 Overhead Press</li>
-                <li>Assistance: Chest, Arms, Back</li>
+                <li>10x10 Bench Press</li>
+                <li>10x10 Barbell Row</li>
+                <li>3x10 Chest Fly</li>
+                <li>3x10 Lat Pulldown</li>
               </ul>
             )}
           </Card>
