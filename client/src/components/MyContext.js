@@ -41,6 +41,7 @@ function MyProvider(props) {
       })
         .then((res) => res.json())
         .then((data) => {
+          console.log(data);
           setTodaysLifts(data);
         });
     }

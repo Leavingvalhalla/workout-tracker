@@ -19,6 +19,18 @@ Lift.create([
     {name: 'Chin Up'}, 
     {name: 'Pull Up'},
     {name: 'Dip'},
+    {name: 'Barbell Glute Bridge'},
+    {name: 'Goblet Squat'},
+    {name: 'Push Up'},
+    {name: 'Single Leg Thrust'},
+    {name: 'Box Squat'},
+    {name: 'Delt Raise'},
+    {name: 'Dumbell Chest Fly'},
+    {name: 'Bulgarian Split Squat'},
+    {name: 'Single Leg Glute Bridge'},
+    {name: 'Dumbell Step Up'},
+    {name: 'Back Extension'},
+    {name: 'Seated Row'}
     ])
 
 
@@ -40,7 +52,22 @@ RoutineLift.create([
     {routine_id: 1, lift_id: 3, weight: 1, reps: 5, position: 2, amrap: false},
     {routine_id: 1, lift_id: 3, weight: 1, reps: 5, position: 2, amrap: false},
     {routine_id: 1, lift_id: 3, weight: 1, reps: 5, position: 2, amrap: true},
-    
+])
+3.times do
+    RoutineLift.create([
+    {routine_id: 2, lift_id: 19, weight: 1, reps: 15, position: 1, amrap: false},
+    {routine_id: 2, lift_id: 11, weight: 1, reps: 10, position: 1, amrap: false},
+    {routine_id: 2, lift_id: 1, weight: 1, reps: 15, position: 1, amrap: false},
+    {routine_id: 2, lift_id: 5, weight: 1, reps: 15, position: 1, amrap: false},
+    {routine_id: 2, lift_id: 27, weight: 1, reps: 15, position: 2, amrap: false},
+    {routine_id: 2, lift_id: 17, weight: 1, reps: 10, position: 2, amrap: false},
+    {routine_id: 2, lift_id: 28, weight: 1, reps: 15, position: 2, amrap: false},
+    {routine_id: 2, lift_id: 13, weight: 1, reps: 10, position: 2, amrap: false},
+    {routine_id: 2, lift_id: 29, weight: 1, reps: 15, position: 2, amrap: false},
+    {routine_id: 2, lift_id: 19, weight: 1, reps: 15, position: 3, amrap: false},
+    {routine_id: 2, lift_id: 30, weight: 1, reps: 10, position: 3, amrap: false},
+    {routine_id: 2, lift_id: 1, weight: 1, reps: 15, position: 3, amrap: false},
+    {routine_id: 2, lift_id: 10, weight: 1, reps: 10, position: 3, amrap: false}   
 ])
 
 User.create([{username: 'asdf', password_digest: BCrypt::Password.create('1234')}, {username: 'fdsa', password_digest: BCrypt::Password.create('4321')}])

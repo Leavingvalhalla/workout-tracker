@@ -39,7 +39,7 @@ function ContinueRoutine() {
                     {lift.name}
                   </Typography>
                   <Typography sx={{ margin: '2% 1%' }} variant="h6">
-                    {lift.weight} lbs
+                    {Math.floor((lift.weight * lift.max) / 5) * 5} lbs
                   </Typography>
                 </Stack>
                 <Stack sx={{ margin: '1%' }} spacing={2} direction="row">
@@ -48,7 +48,7 @@ function ContinueRoutine() {
                   </Button>
                   <TextField
                     value={reps}
-                    label={lift.amrap ? lift.reps : `${lift.reps}+`}
+                    label={lift.amrap ? `${lift.reps}+` : lift.reps}
                     onChange={(e) => setReps(e.target.value)}
                   />
                   <Button
@@ -75,9 +75,6 @@ function ContinueRoutine() {
     </MyConsumer>
   );
 }
-
-// TODO: figure out how to get startingweights/maxes for rendering here. Also make sure sets go in order, because AMRAP
-// placement makes a difference.
 
 // Maybe still figure out a way to render things differently if they're different lift names. Would be good for this
 // page and the regular workout page.
