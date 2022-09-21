@@ -24,10 +24,9 @@ class UsersController < ApplicationController
         end
     end
 
+    # gets random bodybuilding quote from API
     def get_quote
-
         url = URI("https://bodybuilding-quotes1.p.rapidapi.com/random-quote")
-        
         http = Net::HTTP.new(url.host, url.port)
         http.use_ssl = true
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
@@ -57,8 +56,6 @@ class UsersController < ApplicationController
         rescue NoMethodError
             user.update(routine_position: 1)
         render json: user, status: :ok
-        
-        
     end
 
     private

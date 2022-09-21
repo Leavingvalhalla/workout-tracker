@@ -157,17 +157,17 @@ function AllWorkouts() {
             >
               <CardContent>
                 <Typography
-                  sx={{ color: selected == lift.id ? '#aa2c2d' : 'black' }}
+                  sx={{ color: selected === lift.id ? '#aa2c2d' : 'black' }}
                 >
                   {lift.name}
                 </Typography>
                 <Typography
-                  sx={{ color: selected == lift.id ? '#aa2c2d' : 'black' }}
+                  sx={{ color: selected === lift.id ? '#aa2c2d' : 'black' }}
                 >
                   {lift.weight} lbs
                 </Typography>
                 <Typography
-                  sx={{ color: selected == lift.id ? '#aa2c2d' : 'black' }}
+                  sx={{ color: selected === lift.id ? '#aa2c2d' : 'black' }}
                 >
                   {lift.reps} reps
                 </Typography>
