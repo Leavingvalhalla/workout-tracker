@@ -34,6 +34,7 @@ function MyProvider(props) {
       .then((data) => setLifts(data));
   }, []);
 
+  // retrieves lifts/weights/reps for next workout in routine
   useEffect(() => {
     if (user) {
       fetch(`/routine_lifts/${user.routine_id}/${user.routine_position}`, {
@@ -44,8 +45,9 @@ function MyProvider(props) {
     }
   }, [user]);
 
+  // retrieves all lifts for routine
   useEffect(() => {
-    if (user) {
+    if (user.routine_id) {
       fetch(`/routine_lifts/${user.routine_id}`)
         .then((res) => res.json())
         .then((data) => setRoutineLifts(data));
@@ -99,6 +101,18 @@ function MyProvider(props) {
       });
   }
 
+  function finishRoutineWorkout() {
+    fetch(`/users/next_routine_pos/${user.id}`, {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json' },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setUser(data);
+      });
+  }
+
   return (
     <MyContext.Provider
       value={{
@@ -113,6 +127,7 @@ function MyProvider(props) {
         setRoutine: setRoutine,
         todaysLifts: todaysLifts,
         routineLifts: routineLifts,
+        finishRoutineWorkout,
       }}
     >
       {props.children}

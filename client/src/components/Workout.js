@@ -8,9 +8,8 @@ import {
   CardContent,
   Stack,
 } from '@mui/material';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { MyConsumer } from './MyContext';
-import { Link } from 'react-router-dom';
 import NewLiftForm from './NewLiftForm';
 
 function Workout() {
@@ -125,9 +124,6 @@ function Workout() {
     <MyConsumer>
       {(context) => (
         <div className="app">
-          <Typography sx={{ margin: '2% 1%' }} variant="h3">
-            Current Workout
-          </Typography>
           <Box>
             <Autocomplete
               sx={{ maxWidth: 275, margin: '1% 1% 1% 5%' }}

@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom';
 import {
   Button,
   Card,
@@ -89,8 +88,6 @@ function AllWorkouts() {
     setLiftsByDate(liftsByDate.filter((lift) => lift.id !== id));
   }
 
-  // TODO: Change selected lift card to contained
-
   return (
     <MyConsumer>
       {(context) => (
@@ -151,8 +148,6 @@ function AllWorkouts() {
           {liftsByDate.map((lift, index) => (
             <Card
               onClick={() => {
-                // console.log(lift.id);
-                // console.log(index);
                 setSelected(lift.id);
                 fillForm(lift);
               }}

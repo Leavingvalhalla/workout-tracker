@@ -1,7 +1,7 @@
 import { Box, TextField, Button, Typography, Card, Stack } from '@mui/material';
 import { useState } from 'react';
 import { MyConsumer } from './MyContext';
-import { Link } from 'react-router-dom';
+import Workout from './Workout';
 
 function ContinueRoutine() {
   const [reps, setReps] = useState('');
@@ -22,6 +22,9 @@ function ContinueRoutine() {
     <MyConsumer>
       {(context) => (
         <div className="app">
+          <Typography>
+            You are on day {context.user.routine_position} of your routine.
+          </Typography>
           <Box>
             {context.todaysLifts.map((lift, index) => (
               <Card
@@ -65,6 +68,8 @@ function ContinueRoutine() {
               </Card>
             ))}
           </Box>
+          <Workout />
+          <Button onClick={context.finishRoutineWorkout}>Finish Workout</Button>
         </div>
       )}
     </MyConsumer>

@@ -23,7 +23,8 @@ class UserLiftsController < ApplicationController
     def get_chart
         user = User.find(session[:user_id])
         lift = Lift.find_by(name: params[:lift_name])
-        workouts_all_dates = Workout.select('workouts.*, user_lifts.*').joins(:user_lifts).where(['user_lifts.lift_id = ? and user_id = ?', lift.id, user.id])
+        workouts_all_dates = Workout.select('workouts.*, user_lifts.*').joins(:user_lifts)
+        .where(['user_lifts.lift_id = ? and user_id = ?', lift.id, user.id])
 
 
 

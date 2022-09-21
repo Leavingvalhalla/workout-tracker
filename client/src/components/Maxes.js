@@ -9,7 +9,6 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import { MyConsumer } from './MyContext';
-import { Link } from 'react-router-dom';
 
 function Maxes() {
   const [liftName, setLiftName] = useState('');

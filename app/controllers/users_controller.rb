@@ -46,6 +46,21 @@ class UsersController < ApplicationController
         render json: user, status: :ok
     end
 
+    # Moves to the next position in the routine, starts back at 1 if routine is over
+    def next_routine_pos
+        user = User.find(params[:id])
+        routine = RoutineLift.where('routine_id = ? and position = ?', user.routine_id, (user.routine_position + 1))
+        if routine[0].position
+            user.update(routine_position: (user.routine_position + 1))
+            render json: user, status: :ok
+        end
+        rescue NoMethodError
+            user.update(routine_position: 1)
+        render json: user, status: :ok
+        
+        
+    end
+
     private
 
     def user_params
