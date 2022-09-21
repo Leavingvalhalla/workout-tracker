@@ -41,7 +41,10 @@ function MyProvider(props) {
         method: 'GET',
       })
         .then((res) => res.json())
-        .then((data) => setTodaysLifts(data));
+        .then((data) => {
+          console.log(data);
+          setTodaysLifts(data);
+        });
     }
   }, [user]);
 

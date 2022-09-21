@@ -13,7 +13,12 @@ function ContinueRoutine() {
           </Typography>
           <Box>
             {context.todaysLifts.map((lift, index) => (
-              <RoutineLift lift={lift} index={index} context={context} />
+              <RoutineLift
+                key={`routineLift ${index}`}
+                lift={lift}
+                index={index}
+                context={context}
+              />
             ))}
           </Box>
           <Workout />
