@@ -39,10 +39,9 @@ function Chart({ chartInfo, chartTopic }) {
         legend: {
           position: 'top',
         },
-        // title: {
-        //   display: true,
-        //   text: chartTopic,
-        // },
+      },
+      onClick: (e, item, legend) => {
+        console.log(e);
       },
     },
 

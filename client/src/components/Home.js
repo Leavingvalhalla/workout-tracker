@@ -10,14 +10,20 @@ function Home() {
           {context.user && (
             <Box>
               <Stack direction="row">
-                <Button size="large" sx={{ margin: '3%' }} variant="contained">
-                  <Link
-                    style={{ textDecoration: 'none', color: 'white' }}
-                    to="/continue"
+                {context.user.routine_id && (
+                  <Button
+                    size="large"
+                    sx={{ margin: '3%' }}
+                    variant="contained"
                   >
-                    Continue Routine
-                  </Link>
-                </Button>
+                    <Link
+                      style={{ textDecoration: 'none', color: 'white' }}
+                      to="/continue"
+                    >
+                      Continue Routine
+                    </Link>
+                  </Button>
+                )}
                 <Button size="large" sx={{ margin: '3%' }} variant="contained">
                   <Link
                     style={{ textDecoration: 'none', color: 'white' }}
