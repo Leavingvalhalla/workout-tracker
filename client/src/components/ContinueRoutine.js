@@ -2,8 +2,15 @@ import { Box, Button, Typography } from '@mui/material';
 import { MyConsumer } from './MyContext';
 import Workout from './Workout';
 import RoutineLift from './RoutineLift';
+import { useState } from 'react';
 
 function ContinueRoutine() {
+  const [expandLiftForm, setExpandLiftForm] = useState(false);
+
+  function clickAccessoryButton() {
+    setExpandLiftForm((expandLiftForm) => !expandLiftForm);
+  }
+
   return (
     <MyConsumer>
       {(context) => (
@@ -21,8 +28,17 @@ function ContinueRoutine() {
               />
             ))}
           </Box>
-          <Workout />
-          <Button onClick={context.finishRoutineWorkout}>Finish Workout</Button>
+          <Button onClick={clickAccessoryButton}>
+            Doing some accessory work?
+          </Button>
+          {expandLiftForm && <Workout />}
+          <Button
+            sx={{ margin: '1%' }}
+            variant="contained"
+            onClick={context.finishRoutineWorkout}
+          >
+            Finish Workout
+          </Button>
         </div>
       )}
     </MyConsumer>

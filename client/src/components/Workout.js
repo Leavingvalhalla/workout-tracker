@@ -73,14 +73,6 @@ function Workout() {
     setReps('');
   }
 
-  // function onSetClick(set) {
-  //   setUpdate(true);
-  //   setLiftName(set.liftname);
-  //   setWeight(set.weight);
-  //   setReps(set.reps);
-  //   setLiftId(set.id);
-  // }
-
   function post_lift(id) {
     fetch('/user_lifts', {
       method: 'POST',
@@ -174,19 +166,6 @@ function Workout() {
                 +
               </Button>
             </Stack>
-            {/* {update ? (
-              <Stack sx={{ margin: '1%' }} spacing={2} direction="row">
-                <Button
-                  variant="contained"
-                  onClick={() => onLogSet(context.user)}
-                >
-                  update
-                </Button>
-                <Button variant="contained" onClick={() => clearForm()}>
-                  delete
-                </Button>
-              </Stack>
-            ) : ( */}
             <Stack sx={{ margin: '1%' }} spacing={2} direction="row">
               <Button
                 variant="contained"
@@ -201,7 +180,7 @@ function Workout() {
             {/* )} */}
           </Box>
           <Button sx={{ margin: '1%' }} onClick={() => toggleLiftForm()}>
-            Add new lift
+            Add new lift type
           </Button>
           {liftFormVisible && <NewLiftForm toggleLiftForm={toggleLiftForm} />}
           {/* {quoteInfo !== '' && (
@@ -212,7 +191,6 @@ function Workout() {
 
           {currentWorkout.map((set, index) => (
             <Card
-              // onClick={() => onSetClick(set)}
               variant="outlined"
               key={`set ${index}`}
               sx={{ maxWidth: 200, margin: '1%' }}

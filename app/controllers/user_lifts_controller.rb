@@ -54,6 +54,7 @@ class UserLiftsController < ApplicationController
 
         workouts = parse_period(workouts_all_dates, params[:period])
 
+        # helper function to calculate most of the possible chart data
         def is_bigger(current, max)
             case params[:chart]
             when 'Max Weight'
@@ -65,7 +66,7 @@ class UserLiftsController < ApplicationController
             end
         end
     
-
+        # separate section just for the Workout Volume, since method for deriving data is so different
         if workouts  == []
             render json: {error: 'no such data'}, status: :unprocessable_entity
         elsif params[:chart] == 'Workout Volume'
@@ -85,6 +86,7 @@ class UserLiftsController < ApplicationController
                 end
             end
             render json: workout_array, status: :ok
+        
 
         else
             workout_array = []
