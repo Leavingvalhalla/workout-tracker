@@ -35,6 +35,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_12_195552) do
     t.integer "reps"
     t.integer "lift_id"
     t.integer "position"
+    t.integer "index"
     t.boolean "amrap"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

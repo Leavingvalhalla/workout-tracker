@@ -6,6 +6,7 @@ class CreateRoutineLifts < ActiveRecord::Migration[7.0]
       t.integer :reps
       t.integer :lift_id
       t.integer :position
+      t.integer :index
       t.boolean :amrap
       t.timestamps
     end

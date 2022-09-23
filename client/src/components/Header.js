@@ -11,7 +11,9 @@ function Header() {
       {(context) => (
         <div className="header">
           <Stack>
-            <img src="swole.png" alt="Swole" width={'600px'} />
+            <Link to="/">
+              <img src="swole.png" alt="Swole" width={'600px'} />
+            </Link>
             <Login />
             {!context.user && (
               <p>
@@ -20,13 +22,13 @@ function Header() {
               </p>
             )}
           </Stack>
-          {location.pathname !== '/' && (
+          {/* {location.pathname !== '/' && (
             <Button sx={{ margin: '1% 5%' }} variant="contained">
               <Link style={{ textDecoration: 'none', color: 'white' }} to="/">
                 Back to Home
               </Link>
             </Button>
-          )}
+          )} */}
         </div>
       )}
     </MyConsumer>
