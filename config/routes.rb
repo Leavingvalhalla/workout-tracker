@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   delete '/logout', to: 'sessions#destroy'
   get 'lifts/:lift_name', to: 'lifts#getId'
   get 'chart/:lift_name/:period/:chart', to: 'user_lifts#get_chart'
-  get '/quote', to: 'users#get_quote'
+  get '/gif', to: 'users#get_gif'
   get '/workouts/byDate/:date', to: 'workouts#show_by_date'
   get 'routine_lifts/:id', to: 'routine_lifts#all_lifts_for_routine'
   get 'routine_lifts/:routine_id/:position', to: 'routine_lifts#show'

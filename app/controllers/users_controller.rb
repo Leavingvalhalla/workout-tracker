@@ -24,16 +24,14 @@ class UsersController < ApplicationController
         end
     end
 
-    # gets random bodybuilding quote from API
-    def get_quote
-        url = URI("https://bodybuilding-quotes1.p.rapidapi.com/random-quote")
+    # gets random bodybuilding gif from API
+    def get_gif
+        url = URI("https://api.giphy.com/v1/gifs/random?api_key=#{$api_key}&tag=swole")
         http = Net::HTTP.new(url.host, url.port)
         http.use_ssl = true
         http.verify_mode = OpenSSL::SSL::VERIFY_NONE
         
         request = Net::HTTP::Get.new(url)
-        request["X-RapidAPI-Key"] = $api_key
-        request["X-RapidAPI-Host"] = 'bodybuilding-quotes1.p.rapidapi.com'
         
         response = http.request(request)
         render json: response.read_body

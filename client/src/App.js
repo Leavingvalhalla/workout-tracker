@@ -9,6 +9,7 @@ import WorkoutData from './components/WorkoutData';
 import Routines from './components/Routines';
 import ContinueRoutine from './components/ContinueRoutine';
 import Maxes from './components/Maxes';
+import FinishedWorkout from './components/FinishedWorkout';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -110,6 +111,15 @@ function App() {
             <ThemeProvider theme={theme}>
               <CssBaseline />
               <ContinueRoutine />
+            </ThemeProvider>
+          }
+        />
+        <Route
+          path="/finished"
+          element={
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <FinishedWorkout />
             </ThemeProvider>
           }
         />

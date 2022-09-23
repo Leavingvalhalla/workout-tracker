@@ -42,7 +42,6 @@ function MyProvider(props) {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           setTodaysLifts(data);
         });
     }
@@ -53,7 +52,9 @@ function MyProvider(props) {
     if (user.routine_id) {
       fetch(`/routine_lifts/${user.routine_id}`)
         .then((res) => res.json())
-        .then((data) => setRoutineLifts(data));
+        .then((data) => {
+          setRoutineLifts(data);
+        });
     }
   }, [user]);
 
