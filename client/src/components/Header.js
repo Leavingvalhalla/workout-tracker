@@ -10,8 +10,8 @@ function Header() {
     <MyConsumer>
       {(context) => (
         <div className="header">
-          <Stack direction="row">
-            <img src="swole.png" alt="Swole" />
+          <Stack>
+            <img src="swole.png" alt="Swole" width={'600px'} />
             <Login />
             {!context.user && (
               <p>
