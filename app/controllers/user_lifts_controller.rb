@@ -4,6 +4,7 @@ class UserLiftsController < ApplicationController
 
     def create
         lift_id = Lift.find_by(name: params[:lift_name])
+        byebug
         new_lift = UserLift.create!(workout_id: params[:workout_id], lift_id: lift_id.id, weight: params[:weight], reps: params[:reps])
         render json: {lift_name: params[:lift_name], weight: params[:weight], reps: params[:reps], id: new_lift.id, lift_id: new_lift.lift_id}, status: :ok
     end

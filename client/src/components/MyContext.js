@@ -129,8 +129,8 @@ function MyProvider(props) {
       }).then((res) => {
         if (res.ok) {
           res.json().then((data) => {
-            setWorkoutId(data.id);
-            postLift(data.id, liftName, weight, reps);
+            setWorkoutId(data[0].workout_id);
+            postLift(data[0].workout_id, liftName, weight, reps);
           });
         }
       });
@@ -153,6 +153,7 @@ function MyProvider(props) {
   }
 
   function postLift(id, liftName, weight, reps) {
+    console.log(id);
     fetch('/user_lifts', {
       method: 'POST',
       headers: {

@@ -116,8 +116,6 @@ class UsersController < ApplicationController
         end 
     end
 
-    byebug
-
     private
 
     def user_params

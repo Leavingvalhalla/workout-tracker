@@ -12,7 +12,6 @@ class WorkoutsController < ApplicationController
         date = Date.parse(params[:date])
         workout = Workout.where(date: date, user_id: session[:user_id]).first
         lifts = Lift.select('lifts.*, user_lifts.*').joins(:user_lifts).where('user_lifts.workout_id =?', workout.id)
-        byebug
         render json: lifts
     end
 
