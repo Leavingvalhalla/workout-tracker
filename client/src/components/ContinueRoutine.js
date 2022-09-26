@@ -18,13 +18,13 @@ function ContinueRoutine() {
         <div className="app">
           <Typography>
             You are on day {context.user.routine_position} of{' '}
-            {context.user.routine_id == 1
+            {context.user.routine_id === 1
               ? 'r/Fitness Beginner Program'
-              : context.user.routine_id == 2
+              : context.user.routine_id === 2
               ? 'Strong Curves'
-              : context.user.routine_id == 3
+              : context.user.routine_id === 3
               ? "Wendler's 5/3/1"
-              : context.user.routine_id == 4
+              : context.user.routine_id === 4
               ? 'German Volume Training'
               : null}
             .

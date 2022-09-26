@@ -16,80 +16,12 @@ function Workout() {
   const [liftName, setLiftName] = useState('');
   const [weight, setWeight] = useState('');
   const [reps, setReps] = useState('');
-  // const [liftId, setLiftId] = useState('');
-  const [currentWorkout, setCurrentWorkout] = useState([]);
-  const [workoutId, setWorkoutId] = useState('');
   const [liftFormVisible, setLiftFormVisible] = useState(false);
-  // const [update, setUpdate] = useState(false);
-  // const [quoteInfo, setQuoteInfo] = useState('');
-
-  // useEffect(() => {
-  //   fetch('/quote', {
-  //     method: 'GET',
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       setQuoteInfo(data);
-  //       console.log(data);
-  //     });
-  // }, []);
-
-  // get todays date as a string to save to a Workout
-  function getToday() {
-    const date = new Date();
-    const [year, month, day] = [
-      date.getFullYear(),
-      date.getMonth(),
-      date.getDate(),
-    ];
-    return (
-      year.toString() + '-' + (month + 1).toString() + '-' + day.toString()
-    );
-  }
-
-  // creates new Workout, then new user_lift with current workout_id
-  function onLogSet(user) {
-    if (!workoutId) {
-      const today = getToday();
-
-      fetch('/workouts', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ user_id: user.id, date: today }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setWorkoutId(data.id);
-          post_lift(data.id);
-        });
-    } else {
-      post_lift(workoutId);
-    }
-  }
 
   function clearForm() {
     setLiftName('');
     setWeight('');
     setReps('');
-  }
-
-  function post_lift(id) {
-    fetch('/user_lifts', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        workout_id: id,
-        lift_name: liftName,
-        weight,
-        reps,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setCurrentWorkout([...currentWorkout, data]);
-      });
   }
 
   function toggleLiftForm() {
@@ -169,7 +101,7 @@ function Workout() {
             <Stack sx={{ margin: '1%' }} spacing={2} direction="row">
               <Button
                 variant="contained"
-                onClick={() => onLogSet(context.user)}
+                onClick={() => context.onLogSet(liftName, weight, reps)}
               >
                 Save
               </Button>
@@ -177,19 +109,13 @@ function Workout() {
                 Clear
               </Button>
             </Stack>
-            {/* )} */}
           </Box>
           <Button sx={{ margin: '1%' }} onClick={() => toggleLiftForm()}>
             Add new lift type
           </Button>
           {liftFormVisible && <NewLiftForm toggleLiftForm={toggleLiftForm} />}
-          {/* {quoteInfo !== '' && (
-            <Typography>
-              "{quoteInfo.quote}"<br /> -{quoteInfo.author}
-            </Typography>
-          )} */}
 
-          {currentWorkout.map((set, index) => (
+          {context.currentWorkout.map((set, index) => (
             <Card
               variant="outlined"
               key={`set ${index}`}

@@ -12,10 +12,6 @@ function RoutineLift({ lift, index, context }) {
     setReps((reps) => (reps === '' ? 1 : parseInt(reps) + 1));
   }
 
-  function onLogSet() {
-    return;
-  }
-
   return (
     <Card
       variant="outlined"
@@ -48,7 +44,16 @@ function RoutineLift({ lift, index, context }) {
         </Button>
       </Stack>
       <Stack sx={{ margin: '1%' }} spacing={2} direction="row">
-        <Button variant="contained" onClick={() => onLogSet(context.user)}>
+        <Button
+          variant="contained"
+          onClick={() =>
+            context.onLogSet(
+              lift.name,
+              Math.floor((lift.weight * lift.max) / 5) * 5,
+              reps
+            )
+          }
+        >
           Save
         </Button>
       </Stack>

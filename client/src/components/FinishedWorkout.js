@@ -1,20 +1,9 @@
 import { useEffect, useState } from 'react';
 
 function FinishedWorkout() {
-  const [gif, setGif] = useState('');
-
-  useEffect(() => {
-    fetch('/gif', {
-      method: 'GET',
-    })
-      .then((res) => res.json())
-      .then((data) => setGif(data.data.embed_url));
-  }, []);
-  console.log(gif);
   return (
     <div>
       <p>You did it!</p>
-      <img src={gif} />
     </div>
   );
 }

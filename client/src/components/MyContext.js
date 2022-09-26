@@ -7,8 +7,10 @@ function MyProvider(props) {
   const [lifts, setLifts] = useState([]);
   const [loginFailed, setLoginFailed] = useState(false);
   const [workouts, setWorkouts] = useState([]);
+  const [currentWorkout, setCurrentWorkout] = useState([]);
   const [todaysLifts, setTodaysLifts] = useState([]);
   const [routineLifts, setRoutineLifts] = useState([]);
+  const [workoutId, setWorkoutId] = useState('');
 
   // retrieves all workouts for a user (AllWorkouts component)
   function getLifts() {
@@ -105,6 +107,58 @@ function MyProvider(props) {
       });
   }
 
+  // gets today's date to make sure even if the app is closed, you continue your workout from the same day
+  function getToday() {
+    const date = new Date();
+    const [year, month, day] = [
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(),
+    ];
+    return (
+      year.toString() + '-' + (month + 1).toString() + '-' + day.toString()
+    );
+  }
+
+  // creates new Workout, then new user_lift with current workout_id
+  function onLogSet(liftName, weight, reps) {
+    if (!workoutId) {
+      const today = getToday();
+
+      fetch('/workouts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ user_id: user.id, date: today }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setWorkoutId(data.id);
+          postLift(data.id, liftName, weight, reps);
+        });
+    } else {
+      postLift(workoutId, liftName, weight, reps);
+    }
+  }
+
+  function postLift(id, liftName, weight, reps) {
+    fetch('/user_lifts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        workout_id: id,
+        lift_name: liftName,
+        weight,
+        reps,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setCurrentWorkout([...currentWorkout, data]);
+      });
+  }
+
   function finishRoutineWorkout() {
     fetch(`/users/next_routine_pos/${user.id}`, {
       method: 'GET',
@@ -112,7 +166,6 @@ function MyProvider(props) {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setUser(data);
       });
   }
@@ -132,6 +185,8 @@ function MyProvider(props) {
         todaysLifts: todaysLifts,
         routineLifts: routineLifts,
         finishRoutineWorkout,
+        onLogSet,
+        currentWorkout,
       }}
     >
       {props.children}

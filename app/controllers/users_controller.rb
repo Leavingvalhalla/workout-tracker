@@ -47,6 +47,34 @@ class UsersController < ApplicationController
     def next_routine_pos
         user = User.find(params[:id])
         routine = RoutineLift.where('routine_id = ? and position = ?', user.routine_id, (user.routine_position + 1))
+        workout = UserLift.where(workout_id: Workout.last)
+
+        # (0...routine.length) do |i|
+        #     if routine[i].reps > 
+
+
+        # end
+
+        byebug
+
+
+
+        # pull each lift from the current routine day
+        # pull each actual result from user workout
+        # if any lift goes below the minimum for that lift, drop the user.max down 10% (rounded.)
+        # Figure out when each routine goes up in weight, and add that as long as they don't fuck something up before that.
+        # Does a fuckup take another column in the User table? Hopefully not. maybe just let it go down immediately
+        # but still go up when it's supposed to go up. Having a hard time remembering what I do in real life.
+        # Either it goes down immediately or at the end of the cycle. If it's the end of the cycle it may take
+        # that extra User column. Or something even more complicated.
+
+        # Maybe at the end of a fuckup or a go up on weights, have messages that explain the change, on the 
+        # Continue Routine page.
+
+
+
+
+
         if routine[0].position
             user.update(routine_position: (user.routine_position + 1))
             render json: user, status: :ok
