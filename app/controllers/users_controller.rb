@@ -46,16 +46,16 @@ class UsersController < ApplicationController
     # Moves to the next position in the routine, starts back at 1 if routine is over
     def next_routine_pos
         user = User.find(params[:id])
-        routine = RoutineLift.where('routine_id = ? and position = ?', user.routine_id, (user.routine_position + 1))
-        workout = UserLift.where(workout_id: Workout.last)
+        routine = RoutineLift.select('reps', 'weight').where('routine_id = ? and position = ?', user.routine_id, (user.routine_position + 1))
+        workout = UserLift.select('reps').where(workout_id: Workout.last)
 
         # (0...routine.length) do |i|
-        #     if routine[i].reps > 
-
+        #     if routine[i].reps > workout[i].reps
+            
 
         # end
 
-        byebug
+        # byebug
 
 
 

@@ -122,9 +122,19 @@ function MyProvider(props) {
 
   // creates new Workout, then new user_lift with current workout_id
   function onLogSet(liftName, weight, reps) {
+    const today = getToday();
     if (!workoutId) {
-      const today = getToday();
-
+      fetch(`/workouts/byDate/2022-09-27}`, {
+        method: 'GET',
+      }).then((res) => {
+        if (res.ok) {
+          res.json().then((data) => {
+            setWorkoutId(data.id);
+            postLift(workoutId, liftName, weight, reps);
+          });
+        }
+      });
+    } else {
       fetch('/workouts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -135,8 +145,6 @@ function MyProvider(props) {
           setWorkoutId(data.id);
           postLift(data.id, liftName, weight, reps);
         });
-    } else {
-      postLift(workoutId, liftName, weight, reps);
     }
   }
 
