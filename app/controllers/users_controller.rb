@@ -43,45 +43,77 @@ class UsersController < ApplicationController
         render json: user, status: :ok
     end
 
-    # Moves to the next position in the routine, starts back at 1 if routine is over
-    def next_routine_pos
+    
+    def finish_routine_workout
         user = User.find(params[:id])
-        routine = RoutineLift.select('reps', 'weight').where('routine_id = ? and position = ?', user.routine_id, (user.routine_position + 1))
+        routine_lifts = RoutineLift.select('reps', 'weight', 'lift_id').where('routine_id = ? and position = ?', user.routine_id, (user.routine_position + 1))
         workout = UserLift.select('reps').where(workout_id: Workout.last)
+        deloads = []
+        increases = []
 
-        # (0...routine.length) do |i|
-        #     if routine[i].reps > workout[i].reps
-            
+        # checks if any goals were missed, needing to lower the max weight for future workouts,
+        # updates the max and adds it to a list to be rendered
+        (0...routine_lifts.length).times do |i|
+            if routine_lifts[i].reps > workout[i].reps
+                max = Max.where('lift_id = ? and user_id = ?', routine_lifts[i].lift_id, user.id)
+                deloaded_max = ((max.max * 0.9) / 5).ceil * 5
+                max.update(max: deloaded_max)
+                deloads << routine[i].lift_id
+            end
+        end
 
-        # end
+        
 
-        # byebug
+        # checks if time to move up weight on a lift, adds it to a list
 
+        # beginner program adds weight faster than other programs
+        if user.routine_id == 1
+            (0...routine_lifts.length).times do |i|
+                if routine_lifts[i].lift_id not in deloads and routine_lifts[i].lift_id not in increases
+                    increases << routine_lifts[i].lift_id
+                end
+            end
+    
+        else
+            final_lift = RoutineLift.where(routine_id: user.routine_id).order('position DESC').limit(1)
+            if user.routine_position == final_lift.position
+            (0...routine_lifts.length).times do |i|
+                if routine_lifts[i].lift_id not in deloads and routine_lifts[i].lift_id not in increases
+                    increases << routine_lifts[i].lift_id
+                    end
+                end
+            end
+        end
 
-
-        # pull each lift from the current routine day
-        # pull each actual result from user workout
-        # if any lift goes below the minimum for that lift, drop the user.max down 10% (rounded.)
-        # Figure out when each routine goes up in weight, and add that as long as they don't fuck something up before that.
-        # Does a fuckup take another column in the User table? Hopefully not. maybe just let it go down immediately
-        # but still go up when it's supposed to go up. Having a hard time remembering what I do in real life.
-        # Either it goes down immediately or at the end of the cycle. If it's the end of the cycle it may take
-        # that extra User column. Or something even more complicated.
-
-        # Maybe at the end of a fuckup or a go up on weights, have messages that explain the change, on the 
-        # Continue Routine page.
-
-
-
-
+        if increases != []
+            for id in increases
+                max = Max.where('lift_id = ? and user_id = ?', id, user.id)
+                if user.routine == 1 or user.routine == 2
+                    upped_max = max.max + 5    
+                elsif user.routine == 3
+                    # if it's a lower-body lift the weight goes up by more
+                    if id < 10
+                        upped_max = max.max + 10
+                    else
+                        upped_max = max.max + 5
+                    end
+                else
+                    # ups weight by 2%, rounding to 5lbs
+                    upped_max = (max.max + (max.max * .02) / 5).ceil * 5
+                end
+                max.update(max: upped_max)
+            end
+        end
 
         if routine[0].position
             user.update(routine_position: (user.routine_position + 1))
-            render json: user, status: :ok
+            render json: {username: user.username, routine_id: user.routine.id, routine_position: user.routine_position, 
+                deloads: deloads, increases: increases}, status: :ok
         end
         rescue NoMethodError
             user.update(routine_position: 1)
-        render json: user, status: :ok
+            render json: {username: user.username, routine_id: user.routine.id, routine_position: user.routine_position, 
+                deloads: deloads, increases: increases}, status: :ok
     end
 
     private
