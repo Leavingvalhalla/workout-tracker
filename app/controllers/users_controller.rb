@@ -69,16 +69,15 @@ class UsersController < ApplicationController
         # beginner program adds weight faster than other programs
         if user.routine_id == 1
             (0...routine_lifts.length).times do |i|
-                if routine_lifts[i].lift_id not in deloads and routine_lifts[i].lift_id not in increases
+                if !deloads.include?(routine_lifts[i].lift_id) && !increases.include?(routine_lifts[i].lift_id)
                     increases << routine_lifts[i].lift_id
                 end
             end
-    
         else
             final_lift = RoutineLift.where(routine_id: user.routine_id).order('position DESC').limit(1)
             if user.routine_position == final_lift.position
             (0...routine_lifts.length).times do |i|
-                if routine_lifts[i].lift_id not in deloads and routine_lifts[i].lift_id not in increases
+                if !deloads.include?(routine_lifts[i].lift_id) && !increases.include?(routine_lifts[i].lift_id)
                     increases << routine_lifts[i].lift_id
                     end
                 end
@@ -86,7 +85,7 @@ class UsersController < ApplicationController
         end
 
         if increases != []
-            for id in increases
+            increases.each do |id|
                 max = Max.where('lift_id = ? and user_id = ?', id, user.id)
                 if user.routine == 1 or user.routine == 2
                     upped_max = max.max + 5    
@@ -99,7 +98,7 @@ class UsersController < ApplicationController
                     end
                 else
                     # ups weight by 2%, rounding to 5lbs
-                    upped_max = (max.max + (max.max * .02) / 5).ceil * 5
+                    upped_max = (max.max + (max.max * 0.02) / 5).ceil * 5
                 end
                 max.update(max: upped_max)
             end
@@ -114,11 +113,13 @@ class UsersController < ApplicationController
             user.update(routine_position: 1)
             render json: {username: user.username, routine_id: user.routine.id, routine_position: user.routine_position, 
                 deloads: deloads, increases: increases}, status: :ok
+        end 
     end
+
+    byebug
 
     private
 
     def user_params
         params.require(:user).permit(:username, :password, :password_confirmation)
     end
-end

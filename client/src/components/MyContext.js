@@ -124,13 +124,13 @@ function MyProvider(props) {
   function onLogSet(liftName, weight, reps) {
     const today = getToday();
     if (!workoutId) {
-      fetch(`/workouts/byDate/2022-09-27}`, {
+      fetch(`/workouts/byDate/${today}}`, {
         method: 'GET',
       }).then((res) => {
         if (res.ok) {
           res.json().then((data) => {
             setWorkoutId(data.id);
-            postLift(workoutId, liftName, weight, reps);
+            postLift(data.id, liftName, weight, reps);
           });
         }
       });
@@ -138,7 +138,11 @@ function MyProvider(props) {
       fetch('/workouts', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ user_id: user.id, date: today }),
+        body: JSON.stringify({
+          workout_id: workoutId,
+          user_id: user.id,
+          date: today,
+        }),
       })
         .then((res) => res.json())
         .then((data) => {
@@ -174,6 +178,7 @@ function MyProvider(props) {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         setUser(data);
       });
   }
