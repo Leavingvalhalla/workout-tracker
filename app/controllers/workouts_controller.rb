@@ -11,8 +11,12 @@ class WorkoutsController < ApplicationController
     def show_by_date
         date = Date.parse(params[:date])
         workout = Workout.where(date: date, user_id: session[:user_id]).first
-        lifts = Lift.select('lifts.*, user_lifts.*').joins(:user_lifts).where('user_lifts.workout_id =?', workout.id)
-        render json: lifts
+        if workout
+            lifts = Lift.select('lifts.*, user_lifts.*').joins(:user_lifts).where('user_lifts.workout_id =?', workout.id)
+            render json: lifts, status: :ok
+        else
+            render json: {error: 'no such workoutId'}, status: :unprocessable_entity
+        end
     end
 
 end

@@ -120,40 +120,49 @@ function MyProvider(props) {
     );
   }
 
-  // creates new Workout, then new user_lift with current workout_id
+  // Double checks that there isn't already a workout created for today, in case page/cache is refreshed
   function onLogSet(liftName, weight, reps) {
-    const today = getToday();
     if (!workoutId) {
+      const today = getToday();
       fetch(`/workouts/byDate/${today}}`, {
         method: 'GET',
       }).then((res) => {
         if (res.ok) {
+          console.log('res was okay');
           res.json().then((data) => {
             setWorkoutId(data[0].workout_id);
             postLift(data[0].workout_id, liftName, weight, reps);
           });
+        } else {
+          createWorkout(liftName, weight, reps);
         }
       });
     } else {
-      fetch('/workouts', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          workout_id: workoutId,
-          user_id: user.id,
-          date: today,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          setWorkoutId(data.id);
-          postLift(data.id, liftName, weight, reps);
-        });
+      createWorkout(liftName, weight, reps);
     }
   }
 
+  // creates new workoutId
+  function createWorkout(liftName, weight, reps) {
+    const today = getToday();
+    fetch('/workouts', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        workout_id: workoutId,
+        user_id: user.id,
+        date: today,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setWorkoutId(data.id);
+        postLift(data.id, liftName, weight, reps);
+      });
+  }
+
+  // creates new UserLift with current workoutId
   function postLift(id, liftName, weight, reps) {
-    console.log(id);
     fetch('/user_lifts', {
       method: 'POST',
       headers: {
@@ -172,6 +181,7 @@ function MyProvider(props) {
       });
   }
 
+  // takes user to next day of routine, and adds info to user about lifts that need to change
   function finishRoutineWorkout() {
     fetch(`/users/next_routine_pos/${user.id}`, {
       method: 'GET',
