@@ -20,9 +20,6 @@ function Maxes() {
   const [maxCalculated, setMaxCalculated] = useState(false);
   const [expandInstructions, setExpandInstructions] = useState(false);
 
-  // MAYBE TODO: add a MyContext (probably? because it's user dependent and should be a useEffect?) array of
-  // maxes, and put a check mark next to lifts that already have a max.
-
   function calculateMax() {
     let oneRepMax;
     if (reps === 1) {
