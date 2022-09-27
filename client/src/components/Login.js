@@ -41,7 +41,14 @@ function Login() {
               <Button type="submit">Log In</Button>
             </>
           ) : (
-            <Button onClick={() => context.onLogout()}>Log Out</Button>
+            <Button
+              onClick={() => {
+                routeChange();
+                context.onLogout();
+              }}
+            >
+              Log Out
+            </Button>
           )}
           {context.loginFailed && (
             <p>Sorry, that didn't work. Are you sure you have an account?</p>

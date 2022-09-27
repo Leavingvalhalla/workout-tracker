@@ -110,7 +110,7 @@ function MyProvider(props) {
   }
 
   // grabs current maxes to make it easier to set new ones
-  const fetchMaxes = useEffect(() => {
+  useEffect(() => {
     fetch(`/maxes/${user.id}`, {
       method: 'GET',
     })

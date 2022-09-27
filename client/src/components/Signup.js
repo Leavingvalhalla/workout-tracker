@@ -20,7 +20,7 @@ function Signup() {
       body: JSON.stringify({
         username,
         password,
-        passwordConfirmation,
+        password_confirmation: passwordConfirmation,
       }),
     })
       .then((res) => res.json())

@@ -131,7 +131,7 @@ function Maxes() {
             {context.routineLifts.map((lift) => (
               <Typography key={lift.name}>
                 {lift.name}
-                {context.maxes.indexOf(lift.name) && '✓'}
+                {context.maxes.indexOf(lift.name) !== -1 && ' ✓'}
               </Typography>
             ))}
           </Stack>
