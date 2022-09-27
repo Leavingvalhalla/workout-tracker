@@ -1,10 +1,31 @@
 import { useEffect, useState } from 'react';
+import { MyConsumer } from './MyContext';
 
 function FinishedWorkout() {
   return (
-    <div>
-      <p>You did it!</p>
-    </div>
+    <MyConsumer>
+      {(context) => (
+        <div>
+          <p>You did it!</p>
+          {context.user.deloads.length >= 1 && (
+            <div>
+              <p>
+                You didn't quite hit your weight on{' '}
+                {context.user.deloads.length == 1 ? 'a lift' : 'some lifts'}{' '}
+                today:
+              </p>
+              {context.user.deloads.map((lift) => (
+                <p>your max weight for {lift} has gone down 10%.</p>
+              ))}
+            </div>
+          )}
+          {context.user.increases &&
+            context.user.increases.map((lift) => {
+              <p>Your training max for {lift} has gone up!</p>;
+            })}
+        </div>
+      )}
+    </MyConsumer>
   );
 }
 export default FinishedWorkout;

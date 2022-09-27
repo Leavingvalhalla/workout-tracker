@@ -7,7 +7,6 @@ class RoutineLiftsController < ApplicationController
         routine_lifts.weight, routine_lifts.reps').joins(:maxes, :routine_lifts)
         .where('maxes.user_id = ? and routine_lifts.routine_id = ? and routine_lifts.position = ?',
              user.id, user.routine_id, user.routine_position).order('routine_lifts.index ASC')
-    
     render json: maxes
 
     end

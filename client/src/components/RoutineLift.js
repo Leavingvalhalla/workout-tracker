@@ -3,6 +3,7 @@ import { useState } from 'react';
 
 function RoutineLift({ lift, index, context }) {
   const [reps, setReps] = useState('');
+  const [saved, setSaved] = useState(false);
 
   function decreaseReps() {
     setReps((reps) => (reps === '' || reps === 0 ? 0 : reps - 1));
@@ -18,7 +19,16 @@ function RoutineLift({ lift, index, context }) {
   return (
     <Card
       variant="outlined"
-      sx={{ margin: '1%', width: 250, display: 'inline-block' }}
+      sx={
+        saved
+          ? {
+              backgroundColor: '#aa2c2d',
+              margin: '1%',
+              width: 250,
+              display: 'inline-block',
+            }
+          : { margin: '1%', width: 250, display: 'inline-block' }
+      }
       key={`lift ${index}`}
     >
       <Stack direction="row">
@@ -49,13 +59,14 @@ function RoutineLift({ lift, index, context }) {
       <Stack sx={{ margin: '1%' }} spacing={2} direction="row">
         <Button
           variant="contained"
-          onClick={() =>
+          onClick={() => {
+            setSaved(true);
             context.onLogSet(
               lift.name,
               Math.floor((lift.weight * lift.max) / 5) * 5,
               reps
-            )
-          }
+            );
+          }}
         >
           Save
         </Button>
