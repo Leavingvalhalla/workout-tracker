@@ -17,8 +17,7 @@ function Header() {
             <Login />
             {!context.user && (
               <p>
-                Don't have an account?{' '}
-                <Link to="/signup">Create one here.</Link>
+                Don't have an account? <Link to="/signup">Create one now!</Link>
               </p>
             )}
           </Stack>

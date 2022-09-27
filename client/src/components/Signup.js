@@ -1,10 +1,8 @@
 import { TextField, Box, Button } from '@mui/material';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 
 function Signup() {
-  // prettier-ignore
-  const [username, setUsername] = useState('')
+  const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [signedUp, setSignedup] = useState(false);
@@ -67,9 +65,7 @@ function Signup() {
       </Box>
       {signedUp && (
         <div>
-          <p>
-            You did it! Now you can <Link to="/">login.</Link>
-          </p>
+          <p>You did it! Now you can login.</p>
         </div>
       )}
       {failed && (

@@ -5,6 +5,7 @@ const MyContext = React.createContext();
 function MyProvider(props) {
   const [user, setUser] = useState('');
   const [lifts, setLifts] = useState([]);
+  const [maxes, setMaxes] = useState([]);
   const [loginFailed, setLoginFailed] = useState(false);
   const [workouts, setWorkouts] = useState([]);
   const [currentWorkout, setCurrentWorkout] = useState([]);
@@ -95,6 +96,7 @@ function MyProvider(props) {
       .then((data) => setLifts([lifts, data]));
   }
 
+  // sets routine for user
   function setRoutine(routine_id) {
     fetch(`/users/${user.id}`, {
       method: 'PATCH',
@@ -106,6 +108,15 @@ function MyProvider(props) {
         setUser(data);
       });
   }
+
+  // grabs current maxes to make it easier to set new ones
+  const fetchMaxes = useEffect(() => {
+    fetch(`/maxes/${user.id}`, {
+      method: 'GET',
+    })
+      .then((res) => res.json())
+      .then((data) => setMaxes(data));
+  }, [user]);
 
   // gets today's date to make sure even if the app is closed, you continue your workout from the same day
   function getToday() {
@@ -128,7 +139,6 @@ function MyProvider(props) {
         method: 'GET',
       }).then((res) => {
         if (res.ok) {
-          console.log('res was okay');
           res.json().then((data) => {
             setWorkoutId(data[0].workout_id);
             postLift(data[0].workout_id, liftName, weight, reps);
@@ -189,7 +199,6 @@ function MyProvider(props) {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setUser(data);
       });
   }
@@ -211,6 +220,7 @@ function MyProvider(props) {
         finishRoutineWorkout,
         onLogSet,
         currentWorkout,
+        maxes,
       }}
     >
       {props.children}
