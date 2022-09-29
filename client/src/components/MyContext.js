@@ -111,7 +111,7 @@ function MyProvider(props) {
 
   // grabs current maxes to make it easier to set new ones
   useEffect(() => {
-    fetch(`/maxes/${user.id}`, {
+    fetch(`/maxes`, {
       method: 'GET',
     })
       .then((res) => res.json())
@@ -148,7 +148,7 @@ function MyProvider(props) {
         }
       });
     } else {
-      createWorkout(liftName, weight, reps);
+      postLift(workoutId, liftName, weight, reps);
     }
   }
 

@@ -6,8 +6,9 @@ function FinishedWorkout() {
     <MyConsumer>
       {(context) => (
         <div>
+          <p>{console.log(context.user)}</p>
           <p>You did it!</p>
-          {context.user.deloads.length >= 1 && (
+          {context.user.deloads && (
             <div>
               <p>
                 You didn't quite hit your weight on{' '}

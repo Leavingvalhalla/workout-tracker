@@ -9,7 +9,7 @@ class MaxesController < ApplicationController
         end
     end
 
-    def show
+    def index
         maxes = Max.where(user_id: session[:user_id])
         maxes_array = []
         (maxes).each do |max|
