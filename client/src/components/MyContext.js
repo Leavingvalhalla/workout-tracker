@@ -110,13 +110,13 @@ function MyProvider(props) {
   }
 
   // grabs current maxes to make it easier to set new ones
-  useEffect(() => {
-    fetch(`/maxes`, {
-      method: 'GET',
-    })
-      .then((res) => res.json())
-      .then((data) => setMaxes(data));
-  }, [user]);
+  // useEffect(() => {
+  //   fetch(`/maxes`, {
+  //     method: 'GET',
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => setMaxes(data));
+  // }, [user]);
 
   // gets today's date to make sure even if the app is closed, you continue your workout from the same day
   function getToday() {

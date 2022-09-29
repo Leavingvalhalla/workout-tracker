@@ -216,5 +216,5 @@ reps = rand(1..10)
 end
 
 (1..16).each do |i|
-    Max.create({user_id: 1, lift_id: i, max: rand(135..225)})
+    Max.create({user_id: 1, lift_id: i, lift_max: rand(135..225)})
 end

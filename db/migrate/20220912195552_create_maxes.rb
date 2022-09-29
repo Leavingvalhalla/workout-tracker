@@ -3,7 +3,7 @@ class CreateMaxes < ActiveRecord::Migration[7.0]
     create_table :maxes do |t|
       t.integer :lift_id
       t.integer :user_id
-      t.integer :max
+      t.integer :lift_max
       t.integer :goal
 
       t.timestamps

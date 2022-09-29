@@ -23,7 +23,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_12_195552) do
   create_table "maxes", force: :cascade do |t|
     t.integer "lift_id"
     t.integer "user_id"
-    t.integer "max"
+    t.integer "lift_max"
     t.integer "goal"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

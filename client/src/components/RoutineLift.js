@@ -36,7 +36,7 @@ function RoutineLift({ lift, index, context }) {
           {lift.name}
         </Typography>
         <Typography sx={{ margin: '2% 1%' }} variant="h6">
-          {Math.floor((lift.weight * lift.max) / 5) * 5} lbs
+          {Math.floor((lift.weight * lift.lift_max) / 5) * 5} lbs
         </Typography>
       </Stack>
       <Stack sx={{ margin: '1%' }} spacing={2} direction="row">
@@ -63,7 +63,7 @@ function RoutineLift({ lift, index, context }) {
             setSaved(true);
             context.onLogSet(
               lift.name,
-              Math.floor((lift.weight * lift.max) / 5) * 5,
+              Math.floor((lift.weight * lift.lift_max) / 5) * 5,
               reps
             );
           }}

@@ -13,7 +13,7 @@ class MaxesController < ApplicationController
         maxes = Max.where(user_id: session[:user_id])
         maxes_array = []
         (maxes).each do |max|
-            if max.max != 0
+            if max.lift_max != 0
                 lift = Lift.find(max.lift_id)
                 maxes_array << lift.name
             end
