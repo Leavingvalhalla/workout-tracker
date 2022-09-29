@@ -6,7 +6,6 @@ function FinishedWorkout() {
     <MyConsumer>
       {(context) => (
         <div>
-          <p>{console.log(context.user)}</p>
           <p>You did it!</p>
           {context.user.deloads && (
             <div>

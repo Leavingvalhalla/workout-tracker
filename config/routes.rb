@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :user_lifts
   resources :workouts, only: [:create, :show]
   resources :users, except: [:destroy]
-  resources :lifts, only: [:create]
+  resources :lifts, only: [:create, :index]
 
   post '/signup', to: 'users#create'
   get '/me', to: 'users#show'
@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   get '/workouts/byDate/:date', to: 'workouts#show_by_date'
   get 'routine_lifts/:id', to: 'routine_lifts#all_lifts_for_routine'
   get 'routine_lifts/:routine_id/:position', to: 'routine_lifts#show'
-  get 'users/next_routine_pos/:id', to: 'users#finish_routine_workout'
+  get '/finish_routine_workout/', to: 'users#finish_routine_workout'
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
 
 end

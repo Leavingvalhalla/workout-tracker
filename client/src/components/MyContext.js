@@ -193,12 +193,14 @@ function MyProvider(props) {
 
   // takes user to next day of routine, and adds info to user about lifts that need to change
   function finishRoutineWorkout() {
-    fetch(`/users/next_routine_pos/${user.id}`, {
+    console.log(workoutId);
+    fetch(`/finish_routine_workout/`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         setUser(data);
       });
   }
