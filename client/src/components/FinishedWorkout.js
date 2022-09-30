@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { MyConsumer } from './MyContext';
 
 function FinishedWorkout() {
@@ -12,7 +11,7 @@ function FinishedWorkout() {
             <div>
               <p>
                 You didn't quite hit your weight on{' '}
-                {context.user.deloads.length == 1 ? 'a lift' : 'some lifts'}{' '}
+                {context.user.deloads.length === 1 ? 'a lift' : 'some lifts'}{' '}
                 today:
               </p>
               {context.user.deloads.map((liftId) => (
@@ -47,9 +46,9 @@ function FinishedWorkout() {
 }
 export default FinishedWorkout;
 
-// TODO: Finish the rendering: right now the increases aren't rendering. Then change the lift numbers to lift names.
-// Probably on the backend, despite it already being the longest function of all time already.
-// weigh pros and cons of actually listing the exact weights. Probably not too bad if you just select the whole
+// TODO: Style this page, at least a little bit.
+
+// TODO: weigh pros and cons of actually listing the exact weights. Probably not too bad if you just select the whole
 // thing when you start working with it earlier in the function.
 
 // TODO: get gifs to load! right now you're getting a URL from Giphy,
