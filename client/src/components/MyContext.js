@@ -119,11 +119,10 @@ function MyProvider(props) {
   }, [user]);
 
   function onSaveStartingWeight(liftName, startingWeight) {
-    let info = { user_id: user.id, lift: liftName, lift_max: startingWeight };
+    const info = { user_id: user.id, lift: liftName, lift_max: startingWeight };
     const currentLift = lifts.filter((lift) => lift.name === liftName);
     const currentMax = maxes.filter((max) => max.lift_id === currentLift[0].id);
     if (currentMax[0]) {
-      console.log(currentMax);
       fetch(`/maxes/${currentMax[0].id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
