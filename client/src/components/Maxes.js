@@ -35,8 +35,6 @@ function Maxes() {
     <MyConsumer>
       {(context) => (
         <div>
-          {console.log(context.maxes)}
-          {console.log(context.routineLifts)}
           <Box sx={{ margin: '1%' }}>
             <Autocomplete
               sx={{ maxWidth: 275, margin: '1% 1% 1% 5%' }}

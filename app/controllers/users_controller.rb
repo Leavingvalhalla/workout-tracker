@@ -59,6 +59,7 @@ class UsersController < ApplicationController
             end
             if routine_lifts[i].reps > workout[i].reps
                 max = Max.where('lift_id = ? and user_id = ?', routine_lifts[i].lift_id, user.id).first
+                byebug
                 deloaded_max = ((0.9 * max.lift_max) / 5).ceil * 5
                 max.update(lift_max: deloaded_max)
                 deloads << routine_lifts[i].lift_id

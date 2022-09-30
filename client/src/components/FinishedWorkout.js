@@ -6,6 +6,7 @@ function FinishedWorkout() {
     <MyConsumer>
       {(context) => (
         <div>
+          {console.log(context.user)}
           <p>You did it!</p>
           {context.user.deloads && (
             <div>
@@ -14,15 +15,31 @@ function FinishedWorkout() {
                 {context.user.deloads.length == 1 ? 'a lift' : 'some lifts'}{' '}
                 today:
               </p>
-              {context.user.deloads.map((lift) => (
-                <p>your max weight for {lift} has gone down 10%.</p>
+              {context.user.deloads.map((liftId) => (
+                <p>
+                  your max weight for{' '}
+                  {context.lifts
+                    .filter((lift) => lift.id === liftId)[0]
+                    .name.toLowerCase()}{' '}
+                  has gone down 10%.
+                </p>
               ))}
             </div>
           )}
-          {context.user.increases &&
-            context.user.increases.map((lift) => {
-              <p>Your training max for {lift} has gone up!</p>;
-            })}
+          {context.user.increases && (
+            <div>
+              <p>You're moving up!</p>
+              {context.user.increases.map((liftId) => (
+                <p>
+                  Your max for{' '}
+                  {context.lifts
+                    .filter((lift) => lift.id === liftId)[0]
+                    .name.toLowerCase()}{' '}
+                  is going up!
+                </p>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </MyConsumer>

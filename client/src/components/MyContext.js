@@ -123,6 +123,7 @@ function MyProvider(props) {
     const currentLift = lifts.filter((lift) => lift.name === liftName);
     const currentMax = maxes.filter((max) => max.lift_id === currentLift[0].id);
     if (currentMax[0]) {
+      console.log('update');
       fetch(`/maxes/${currentMax[0].id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
@@ -135,6 +136,7 @@ function MyProvider(props) {
           );
         });
     } else {
+      console.log('new');
       fetch('/maxes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -222,14 +224,12 @@ function MyProvider(props) {
 
   // takes user to next day of routine, and adds info to user about lifts that need to change
   function finishRoutineWorkout() {
-    console.log(workoutId);
     fetch(`/finish_routine_workout/`, {
       method: 'GET',
       headers: { 'Content-Type': 'application/json' },
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setUser(data);
       });
   }
