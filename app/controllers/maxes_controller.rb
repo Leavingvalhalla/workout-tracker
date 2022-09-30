@@ -1,6 +1,7 @@
 class MaxesController < ApplicationController
 
     def create
+        puts Max.where(user_id: session[:user_id])
         lift = Lift.find_by(name: params[:lift])
         render json: Max.create(user_id: params[:user_id], lift_id: lift.id, lift_max: params[:lift_max]), status: :created
         
@@ -14,21 +15,14 @@ class MaxesController < ApplicationController
     def update
         lift = Lift.find_by(name: params[:lift])
         max = Max.where('lift_id = ? and user_id = ?', lift.id, session[:user_id]).first            
+        byebug
         max.update(lift_max: params[:lift_max])
         render json: max, status: :ok
     end
 
 
     def index
-        maxes = Max.where(user_id: session[:user_id])
-        maxes_array = []
-        (maxes).each do |max|
-            if max.lift_max != 0
-                lift = Lift.find(max.lift_id)
-                maxes_array << lift.name
-            end
-        end
-        render json: maxes_array
+        render json: Max.where(user_id: session[:user_id]), status: :ok
     end
 
 end

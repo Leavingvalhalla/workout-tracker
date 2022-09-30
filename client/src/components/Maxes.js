@@ -112,7 +112,6 @@ function Maxes() {
             </Button>
           </Stack>
           <Stack>
-            {console.log(context.maxes)}
             <Typography>Your routine includes these lifts:</Typography>
             {context.routineLifts.map((lift) => (
               <Typography key={lift.name}>
