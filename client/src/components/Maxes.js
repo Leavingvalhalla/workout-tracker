@@ -16,7 +16,7 @@ function Maxes() {
   const [reps, setReps] = useState('');
   const [max, setMax] = useState('');
   const [startingWeight, setStartingWeight] = useState('');
-  const [goalWeight, setGoalWeight] = useState('');
+  // const [goalWeight, setGoalWeight] = useState('');
   const [maxCalculated, setMaxCalculated] = useState(false);
   const [expandInstructions, setExpandInstructions] = useState(false);
 
@@ -29,20 +29,6 @@ function Maxes() {
     }
     setMax(oneRepMax);
     setMaxCalculated(true);
-  }
-
-  function onSaveStartingWeight(user) {
-    let info = { user_id: user.id, lift: liftName, max: startingWeight };
-
-    if (goalWeight) {
-      info.goal = goalWeight;
-    }
-
-    fetch('/maxes', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(info),
-    });
   }
 
   return (
@@ -70,10 +56,10 @@ function Maxes() {
                   required for your first set. If this is completed easily, and
                   with good form, add 10-20 lbs and repeat the process until
                   either form starts to falter or your bar speed slows
-                  signficantly. If you are following 5/3/1, use this 1 Rep Max
-                  calculator, and enter that weight as your starting weight. For
-                  all other routines, just use the weight you ended on as your
-                  starting weight.
+                  signficantly. If you are following 5/3/1 or GVT, use this 1
+                  Rep Max calculator, and enter that weight as your starting
+                  weight. For all other routines, just use the weight you ended
+                  on as your starting weight.
                 </Typography>
                 <Button onClick={() => setExpandInstructions(false)}>
                   hide
@@ -111,24 +97,27 @@ function Maxes() {
               label="Starting Weight"
               onChange={(e) => setStartingWeight(e.target.value)}
             />
-            <TextField
+            {/* <TextField
               value={goalWeight}
               label="Goal Weight (optional)"
               onChange={(e) => setGoalWeight(e.target.value)}
-            />
+            /> */}
             <Button
               variant="contained"
-              onClick={() => onSaveStartingWeight(context.user)}
+              onClick={() =>
+                context.onSaveStartingWeight(liftName, startingWeight)
+              }
             >
               Save
             </Button>
           </Stack>
           <Stack>
+            {console.log(context.maxes)}
             <Typography>Your routine includes these lifts:</Typography>
             {context.routineLifts.map((lift) => (
               <Typography key={lift.name}>
                 {lift.name}
-                {context.maxes.indexOf(lift.name) !== -1 && ' ✓'}
+                {lift.name in context.maxes && ' ✓'}
               </Typography>
             ))}
           </Stack>

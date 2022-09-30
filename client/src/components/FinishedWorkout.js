@@ -30,6 +30,11 @@ function FinishedWorkout() {
 }
 export default FinishedWorkout;
 
+// TODO: Finish the rendering: right now the increases aren't rendering. Then change the lift numbers to lift names.
+// Probably on the backend, despite it already being the longest function of all time already.
+// weigh pros and cons of actually listing the exact weights. Probably not too bad if you just select the whole
+// thing when you start working with it earlier in the function.
+
 // TODO: get gifs to load! right now you're getting a URL from Giphy,
 // which won't work. So either you need to find the actual media in the API or you need to
 // use Giphy to embed properly, or you need to try something else.

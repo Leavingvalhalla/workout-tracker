@@ -59,7 +59,7 @@ function MyProvider(props) {
           setRoutineLifts(data);
         });
     }
-  }, [user]);
+  }, [user, maxes]);
 
   function onLogout() {
     fetch('/logout', {
@@ -110,13 +110,46 @@ function MyProvider(props) {
   }
 
   // grabs current maxes to make it easier to set new ones
-  // useEffect(() => {
-  //   fetch(`/maxes`, {
-  //     method: 'GET',
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => setMaxes(data));
-  // }, [user]);
+  useEffect(() => {
+    fetch(`/maxes`, {
+      method: 'GET',
+    })
+      .then((res) => res.json())
+      .then((data) => setMaxes(data));
+  }, [user]);
+
+  function onSaveStartingWeight(liftName, startingWeight) {
+    let info = { user_id: user.id, lift: liftName, lift_max: startingWeight };
+
+    const currentLift = lifts.filter((lift) => lift.name === liftName);
+    console.log(currentLift);
+    console.log(maxes);
+    const currentMax = maxes.filter((max) => max.lift_id === currentLift[0][0]);
+    console.log(currentMax);
+    if (currentMax) {
+      fetch(`/maxes/${currentMax[0].id}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(info),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setMaxes((maxes) =>
+            maxes.map((max) => (max.lift_id === data.id ? data : max))
+          );
+        });
+    } else {
+      fetch('/maxes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(info),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setMaxes((maxes) => [...maxes, data]);
+        });
+    }
+  }
 
   // gets today's date to make sure even if the app is closed, you continue your workout from the same day
   function getToday() {
@@ -223,6 +256,7 @@ function MyProvider(props) {
         onLogSet,
         currentWorkout,
         maxes,
+        onSaveStartingWeight,
       }}
     >
       {props.children}
