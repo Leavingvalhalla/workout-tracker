@@ -1,42 +1,48 @@
+import { Typography } from '@mui/material';
 import { MyConsumer } from './MyContext';
+import { Card, CardContent } from '@mui/material';
 
 function FinishedWorkout() {
   return (
     <MyConsumer>
       {(context) => (
         <div>
-          <p>You did it!</p>
+          <Typography variant="h1">You did it!</Typography>
           {context.user.deloads && (
-            <div>
-              <p>
-                You didn't quite hit your weight on{' '}
-                {context.user.deloads.length === 1 ? 'a lift' : 'some lifts'}{' '}
-                today:
-              </p>
-              {context.user.deloads.map((liftId) => (
-                <p key={liftId}>
-                  your max weight for{' '}
-                  {context.lifts
-                    .filter((lift) => lift.id === liftId)[0]
-                    .name.toLowerCase()}{' '}
-                  has gone down 10%.
-                </p>
-              ))}
-            </div>
+            <Card>
+              <CardContent>
+                <Typography variant="h3">
+                  You didn't quite hit your weight on{' '}
+                  {context.user.deloads.length === 1 ? 'a lift' : 'some lifts'}{' '}
+                  today:
+                </Typography>
+                {context.user.deloads.map((liftId) => (
+                  <Typography variant="h4" key={liftId}>
+                    your max weight for{' '}
+                    {context.lifts
+                      .filter((lift) => lift.id === liftId)[0]
+                      .name.toLowerCase()}{' '}
+                    has gone down 10%.
+                  </Typography>
+                ))}
+              </CardContent>
+            </Card>
           )}
           {context.user.increases && (
-            <div>
-              <p>You're moving up!</p>
-              {context.user.increases.map((liftId) => (
-                <p key={liftId}>
-                  Your max for{' '}
-                  {context.lifts
-                    .filter((lift) => lift.id === liftId)[0]
-                    .name.toLowerCase()}{' '}
-                  is going up!
-                </p>
-              ))}
-            </div>
+            <Card>
+              <CardContent>
+                <Typography variant="h3">You're moving up!</Typography>
+                {context.user.increases.map((liftId) => (
+                  <Typography variant="h4" key={liftId}>
+                    Your max for{' '}
+                    {context.lifts
+                      .filter((lift) => lift.id === liftId)[0]
+                      .name.toLowerCase()}{' '}
+                    is going up!
+                  </Typography>
+                ))}
+              </CardContent>
+            </Card>
           )}
         </div>
       )}
