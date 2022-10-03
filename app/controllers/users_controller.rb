@@ -87,8 +87,7 @@ class UsersController < ApplicationController
                 max = Max.where('lift_id = ? and user_id = ?', id, user.id).first
                 if user.routine_id == 1 or user.routine_id == 2
                     upped_max = max.lift_max + 5    
-                    byebug
-                elsif user.routine == 3
+                elsif user.routine_id == 3
                     # if it's a lower-body lift the weight goes up by more
                     if id < 10
                         upped_max = max.lift_max + 10
@@ -97,7 +96,7 @@ class UsersController < ApplicationController
                     end
                 else
                     # ups weight by 2%, rounding to 5lbs
-                    upped_max = (max.lift_max + (max.lift_max * 0.02) / 5).ceil * 5
+                    upped_max = ((max.lift_max + (max.lift_max * 0.02)) / 5).ceil * 5
                 end
                 max.update(lift_max: upped_max)
             end

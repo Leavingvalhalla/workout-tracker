@@ -12,6 +12,8 @@ function MyProvider(props) {
   const [todaysLifts, setTodaysLifts] = useState([]);
   const [routineLifts, setRoutineLifts] = useState([]);
   const [workoutId, setWorkoutId] = useState('');
+  const [deloads, setDeloads] = useState([]);
+  const [increases, setIncreases] = useState([]);
 
   // TODO: Resave user after maxes are added
 
@@ -233,6 +235,8 @@ function MyProvider(props) {
       .then((data) => {
         console.log(data);
         setUser(data);
+        setIncreases(data.increases);
+        setDeloads(data.deloads);
       });
   }
 
@@ -255,6 +259,8 @@ function MyProvider(props) {
         currentWorkout,
         maxes,
         onSaveStartingWeight,
+        deloads,
+        increases,
       }}
     >
       {props.children}

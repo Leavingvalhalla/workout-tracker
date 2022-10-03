@@ -8,7 +8,7 @@ function FinishedWorkout() {
       {(context) => (
         <div>
           <Typography variant="h1">You did it!</Typography>
-          {context.user.deloads && (
+          {context.deloads.length > 0 && (
             <Card>
               <CardContent>
                 <Typography variant="h3">
@@ -16,7 +16,7 @@ function FinishedWorkout() {
                   {context.user.deloads.length === 1 ? 'a lift' : 'some lifts'}{' '}
                   today:
                 </Typography>
-                {context.user.deloads.map((liftId) => (
+                {context.deloads.map((liftId) => (
                   <Typography variant="h4" key={liftId}>
                     your max weight for{' '}
                     {context.lifts
@@ -28,11 +28,11 @@ function FinishedWorkout() {
               </CardContent>
             </Card>
           )}
-          {context.user.increases && (
+          {context.increases.length > 0 && (
             <Card>
               <CardContent>
                 <Typography variant="h3">You're moving up!</Typography>
-                {context.user.increases.map((liftId) => (
+                {context.increases.map((liftId) => (
                   <Typography variant="h4" key={liftId}>
                     Your max for{' '}
                     {context.lifts
