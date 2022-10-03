@@ -15,8 +15,6 @@ function MyProvider(props) {
   const [deloads, setDeloads] = useState([]);
   const [increases, setIncreases] = useState([]);
 
-  // TODO: Resave user after maxes are added
-
   // retrieves all workouts for a user (AllWorkouts component)
   function getLifts() {
     fetch(`/workouts/${user.id}`, {
@@ -109,7 +107,6 @@ function MyProvider(props) {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setUser(data);
       });
   }
@@ -233,7 +230,6 @@ function MyProvider(props) {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         setUser(data);
         setIncreases(data.increases);
         setDeloads(data.deloads);

@@ -1,6 +1,12 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Autocomplete, TextField, Button } from '@mui/material';
+import {
+  Autocomplete,
+  TextField,
+  Button,
+  Card,
+  CardContent,
+  Typography,
+} from '@mui/material';
 import { MyConsumer } from './MyContext';
 import Chart from './Chart';
 
@@ -8,9 +14,10 @@ function WorkoutData() {
   const [liftName, setLiftName] = useState('');
   const [period, setPeriod] = useState('1m');
   const [chart, setChart] = useState('Estimated 1RM');
-  const [workoutData, setWorkoutData] = useState([]);
+  const [chartInfo, setChartInfo] = useState([]);
   const [topic, setTopic] = useState('');
   const [chartFailed, setChartFailed] = useState(false);
+  const [currentWorkout, setCurrentWorkout] = useState([]);
 
   const periods = ['1m', '3m', '6m', '1y', 'all'];
 
@@ -23,13 +30,12 @@ function WorkoutData() {
       .then((res) => res.json())
       .then((data) => {
         data.error ? setChartFailed(true) : dataResponse(data);
-        // ;
       });
   }
 
   function dataResponse(data) {
     setChartFailed(false);
-    setWorkoutData(data);
+    setChartInfo(data);
     setTopic(chart);
   }
 
@@ -70,8 +76,30 @@ function WorkoutData() {
           <Button className="button" onClick={handleChartSubmit}>
             Submit
           </Button>
-          {!chartFailed && <Chart chartInfo={workoutData} chartTopic={topic} />}
+          {!chartFailed && (
+            <Chart
+              chartInfo={chartInfo}
+              chartTopic={topic}
+              setCurrentWorkout={setCurrentWorkout}
+            />
+          )}
           {chartFailed && <p>We don't seem to have any data for that.</p>}
+          {currentWorkout.length > 0 && (
+            <div>
+              {currentWorkout.map((lift, i) => (
+                <Card
+                  sx={{ width: '15%', margin: '2%', display: 'inline-block' }}
+                  key={i}
+                >
+                  <CardContent>
+                    <Typography>
+                      {lift.weight} x {lift.reps}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
         </div>
       )}
     </MyConsumer>
@@ -79,3 +107,8 @@ function WorkoutData() {
 }
 
 export default WorkoutData;
+
+// TODO: You're so close!!! Make the new data look nice.
+// Then schedule a 1 on 1 with your cohort lead.
+// Then test everything again,
+// Then make everything else look nice.

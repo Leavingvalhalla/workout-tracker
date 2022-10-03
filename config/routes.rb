@@ -15,7 +15,8 @@ Rails.application.routes.draw do
   get '/workouts/byDate/:date', to: 'workouts#show_by_date'
   get 'routine_lifts/:id', to: 'routine_lifts#all_lifts_for_routine'
   get 'routine_lifts/:routine_id/:position', to: 'routine_lifts#show'
-  get '/finish_routine_workout/', to: 'users#finish_routine_workout'
+  get '/finish_routine_workout', to: 'users#finish_routine_workout'
+  get '/workout_by_lift_id/:id', to: 'workouts#show_by_lift_id' 
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
 
 end

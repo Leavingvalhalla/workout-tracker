@@ -19,4 +19,9 @@ class WorkoutsController < ApplicationController
         end
     end
 
+    def show_by_lift_id
+        lift = UserLift.find(params[:id])
+        render json: UserLift.select('weight', 'reps').where(workout_id: lift.workout_id), status: :ok
+    end
+
 end

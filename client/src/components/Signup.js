@@ -25,7 +25,6 @@ function Signup() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         if (data['errors']) {
           setErrors(data['errors']);
         } else {

@@ -19,7 +19,7 @@ ChartJS.register(
   Legend
 );
 
-function Chart({ chartInfo, chartTopic }) {
+function Chart({ chartInfo, chartTopic, setCurrentWorkout }) {
   function parseInfo(workout) {
     if (chartTopic === 'Estimated 1RM') {
       return workout.weight * workout.reps * 0.0333 + workout.weight;
@@ -37,11 +37,17 @@ function Chart({ chartInfo, chartTopic }) {
       responsive: true,
       plugins: {
         legend: {
-          position: 'top',
+          display: false,
         },
       },
-      onClick: (e, item, legend) => {
-        console.log(e);
+      onClick: (e, legendItem, legend) => {
+        console.log(chartInfo[legendItem[0].index]);
+        let id = chartInfo[legendItem[0].index].id;
+        fetch(`/workout_by_lift_id/${id}`, {
+          method: 'GET',
+        })
+          .then((res) => res.json())
+          .then((data) => setCurrentWorkout(data));
       },
     },
 

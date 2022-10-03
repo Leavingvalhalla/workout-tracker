@@ -82,9 +82,6 @@ function AllWorkouts() {
 
   function onDeleteUserLift(id) {
     fetch(`/user_lifts/${id}`, { method: 'DELETE' });
-
-    console.log(id);
-    console.log(liftsByDate);
     setLiftsByDate(liftsByDate.filter((lift) => lift.id !== id));
   }
 
