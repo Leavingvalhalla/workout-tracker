@@ -13,6 +13,8 @@ function MyProvider(props) {
   const [routineLifts, setRoutineLifts] = useState([]);
   const [workoutId, setWorkoutId] = useState('');
 
+  // TODO: Resave user after maxes are added
+
   // retrieves all workouts for a user (AllWorkouts component)
   function getLifts() {
     fetch(`/workouts/${user.id}`, {
@@ -105,6 +107,7 @@ function MyProvider(props) {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         setUser(data);
       });
   }
@@ -123,7 +126,6 @@ function MyProvider(props) {
     const currentLift = lifts.filter((lift) => lift.name === liftName);
     const currentMax = maxes.filter((max) => max.lift_id === currentLift[0].id);
     if (currentMax[0]) {
-      console.log('update');
       fetch(`/maxes/${currentMax[0].id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
@@ -136,7 +138,6 @@ function MyProvider(props) {
           );
         });
     } else {
-      console.log('new');
       fetch('/maxes', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -230,6 +231,7 @@ function MyProvider(props) {
     })
       .then((res) => res.json())
       .then((data) => {
+        console.log(data);
         setUser(data);
       });
   }

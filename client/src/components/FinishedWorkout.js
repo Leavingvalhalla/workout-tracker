@@ -5,9 +5,8 @@ function FinishedWorkout() {
     <MyConsumer>
       {(context) => (
         <div>
-          {console.log(context.user)}
           <p>You did it!</p>
-          {context.user.deloads[0] && (
+          {context.user.deloads && (
             <div>
               <p>
                 You didn't quite hit your weight on{' '}
@@ -15,7 +14,7 @@ function FinishedWorkout() {
                 today:
               </p>
               {context.user.deloads.map((liftId) => (
-                <p>
+                <p key={liftId}>
                   your max weight for{' '}
                   {context.lifts
                     .filter((lift) => lift.id === liftId)[0]
@@ -25,11 +24,11 @@ function FinishedWorkout() {
               ))}
             </div>
           )}
-          {context.user.increases[0] && (
+          {context.user.increases && (
             <div>
               <p>You're moving up!</p>
               {context.user.increases.map((liftId) => (
-                <p>
+                <p key={liftId}>
                   Your max for{' '}
                   {context.lifts
                     .filter((lift) => lift.id === liftId)[0]

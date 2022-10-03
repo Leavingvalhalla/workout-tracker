@@ -8,4 +8,5 @@ class RoutineLift < ApplicationRecord
         if reps == nil
             reps = 0
         end
+    end
 end

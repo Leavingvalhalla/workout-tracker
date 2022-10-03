@@ -10,7 +10,6 @@ class UsersController < ApplicationController
         render json: user, status: :created
         rescue ActiveRecord::RecordInvalid => invalid
             render json: {errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
-        end    
     end
 
     def show
@@ -44,7 +43,7 @@ class UsersController < ApplicationController
     
     def finish_routine_workout
         user = User.find(session[:user_id])
-        routine_lifts = RoutineLift.select('reps', 'weight', 'lift_id').where('routine_id = ? and position = ?', user.routine_id, (user.routine_position + 1))
+        routine_lifts = RoutineLift.select('reps', 'weight', 'lift_id').where('routine_id = ? and position = ?', user.routine_id, (user.routine_position))
         workout = UserLift.select('reps').where(workout_id: Workout.last)
         deloads = []
         increases = []
@@ -54,18 +53,17 @@ class UsersController < ApplicationController
         (0...routine_lifts.length).each do |i|
             if routine_lifts[i].reps > workout[i].reps
                 max = Max.where('lift_id = ? and user_id = ?', routine_lifts[i].lift_id, user.id).first
-                byebug
                 deloaded_max = ((0.9 * max.lift_max) / 5).ceil * 5
                 max.update(lift_max: deloaded_max)
                 deloads << routine_lifts[i].lift_id
             end
-
         end
 
-        
+
+        # variable to check if at end of routine, both for increases and for restarting the user.routine_position
+        final_lift = RoutineLift.where(routine_id: user.routine_id).order('position DESC').first
 
         # checks if time to move up weight on a lift, adds it to a list
-
         # beginner program adds weight faster than other programs
         if user.routine_id == 1
             (0...routine_lifts.length).each do |i|
@@ -103,11 +101,15 @@ class UsersController < ApplicationController
                 max.update(lift_max: upped_max)
             end
         end
-        begin
-            user.update(routine_position: (user.routine_position + 1))
-        rescue NoMethodError
-            user.update(routine_position: 1)
-        end 
+
+
+
+            if user.routine_position == final_lift.position
+                user.update(routine_position: 1)
+            else
+                user.update(routine_position: (user.routine_position + 1))
+            end
+
             render json: {username: user.username, routine_id: user.routine.id, routine_position: user.routine_position, 
                 deloads: deloads, increases: increases}, status: :ok
     end
@@ -117,3 +119,5 @@ class UsersController < ApplicationController
     def user_params
         params.permit(:username, :password, :password_confirmation)
     end
+
+end
