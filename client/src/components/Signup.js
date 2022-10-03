@@ -6,12 +6,12 @@ function Signup() {
   const [password, setPassword] = useState('');
   const [passwordConfirmation, setPasswordConfirmation] = useState('');
   const [signedUp, setSignedup] = useState(false);
-  const [failed, setFailed] = useState(false);
+  const [errors, setErrors] = useState('');
 
   function handleSubmit(e) {
     e.preventDefault();
     setSignedup(false);
-    setFailed(false);
+    setErrors('');
     fetch('/signup', {
       method: 'POST',
       headers: {
@@ -27,7 +27,7 @@ function Signup() {
       .then((data) => {
         console.log(data);
         if (data['errors']) {
-          setFailed(true);
+          setErrors(data['errors']);
         } else {
           setSignedup(true);
         }
@@ -68,9 +68,18 @@ function Signup() {
           <p>You did it! Now you can login.</p>
         </div>
       )}
-      {failed && (
+      {errors[0] === 'Username has already been taken' && (
         <div>
-          <p>Sorry, I think you made a typo. Please try again.</p>
+          <p>Sorry, that name is different. Please pick a different one.</p>
+        </div>
+      )}
+
+      {errors[0] === "Password confirmation doesn't match Password" && (
+        <div>
+          <p>
+            Sorry, it seems you mistyped when you confirmed your password.
+            Please try again.
+          </p>
         </div>
       )}
     </div>

@@ -3,15 +3,15 @@ require 'uri'
 require 'net/http'
 require 'openssl'
 
+# TODO: Take out nil reps means 0 reps, now that it's validated
 
 class UsersController < ApplicationController
 
     def create
-        user = User.create(user_params)
-        if user.valid?
-            render json: user, status: :created
-        else
-            render json: {errors: user.errors.full_messages}, status: :unprocessable_entity
+        user = User.create!(user_params)
+        render json: user, status: :created
+        rescue ActiveRecord::RecordInvalid => invalid
+            render json: {errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
         end    
     end
 
@@ -122,4 +122,3 @@ class UsersController < ApplicationController
     def user_params
         params.permit(:username, :password, :password_confirmation)
     end
-end

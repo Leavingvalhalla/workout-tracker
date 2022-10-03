@@ -13,9 +13,6 @@ function RoutineLift({ lift, index, context }) {
     setReps((reps) => (reps === '' ? 1 : parseInt(reps) + 1));
   }
 
-  // TODO: Add conditional rendering of a "Saved!" after saved so you don't have to hit one again. \
-  // Change the color of the card? Remove it?
-
   return (
     <Card
       variant="outlined"

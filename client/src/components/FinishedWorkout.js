@@ -7,7 +7,7 @@ function FinishedWorkout() {
         <div>
           {console.log(context.user)}
           <p>You did it!</p>
-          {context.user.deloads && (
+          {context.user.deloads[0] && (
             <div>
               <p>
                 You didn't quite hit your weight on{' '}
@@ -25,7 +25,7 @@ function FinishedWorkout() {
               ))}
             </div>
           )}
-          {context.user.increases && (
+          {context.user.increases[0] && (
             <div>
               <p>You're moving up!</p>
               {context.user.increases.map((liftId) => (
