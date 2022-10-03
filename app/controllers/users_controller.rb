@@ -3,8 +3,6 @@ require 'uri'
 require 'net/http'
 require 'openssl'
 
-# TODO: Take out nil reps means 0 reps, now that it's validated
-
 class UsersController < ApplicationController
 
     def create
@@ -54,9 +52,6 @@ class UsersController < ApplicationController
         # checks if any goals were missed, needing to lower the max weight for future workouts,
         # updates the max and adds it to a list to be rendered
         (0...routine_lifts.length).each do |i|
-            if workout[i].reps == nil
-                workout[i].reps = 0
-            end
             if routine_lifts[i].reps > workout[i].reps
                 max = Max.where('lift_id = ? and user_id = ?', routine_lifts[i].lift_id, user.id).first
                 byebug
