@@ -52,7 +52,7 @@ function MyProvider(props) {
           setTodaysLifts(data);
         });
     }
-  }, [user]);
+  }, [user, maxes]);
 
   // retrieves all lifts for routine
   useEffect(() => {
