@@ -31,7 +31,10 @@ function MyProvider(props) {
   useEffect(() => {
     fetch('/me').then((res) => {
       if (res.ok) {
-        res.json().then((currentUser) => setUser(currentUser));
+        res.json().then((currentUser) => {
+          console.log(currentUser);
+          setUser(currentUser);
+        });
       }
     });
     fetch('/lifts')

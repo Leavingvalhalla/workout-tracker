@@ -16,16 +16,12 @@ function RoutineLift({ lift, index, context }) {
   return (
     <Card
       variant="outlined"
-      sx={
-        saved
-          ? {
-              backgroundColor: '#aa2c2d',
-              margin: '1%',
-              width: 250,
-              display: 'inline-block',
-            }
-          : { margin: '1%', width: 250, display: 'inline-block' }
-      }
+      sx={{
+        margin: '1%',
+        width: 250,
+        display: 'inline-block',
+        opacity: saved && 0.5,
+      }}
       key={`lift ${index}`}
     >
       <Stack direction="row">
