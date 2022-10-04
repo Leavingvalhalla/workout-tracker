@@ -215,6 +215,6 @@ reps = rand(1..10)
     end
 end
 
-(1..16).each do |i|
+(1..19).each do |i|
     Max.create({user_id: 1, lift_id: i, lift_max: rand(135..225)})
 end

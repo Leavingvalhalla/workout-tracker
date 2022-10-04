@@ -37,11 +37,10 @@ function Chart({ chartInfo, chartTopic, setCurrentWorkout }) {
       responsive: true,
       plugins: {
         legend: {
-          display: false,
+          display: 'top',
         },
       },
-      onClick: (e, legendItem, legend) => {
-        console.log(chartInfo[legendItem[0].index]);
+      onClick: (e, legendItem) => {
         let id = chartInfo[legendItem[0].index].id;
         fetch(`/workout_by_lift_id/${id}`, {
           method: 'GET',
