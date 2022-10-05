@@ -69,7 +69,7 @@ function Signup() {
       )}
       {errors[0] === 'Username has already been taken' && (
         <div>
-          <p>Sorry, that name is different. Please pick a different one.</p>
+          <p>Sorry, that name is taken. Please pick a different one.</p>
         </div>
       )}
 
