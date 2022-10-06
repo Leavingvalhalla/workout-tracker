@@ -14,6 +14,7 @@ function MyProvider(props) {
   const [workoutId, setWorkoutId] = useState('');
   const [deloads, setDeloads] = useState([]);
   const [increases, setIncreases] = useState([]);
+  const [liftError, setLiftError] = useState();
 
   // retrieves all workouts for a user (AllWorkouts component)
   function getLifts() {
@@ -93,13 +94,22 @@ function MyProvider(props) {
   // Adds new lift options to the autocomplete
   function addLift(e, liftName) {
     e.preventDefault();
+    console.log(liftName);
     fetch('/lifts', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ name: liftName }),
-    })
-      .then((res) => res.json())
-      .then((data) => setLifts([lifts, data]));
+      body: JSON.stringify({ lift_name: liftName }),
+    }).then((res) => {
+      if (res.ok) {
+        res.json().then((data) => {
+          setLifts([lifts, data]);
+        });
+      } else {
+        res.json().then((data) => {
+          setLiftError(data.errors[0]);
+        });
+      }
+    });
   }
 
   // sets routine for user
@@ -261,6 +271,7 @@ function MyProvider(props) {
         onSaveStartingWeight,
         deloads,
         increases,
+        liftError,
       }}
     >
       {props.children}

@@ -1,5 +1,5 @@
 import { MyConsumer } from './MyContext';
-import { Box, TextField, Button, Stack } from '@mui/material';
+import { Box, TextField, Typography, Button, Stack } from '@mui/material';
 import { useState } from 'react';
 
 function NewLiftForm({ toggleLiftForm }) {
@@ -9,7 +9,7 @@ function NewLiftForm({ toggleLiftForm }) {
     <MyConsumer>
       {(context) => (
         <div className="app">
-          <Box onSubmit={(e) => context.addLift(e, liftName)}>
+          <Box>
             <Stack spacing={2} direction="row">
               <TextField
                 onChange={(e) => setLiftName(e.target.value)}
@@ -20,10 +20,16 @@ function NewLiftForm({ toggleLiftForm }) {
                 className="button"
                 variant="contained"
                 type="submit"
-                onClick={() => toggleLiftForm}
+                onClick={(e) => context.addLift(e, liftName)}
               >
                 Add Lift
               </Button>
+              {context.liftError == "Name can't be blank" && (
+                <Typography>You need to type a name!</Typography>
+              )}
+              {context.liftError == 'Name has already been taken' && (
+                <Typography>That lift is already in the system!</Typography>
+              )}
             </Stack>
           </Box>
         </div>

@@ -1,5 +1,6 @@
 class Lift < ApplicationRecord
     validates :name, presence: true
+    validates :name, uniqueness: true
 
     has_many :routine_lifts
     has_many :routines, through: :routine_lifts
