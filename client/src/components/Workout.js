@@ -114,23 +114,24 @@ function Workout() {
             Add new lift type
           </Button>
           {liftFormVisible && <NewLiftForm toggleLiftForm={toggleLiftForm} />}
-
-          {context.currentWorkout.map((set, index) => (
-            <Card
-              variant="outlined"
-              key={`set ${index}`}
-              sx={{ maxWidth: 200, margin: '1%' }}
-            >
-              <CardContent>
-                <Typography variant="h6" gutterBottom>
-                  {set.lift_name}
-                </Typography>
-                <Typography variant="7">
-                  {set.weight} lbs x {set.reps}
-                </Typography>
-              </CardContent>
-            </Card>
-          ))}
+          <div className="row">
+            {context.currentWorkout.map((set, index) => (
+              <Card
+                variant="outlined"
+                key={`set ${index}`}
+                sx={{ maxWidth: 200, margin: '1%' }}
+              >
+                <CardContent>
+                  <Typography variant="h6" gutterBottom>
+                    {set.lift_name}
+                  </Typography>
+                  <Typography variant="7">
+                    {set.weight} lbs x {set.reps}
+                  </Typography>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
         </div>
       )}
     </MyConsumer>

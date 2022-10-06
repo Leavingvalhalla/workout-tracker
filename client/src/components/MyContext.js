@@ -32,7 +32,6 @@ function MyProvider(props) {
     fetch('/me').then((res) => {
       if (res.ok) {
         res.json().then((currentUser) => {
-          console.log(currentUser);
           setUser(currentUser);
         });
       }

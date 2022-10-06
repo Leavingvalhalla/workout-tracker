@@ -49,47 +49,51 @@ function Maxes() {
               Don't know your starting weights?
             </Button>
             {expandInstructions && (
-              <Card variant="outlined" sx={{ width: '50%' }}>
-                <Typography>
-                  If you don't know what weights to start with for your program,
-                  start with an empty barbell and perform the number of reps
-                  required for your first set. If this is completed easily, and
-                  with good form, add 10-20 lbs and repeat the process until
-                  either form starts to falter or your bar speed slows
-                  signficantly. If you are following 5/3/1 or GVT, use this 1
-                  Rep Max calculator, and enter that weight as your starting
-                  weight. For all other routines, just use the weight you ended
-                  on as your starting weight.
-                </Typography>
-                <Button onClick={() => setExpandInstructions(false)}>
-                  hide
-                </Button>
-              </Card>
+              <div>
+                <Card variant="outlined" sx={{ width: '50%' }}>
+                  <Typography>
+                    If you don't know what weights to start with for your
+                    program, start with an empty barbell and perform the number
+                    of reps required for your first set. If this is completed
+                    easily, and with good form, add 10-20 lbs and repeat the
+                    process until either form starts to falter or your bar speed
+                    slows signficantly. If you are following 5/3/1 or GVT, use
+                    this 1 Rep Max calculator, and enter that weight as your
+                    starting weight. For all other routines, just use the weight
+                    you ended on as your starting weight.
+                  </Typography>
+                  <Button onClick={() => setExpandInstructions(false)}>
+                    hide
+                  </Button>
+                </Card>
+                <Stack direction="row">
+                  <TextField
+                    sx={{ margin: '1%', width: 150 }}
+                    value={weight}
+                    label="Weight"
+                    onChange={(e) => setWeight(parseInt(e.target.value))}
+                  />
+                  <TextField
+                    sx={{ margin: '1%', width: 150 }}
+                    value={reps}
+                    label="Reps"
+                    onChange={(e) => setReps(parseInt(e.target.value))}
+                  />
+                  <Button
+                    sx={{ margin: '1%', width: 150 }}
+                    variant="outlined"
+                    onClick={calculateMax}
+                  >
+                    calculate
+                  </Button>
+                  {maxCalculated && (
+                    <Typography>
+                      Your 1 Rep Max for this lift is {max}.
+                    </Typography>
+                  )}
+                </Stack>
+              </div>
             )}
-            <Stack direction="row">
-              <TextField
-                sx={{ margin: '1%', width: 150 }}
-                value={weight}
-                label="Weight"
-                onChange={(e) => setWeight(parseInt(e.target.value))}
-              />
-              <TextField
-                sx={{ margin: '1%', width: 150 }}
-                value={reps}
-                label="Reps"
-                onChange={(e) => setReps(parseInt(e.target.value))}
-              />
-              <Button
-                sx={{ margin: '1%', width: 150 }}
-                variant="outlined"
-                onClick={calculateMax}
-              >
-                calculate
-              </Button>
-              {maxCalculated && (
-                <Typography>Your 1 Rep Max for this lift is {max}.</Typography>
-              )}
-            </Stack>
           </Box>
           <Stack sx={{ margin: '1%' }} direction="row">
             <TextField

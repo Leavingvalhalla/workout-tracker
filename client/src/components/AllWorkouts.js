@@ -20,7 +20,7 @@ function AllWorkouts() {
   const [liftId, setLiftId] = useState('');
   const [userLiftId, setUserLiftId] = useState('');
   const [workoutId, setWorkoutId] = useState('');
-  const [date, setDate] = useState(dayjs('2022-08-01'));
+  const [date, setDate] = useState(dayjs('2022-10-01'));
   const [liftsByDate, setLiftsByDate] = useState([]);
   const [selected, setSelected] = useState('');
 
@@ -102,6 +102,11 @@ function AllWorkouts() {
               />
             </LocalizationProvider>
           </Stack>
+          {selected && liftsByDate.length === 0 && (
+            <Typography>
+              It looks like you don't have a workout from that date.
+            </Typography>
+          )}
           <Stack sx={{ margin: '1%' }} spacing={2} direction="row">
             <TextField
               value={newLift}
@@ -142,35 +147,36 @@ function AllWorkouts() {
               Delete
             </Button>
           </Stack>
-          {liftsByDate.map((lift, index) => (
-            <Card
-              onClick={() => {
-                setSelected(lift.id);
-                fillForm(lift);
-              }}
-              key={`lift ${index}`}
-              variant="outlined"
-              sx={{ width: 175, margin: '1%', display: 'inline-flex' }}
-            >
-              <CardContent>
-                <Typography
-                  sx={{ color: selected === lift.id ? '#aa2c2d' : 'black' }}
-                >
-                  {lift.name}
-                </Typography>
-                <Typography
-                  sx={{ color: selected === lift.id ? '#aa2c2d' : 'black' }}
-                >
-                  {lift.weight} lbs
-                </Typography>
-                <Typography
-                  sx={{ color: selected === lift.id ? '#aa2c2d' : 'black' }}
-                >
-                  {lift.reps} reps
-                </Typography>
-              </CardContent>
-            </Card>
-          ))}
+          {liftsByDate.length > 1 &&
+            liftsByDate.map((lift, index) => (
+              <Card
+                onClick={() => {
+                  setSelected(lift.id);
+                  fillForm(lift);
+                }}
+                key={`lift ${index}`}
+                variant="outlined"
+                sx={{ width: 175, margin: '1%', display: 'inline-flex' }}
+              >
+                <CardContent>
+                  <Typography
+                    sx={{ color: selected === lift.id ? '#aa2c2d' : 'black' }}
+                  >
+                    {lift.name}
+                  </Typography>
+                  <Typography
+                    sx={{ color: selected === lift.id ? '#aa2c2d' : 'black' }}
+                  >
+                    {lift.weight} lbs
+                  </Typography>
+                  <Typography
+                    sx={{ color: selected === lift.id ? '#aa2c2d' : 'black' }}
+                  >
+                    {lift.reps} reps
+                  </Typography>
+                </CardContent>
+              </Card>
+            ))}
         </div>
       )}
     </MyConsumer>
