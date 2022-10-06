@@ -36,7 +36,9 @@ function MyProvider(props) {
         });
       }
     });
-    fetch('/lifts')
+    fetch('/lifts', {
+      method: 'GET',
+    })
       .then((res) => res.json())
       .then((data) => setLifts(data));
   }, []);

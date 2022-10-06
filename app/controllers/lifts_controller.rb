@@ -9,7 +9,11 @@ class LiftsController < ApplicationController
     end
 
     def create
-        render json: Lift.create(name: params[:lift_name]), status: :created
+        lift = Lift.create!(name: params[:lift_name])
+        render json: lift, status: :created
+        rescue ActiveRecord::RecordInvalid => invalid
+            render json: {errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
+
     end
 
 end
