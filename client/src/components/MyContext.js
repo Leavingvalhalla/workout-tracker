@@ -94,7 +94,6 @@ function MyProvider(props) {
   // Adds new lift options to the autocomplete
   function addLift(e, liftName) {
     e.preventDefault();
-    console.log(liftName);
     fetch('/lifts', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

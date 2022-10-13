@@ -119,7 +119,3 @@ function WorkoutData() {
 }
 
 export default WorkoutData;
-
-// TODO: You're so close!!! Make the new data look nice.
-// Then test everything again,
-// Then make everything else look nice.

@@ -58,7 +58,4 @@ function ContinueRoutine() {
   );
 }
 
-// Maybe still figure out a way to render things differently if they're different lift names. Would be good for this
-// page and the regular workout page.
-
 export default ContinueRoutine;
