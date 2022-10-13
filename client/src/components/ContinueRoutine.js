@@ -45,7 +45,7 @@ function ContinueRoutine() {
           {expandLiftForm && <Workout />}
           <Link sx={{ textDecoration: 'none' }} to="/finished">
             <Button
-              sx={{ margin: '1%' }}
+              sx={{ margin: '1%', textDecoration: 'none' }}
               variant="contained"
               onClick={context.finishRoutineWorkout}
             >

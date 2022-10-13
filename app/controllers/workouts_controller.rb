@@ -21,7 +21,7 @@ class WorkoutsController < ApplicationController
 
     def show_by_lift_id
         lift = UserLift.find(params[:id])
-        render json: UserLift.select('weight', 'reps').where(workout_id: lift.workout_id), status: :ok
+        render json: UserLift.select('weight', 'reps').where('lift_id = ? and workout_id = ?', lift.lift_id, lift.workout_id), status: :ok
     end
 
 end
