@@ -51,7 +51,7 @@ class UsersController < ApplicationController
         # checks if any goals were missed, needing to lower the max weight for future workouts,
         # updates the max and adds it to a list to be rendered
         (0...routine_lifts.length).each do |i|
-            if routine_lifts[i].reps > workout[i].reps
+            if (workout[i] == nil or routine_lifts[i].reps > workout[i].reps) and !deloads.include?(routine_lifts[i].lift_id)
                 max = Max.where('lift_id = ? and user_id = ?', routine_lifts[i].lift_id, user.id).first
                 deloaded_max = ((0.9 * max.lift_max) / 5).ceil * 5
                 max.update(lift_max: deloaded_max)
@@ -59,7 +59,7 @@ class UsersController < ApplicationController
             end
         end
 
-
+        
         # variable to check if at end of routine, both for increases and for restarting the user.routine_position
         final_lift = RoutineLift.where(routine_id: user.routine_id).order('position DESC').first
 
