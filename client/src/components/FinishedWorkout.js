@@ -11,7 +11,7 @@ function FinishedWorkout() {
             You did it!
           </Typography>
           {context.deloads.length > 0 && (
-            <Card>
+            <Card variant="contained" sx={{ maxWidth: '50%', margin: '2%' }}>
               <CardContent>
                 <Typography variant="h4">
                   You didn't quite hit your weight on{' '}
@@ -31,7 +31,7 @@ function FinishedWorkout() {
             </Card>
           )}
           {context.increases.length > 0 && (
-            <Card>
+            <Card variant="contained" sx={{ maxWidth: '50%', margin: '2%' }}>
               <CardContent>
                 <Typography variant="h4">You're moving up!</Typography>
                 {context.increases.map((liftId) => (
