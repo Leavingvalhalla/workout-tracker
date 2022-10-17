@@ -128,15 +128,18 @@ function AllWorkouts() {
             />
             <Button
               className="button"
-              onClick={() =>
+              onClick={() => {
+                setNewLift('');
+                setNewWeight('');
+                setNewReps('');
                 onUpdateUserLift(
                   userLiftId,
                   liftId,
                   workoutId,
                   newWeight,
                   newReps
-                )
-              }
+                );
+              }}
             >
               Update
             </Button>
