@@ -73,6 +73,7 @@ function MyProvider(props) {
       method: 'DELETE',
     });
     setUser('');
+    setWorkoutId('');
   }
 
   function onLogin(e, username, password) {
