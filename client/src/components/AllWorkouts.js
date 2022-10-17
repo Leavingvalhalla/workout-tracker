@@ -145,7 +145,12 @@ function AllWorkouts() {
             </Button>
             <Button
               className="button"
-              onClick={() => onDeleteUserLift(userLiftId)}
+              onClick={() => {
+                setNewLift('');
+                setNewWeight('');
+                setNewReps('');
+                onDeleteUserLift(userLiftId);
+              }}
             >
               Delete
             </Button>
