@@ -102,7 +102,13 @@ function Routines() {
               <Button onClick={() => setGerman((german) => !german)}>
                 {german ? 'Hide' : 'see'} sample workout
               </Button>
-              <Button onClick={() => context.setRoutine(4)} variant="contained">
+              <Button
+                onClick={() => {
+                  setSignedUp(true);
+                  context.setRoutine(4);
+                }}
+                variant="contained"
+              >
                 Start Routine
               </Button>
               {german && (
