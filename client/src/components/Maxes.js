@@ -45,12 +45,18 @@ function Maxes() {
               onInputChange={(e, val) => setLiftName(val)}
               renderInput={(params) => <TextField label="Lift" {...params} />}
             />
-            <Button onClick={() => setExpandInstructions(true)}>
+            <Button
+              onClick={() =>
+                setExpandInstructions(
+                  (expandInstructions) => !expandInstructions
+                )
+              }
+            >
               Don't know your starting weights?
             </Button>
             {expandInstructions && (
               <div>
-                <Card variant="outlined" sx={{ width: '50%' }}>
+                <Card variant="contained" sx={{ width: '50%' }}>
                   <Typography>
                     If you don't know what weights to start with for your
                     program, start with an empty barbell and perform the number
@@ -62,9 +68,6 @@ function Maxes() {
                     starting weight. For all other routines, just use the weight
                     you ended on as your starting weight.
                   </Typography>
-                  <Button onClick={() => setExpandInstructions(false)}>
-                    hide
-                  </Button>
                 </Card>
                 <Stack direction="row">
                   <TextField
