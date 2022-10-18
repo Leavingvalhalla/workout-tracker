@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 function ContinueRoutine() {
   const [expandLiftForm, setExpandLiftForm] = useState(false);
+  const [expandInstructions, setExpandInstructions] = useState(false);
 
   function clickAccessoryButton() {
     setExpandLiftForm((expandLiftForm) => !expandLiftForm);
@@ -30,14 +31,27 @@ function ContinueRoutine() {
                   ? 'German Volume Training'
                   : null}
                 .
+              </Typography>
+            </CardContent>
+          </Card>
+          <Button
+            onClick={() =>
+              setExpandInstructions((expandInstructions) => !expandInstructions)
+            }
+          >
+            New to this?
+          </Button>
+          {expandInstructions && (
+            <Card variant="contained" sx={{ width: '50%' }}>
+              <CardContent>
                 <Typography>
                   Complete each rep, in order. If there is a '+' next to the rep
                   count, do as many reps as you can with good form. Do not do
                   any assistance work until your main lifts are completed.
                 </Typography>
-              </Typography>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          )}
           <Box>
             {context.todaysLifts.map((lift, index) => (
               <RoutineLift
