@@ -58,6 +58,11 @@ function Workout() {
               onInputChange={(e, val) => setLiftName(val)}
               renderInput={(params) => <TextField label="lift" {...params} />}
             />
+            {context.userLiftError === 'no lift selected' && (
+              <p style={{ color: '#aa2c2d', margin: '0 0 0 10%' }}>
+                <small>Lift can't be blank.</small>
+              </p>
+            )}
             <Stack sx={{ margin: '1%' }} spacing={2} direction="row">
               <Button
                 sx={{ fontSize: 25 }}
@@ -67,10 +72,17 @@ function Workout() {
                 -
               </Button>
               <TextField
+                error={
+                  context.userLiftError == 'no weight selected' ? true : false
+                }
                 sx={{ margin: '1%' }}
                 value={weight}
                 label="weight"
                 onChange={(e) => setWeight(e.target.value)}
+                helperText={
+                  context.userLiftError == 'no weight selected' &&
+                  "Weight can't be blank."
+                }
               />
               <Button
                 sx={{ fontSize: 25 }}
@@ -86,9 +98,16 @@ function Workout() {
                 -
               </Button>
               <TextField
+                error={
+                  context.userLiftError == 'no reps selected' ? true : false
+                }
                 value={reps}
                 label="reps"
                 onChange={(e) => setReps(e.target.value)}
+                helperText={
+                  context.userLiftError == 'no reps selected' &&
+                  "Reps can't be blank."
+                }
               />
               <Button
                 sx={{ fontSize: 25 }}

@@ -14,7 +14,8 @@ function MyProvider(props) {
   const [workoutId, setWorkoutId] = useState('');
   const [deloads, setDeloads] = useState([]);
   const [increases, setIncreases] = useState([]);
-  const [liftError, setLiftError] = useState();
+  const [liftNameError, setLiftNameError] = useState();
+  const [userLiftError, setUserLiftError] = useState();
 
   // retrieves all workouts for a user (AllWorkouts component)
   function getLifts() {
@@ -74,6 +75,8 @@ function MyProvider(props) {
     });
     setUser('');
     setWorkoutId('');
+    setTodaysLifts([]);
+    setCurrentWorkout([]);
   }
 
   function onLogin(e, username, password) {
@@ -106,7 +109,7 @@ function MyProvider(props) {
         });
       } else {
         res.json().then((data) => {
-          setLiftError(data.errors[0]);
+          setLiftNameError(data.errors[0]);
         });
       }
     });
@@ -178,22 +181,31 @@ function MyProvider(props) {
 
   // Double checks that there isn't already a workout created for today, in case page/cache is refreshed
   function onLogSet(liftName, weight, reps) {
-    if (!workoutId) {
-      const today = getToday();
-      fetch(`/workouts/byDate/${today}}`, {
-        method: 'GET',
-      }).then((res) => {
-        if (res.ok) {
-          res.json().then((data) => {
-            setWorkoutId(data[0].workout_id);
-            postLift(data[0].workout_id, liftName, weight, reps);
-          });
-        } else {
-          createWorkout(liftName, weight, reps);
-        }
-      });
+    if (liftName === '') {
+      setUserLiftError('no lift selected');
+    } else if (weight === '' || weight === 0) {
+      setUserLiftError('no weight selected');
+    } else if (reps === '' || reps === 0) {
+      setUserLiftError('no reps selected');
     } else {
-      postLift(workoutId, liftName, weight, reps);
+      setUserLiftError('');
+      if (!workoutId) {
+        const today = getToday();
+        fetch(`/workouts/byDate/${today}}`, {
+          method: 'GET',
+        }).then((res) => {
+          if (res.ok) {
+            res.json().then((data) => {
+              setWorkoutId(data[0].workout_id);
+              postLift(data[0].workout_id, liftName, weight, reps);
+            });
+          } else {
+            createWorkout(liftName, weight, reps);
+          }
+        });
+      } else {
+        postLift(workoutId, liftName, weight, reps);
+      }
     }
   }
 
@@ -229,11 +241,18 @@ function MyProvider(props) {
         weight,
         reps,
       }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        setCurrentWorkout([...currentWorkout, data]);
-      });
+    }).then((res) => {
+      if (res.ok) {
+        res.json().then((data) => {
+          setCurrentWorkout([...currentWorkout, data]);
+        });
+      } else {
+        res.json().then((data) => {
+          console.log(data);
+          setUserLiftError(data);
+        });
+      }
+    });
   }
 
   // takes user to next day of routine, and adds info to user about lifts that need to change
@@ -271,7 +290,8 @@ function MyProvider(props) {
         onSaveStartingWeight,
         deloads,
         increases,
-        liftError,
+        liftNameError,
+        userLiftError,
       }}
     >
       {props.children}
