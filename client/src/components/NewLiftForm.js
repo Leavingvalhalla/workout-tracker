@@ -24,10 +24,10 @@ function NewLiftForm({ toggleLiftForm }) {
               >
                 Add Lift
               </Button>
-              {context.liftNameError == "Name can't be blank" && (
+              {context.liftNameError === "Name can't be blank" && (
                 <Typography>You need to type a name!</Typography>
               )}
-              {context.liftNameError == 'Name has already been taken' && (
+              {context.liftNameError === 'Name has already been taken' && (
                 <Typography>That lift is already in the system!</Typography>
               )}
             </Stack>

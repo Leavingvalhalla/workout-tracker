@@ -73,14 +73,14 @@ function Workout() {
               </Button>
               <TextField
                 error={
-                  context.userLiftError == 'no weight selected' ? true : false
+                  context.userLiftError === 'no weight selected' ? true : false
                 }
                 sx={{ margin: '1%' }}
                 value={weight}
                 label="weight"
                 onChange={(e) => setWeight(e.target.value)}
                 helperText={
-                  context.userLiftError == 'no weight selected' &&
+                  context.userLiftError === 'no weight selected' &&
                   "Weight can't be blank."
                 }
               />
@@ -99,13 +99,13 @@ function Workout() {
               </Button>
               <TextField
                 error={
-                  context.userLiftError == 'no reps selected' ? true : false
+                  context.userLiftError === 'no reps selected' ? true : false
                 }
                 value={reps}
                 label="reps"
                 onChange={(e) => setReps(e.target.value)}
                 helperText={
-                  context.userLiftError == 'no reps selected' &&
+                  context.userLiftError === 'no reps selected' &&
                   "Reps can't be blank."
                 }
               />
