@@ -1,0 +1,18 @@
+databases:
+  - name: Swole
+    databaseName: Swole
+    user: Zach
+
+services:
+  - type: web
+    name: Swole
+    env: ruby
+    buildCommand: './bin/render-build.sh'
+    startCommand: 'bundle exec puma -C config/puma.rb'
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: Swole
+          property: connectionString
+      - key: RAILS_MASTER_KEY
+        sync: false
