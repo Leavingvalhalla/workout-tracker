@@ -2,7 +2,7 @@
 
 ## Description
 
-Swole is a workout tracking app, specifically for weightlifting. It includes some built-in workout routines that are easy to follow, and some charts to make it easy to visualize your progress.
+Swole is a workout tracking app, specifically for weightlifting. It includes some built-in workout routines that are easy to follow, and some charts to make it easy to visualize your progress. [Short walkthrough here.](https://youtu.be/AEhLKOrnbhM)
 
 ## How to install
 
