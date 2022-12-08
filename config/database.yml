@@ -80,6 +80,7 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
- <<: *default
-  url: <%= ENV['DATABASE_URL'] %>
-  
+  <<: *default
+  database: workout_tracker_production
+  username: workout_tracker
+  password: <%= ENV["WORKOUT_TRACKER_DATABASE_PASSWORD"] %>
