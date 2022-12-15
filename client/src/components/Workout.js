@@ -59,7 +59,14 @@ function Workout() {
               renderInput={(params) => <TextField label="lift" {...params} />}
             />
             {context.userLiftError === 'no lift selected' && (
-              <p style={{ color: '#aa2c2d', margin: '0 0 0 10%' }}>
+              <p
+                style={{
+                  color: '#aa2c2d',
+                  margin: '0 0 0 10%',
+                  padding: 0,
+                  border: 0,
+                }}
+              >
                 <small>Lift can't be blank.</small>
               </p>
             )}
