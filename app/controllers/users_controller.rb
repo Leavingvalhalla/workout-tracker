@@ -18,7 +18,7 @@ class UsersController < ApplicationController
           render json: user
         else
           render json: { error: "Not authorized" }, status: :unauthorized
-        end
+        end 
     end
 
     # gets random bodybuilding gif from API
