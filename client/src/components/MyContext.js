@@ -248,7 +248,6 @@ function MyProvider(props) {
         });
       } else {
         res.json().then((data) => {
-          console.log(data);
           setUserLiftError(data);
         });
       }
