@@ -1,4 +1,3 @@
-require_relative '../../.api_key.rb'
 require 'uri'
 require 'net/http'
 require 'openssl'
@@ -19,19 +18,6 @@ class UsersController < ApplicationController
         else
           render json: { error: "Not authorized" }, status: :unauthorized
         end
-    end
-
-    # gets random bodybuilding gif from API
-    def get_gif
-        url = URI("https://api.giphy.com/v1/gifs/random?api_key=#{$api_key}&tag=swole")
-        http = Net::HTTP.new(url.host, url.port)
-        http.use_ssl = true
-        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-        
-        request = Net::HTTP::Get.new(url)
-        
-        response = http.request(request)
-        render json: response.read_body
     end
 
     def update
