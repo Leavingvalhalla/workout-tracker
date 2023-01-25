@@ -61,6 +61,7 @@ export default NewRoutineLiftForm;
 // TODO:
 // import list of lifts
 // test checkbox
+// Move all descriptions to NewRoutine
 
 // notes:
 
