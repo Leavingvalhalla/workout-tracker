@@ -69,6 +69,14 @@ function Home() {
                   Set Your Maxes
                 </Link>
               </Button>
+              <Button sx={{ margin: '1%' }} variant="outlined">
+                <Link
+                  style={{ textDecoration: 'none', color: '#aa2c2d' }}
+                  to="/new_routine"
+                >
+                  Create a routine
+                </Link>
+              </Button>
             </Box>
           )}
         </div>

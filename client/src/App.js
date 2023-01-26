@@ -13,6 +13,7 @@ import FinishedWorkout from './components/FinishedWorkout';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import NewRoutineLiftForm from './components/NewRoutineLiftForm';
 
 function App() {
   const theme = createTheme({
@@ -93,6 +94,15 @@ function App() {
             <ThemeProvider theme={theme}>
               <CssBaseline />
               <Routines />
+            </ThemeProvider>
+          }
+        />
+        <Route
+          path="/new_routine"
+          element={
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <NewRoutineLiftForm />
             </ThemeProvider>
           }
         />
