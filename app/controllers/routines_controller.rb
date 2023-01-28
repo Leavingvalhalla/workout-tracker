@@ -5,6 +5,7 @@ class RoutinesController < ApplicationController
     end
 
     def create
-        Routine.create(name: params[:name])
+        routine = Routine.create(name: params[:name])
+        render json: routine, status: :ok
     end
 end

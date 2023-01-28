@@ -12,15 +12,7 @@ function CustomRoutines() {
     })
       .then((res) => res.json())
       .then((data) => setCustomRoutines(data));
-  }, [onSaveRoutine]);
-
-  //   fetch('/routines', {
-  //     method: 'POST',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //     body: JSON.stringify({ name: newLiftName }),
-  //   });
+  }, []);
 
   function editRoutine(routineId) {
     // route to new page with correct routine
@@ -35,7 +27,8 @@ function CustomRoutines() {
       body: JSON.stringify({ name: newRoutineName }),
     })
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => setCustomRoutines([...customRoutines, data]));
+    setNewRoutineName('');
   }
 
   return (
@@ -44,10 +37,10 @@ function CustomRoutines() {
         Click the routine you want to edit, or click NEW to start a brand new
         one.
       </Typography>
-      {customRoutines.map((routine) => (
-        <Button onClick={() => editRoutine(routine.id)}>{routine.name}</Button>
-      ))}
-      <Button onClick={() => setNewRoutine((newRoutine) => !newRoutine)}>
+      <Button
+        variant="contained"
+        onClick={() => setNewRoutine((newRoutine) => !newRoutine)}
+      >
         New
       </Button>
       {newRoutine && (
@@ -56,9 +49,18 @@ function CustomRoutines() {
             onChange={(e) => setNewRoutineName(e.target.value)}
             value={newRoutineName}
           />
-          <Button onClick={onSaveRoutine}>save</Button>
+          <Button variant="contained" onClick={onSaveRoutine}>
+            save
+          </Button>
         </div>
       )}
+      <div className="col">
+        {customRoutines.map((routine) => (
+          <Button key={routine.id} onClick={() => editRoutine(routine.id)}>
+            {routine.name}
+          </Button>
+        ))}
+      </div>
     </div>
   );
 }
