@@ -7,6 +7,7 @@ import AllWorkouts from './components/AllWorkouts';
 import NewLiftForm from './components/NewLiftForm';
 import WorkoutData from './components/WorkoutData';
 import Routines from './components/Routines';
+import CustomRoutines from './components/CustomRoutines';
 import ContinueRoutine from './components/ContinueRoutine';
 import Maxes from './components/Maxes';
 import FinishedWorkout from './components/FinishedWorkout';
@@ -14,6 +15,14 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import NewRoutineLiftForm from './components/NewRoutineLiftForm';
+
+// TODO:
+// "custom routines" landing page with current custom routines listed
+// for now "custom" can == routines with id > inbuilt routine ids
+// click a routine to edit, or click a "new routine" button.
+// "new routine" button renders a textInput on that page to enter a name,
+// and a Button to save the routine. After that you can edit your new routine
+// by clicking on it.
 
 function App() {
   const theme = createTheme({
@@ -103,6 +112,15 @@ function App() {
             <ThemeProvider theme={theme}>
               <CssBaseline />
               <NewRoutineLiftForm />
+            </ThemeProvider>
+          }
+        />
+        <Route
+          path="/custom_routines"
+          element={
+            <ThemeProvider theme={theme}>
+              <CssBaseline />
+              <CustomRoutines />
             </ThemeProvider>
           }
         />

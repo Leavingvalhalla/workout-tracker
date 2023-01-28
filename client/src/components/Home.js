@@ -77,6 +77,14 @@ function Home() {
                   Create a routine
                 </Link>
               </Button>
+              <Button sx={{ margin: '1%' }} variant="outlined">
+                <Link
+                  style={{ textDecoration: 'none', color: '#aa2c2d' }}
+                  to="/custom_routines"
+                >
+                  custom routines
+                </Link>
+              </Button>
             </Box>
           )}
         </div>

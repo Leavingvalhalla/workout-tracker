@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   resources :workouts, only: [:create, :show]
   resources :users, except: [:destroy]
   resources :lifts, only: [:create, :index]
+  resources :routines, only: [:create]
 
   post '/signup', to: 'users#create'
   get '/me', to: 'users#show'
@@ -17,6 +18,7 @@ Rails.application.routes.draw do
   get 'routine_lifts/:id', to: 'routine_lifts#all_lifts_for_routine'
   get '/finish_routine_workout', to: 'users#finish_routine_workout'
   get '/workout_by_lift_id/:id', to: 'workouts#show_by_lift_id' 
+  get '/custom_routine_names', to: 'routines#get_custom_names'
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
 
 end

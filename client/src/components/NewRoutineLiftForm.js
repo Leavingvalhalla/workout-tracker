@@ -23,7 +23,7 @@ function NewRoutineLiftForm() {
   const [repsInfo, setRepsInfo] = useState(false);
   const [amrapInfo, setAmrapInfo] = useState(false);
 
-  function onSaveLift(index, position, weight, reps, amrap) {
+  function onSaveLift(liftName, index, position, weight, reps, amrap) {
     return;
   }
 
