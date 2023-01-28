@@ -1,6 +1,6 @@
 class RoutinesController < ApplicationController
     def get_custom_names
-        routines = Routine.select('name, id').where('id > ?', 3)
+        routines = Routine.select('name, id').where('id > ?', 2)
         render json: routines
     end
 

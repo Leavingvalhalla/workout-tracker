@@ -107,7 +107,7 @@ function App() {
           }
         />
         <Route
-          path="/new_routine"
+          path="/edit_routine/:id"
           element={
             <ThemeProvider theme={theme}>
               <CssBaseline />

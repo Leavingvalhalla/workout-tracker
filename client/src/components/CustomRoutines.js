@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Typography, Button, TextField } from '@mui/material';
+import { Link } from 'react-router-dom';
 
 function CustomRoutines() {
   const [newRoutineName, setNewRoutineName] = useState('');
@@ -13,10 +14,6 @@ function CustomRoutines() {
       .then((res) => res.json())
       .then((data) => setCustomRoutines(data));
   }, []);
-
-  function editRoutine(routineId) {
-    // route to new page with correct routine
-  }
 
   function onSaveRoutine() {
     fetch('/routines', {
@@ -56,8 +53,13 @@ function CustomRoutines() {
       )}
       <div className="col">
         {customRoutines.map((routine) => (
-          <Button key={routine.id} onClick={() => editRoutine(routine.id)}>
-            {routine.name}
+          <Button key={routine.id}>
+            <Link
+              style={{ textDecoration: 'none', color: '#aa2c2d' }}
+              to={`/edit_routine/${routine.id}`}
+            >
+              {routine.name}
+            </Link>
           </Button>
         ))}
       </div>

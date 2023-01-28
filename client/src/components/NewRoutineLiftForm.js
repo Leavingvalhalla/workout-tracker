@@ -6,8 +6,9 @@ import {
   Button,
   Autocomplete,
 } from '@mui/material';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { MyConsumer } from './MyContext';
+import { useParams } from 'react-router-dom';
 
 function NewRoutineLiftForm() {
   const [liftName, setLiftName] = useState();
@@ -23,6 +24,15 @@ function NewRoutineLiftForm() {
   const [repsInfo, setRepsInfo] = useState(false);
   const [amrapInfo, setAmrapInfo] = useState(false);
 
+  const params = useParams();
+  console.log(params);
+
+  useEffect(() => {
+    fetch(`/routine_lifts/${params.id}`)
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+  }, []);
+
   function onSaveLift(liftName, index, position, weight, reps, amrap) {
     return;
   }
@@ -31,16 +41,7 @@ function NewRoutineLiftForm() {
     <MyConsumer>
       {(context) => (
         <div className="col">
-          <Typography sx={{ width: '50%' }}>
-            Let's add a new routine! It's a little complicated, but it'll be
-            worth it. First up, what's your routine called?
-          </Typography>
-          <TextField
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            sx={{ width: '300px' }}
-            label="name"
-          />
+          <div></div>
           <Button>Add lift</Button>
           <Autocomplete
             sx={{ maxWidth: 275 }}
