@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   get '/finish_routine_workout', to: 'users#finish_routine_workout'
   get '/workout_by_lift_id/:id', to: 'workouts#show_by_lift_id' 
   get '/custom_routine_names', to: 'routines#get_custom_names'
+  get '/all_routine_lifts/:id', to: 'routine_lifts#full_lift_info_for_routine'
   get "*path", to: "fallback#index", constraints: ->(req) { !req.xhr? && req.format.html? }
 
 end

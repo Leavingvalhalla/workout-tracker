@@ -9,6 +9,7 @@ import {
 import { useState, useEffect } from 'react';
 import { MyConsumer } from './MyContext';
 import { useParams } from 'react-router-dom';
+import CustomRepCard from './CustomRepCard';
 
 function NewRoutineLiftForm() {
   const [liftName, setLiftName] = useState();
@@ -23,14 +24,17 @@ function NewRoutineLiftForm() {
   const [weightInfo, setWeightInfo] = useState(false);
   const [repsInfo, setRepsInfo] = useState(false);
   const [amrapInfo, setAmrapInfo] = useState(false);
+  const [allReps, setAllReps] = useState([]);
 
   const params = useParams();
-  console.log(params);
 
   useEffect(() => {
-    fetch(`/routine_lifts/${params.id}`)
+    fetch(`/all_routine_lifts/${params.id}`)
       .then((res) => res.json())
-      .then((data) => console.log(data));
+      .then((data) => {
+        console.log(data);
+        setAllReps(data);
+      });
   }, []);
 
   function onSaveLift(liftName, index, position, weight, reps, amrap) {
@@ -41,7 +45,18 @@ function NewRoutineLiftForm() {
     <MyConsumer>
       {(context) => (
         <div className="col">
-          <div></div>
+          <div className="row">
+            {allReps.map((rep) => (
+              <CustomRepCard
+                liftName={rep.lift_id}
+                index={rep.index}
+                position={rep.position}
+                weight={rep.weight}
+                reps={rep.reps}
+                amrap={rep.amrap}
+              />
+            ))}
+          </div>
           <Button>Add lift</Button>
           <Autocomplete
             sx={{ maxWidth: 275 }}

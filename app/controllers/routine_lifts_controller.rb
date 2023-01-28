@@ -13,8 +13,14 @@ class RoutineLiftsController < ApplicationController
 
     # just gets the actual lift names, just used for setting maxes
     def all_lifts_for_routine
-        render json: Lift.select('name', 'id').joins(:routine_lifts).where('routine_lifts.routine_id = ?',
+        render json: Lift.joins(:routine_lifts).where('routine_lifts.routine_id = ?',
              params[:id]).distinct, status: :ok
+    end
+
+    def full_lift_info_for_routine
+        lifts = RoutineLift.where('routine_id = ?', params[:id])
+        print lifts
+        render json: lifts, status: :ok
     end
 
 end
