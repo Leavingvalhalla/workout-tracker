@@ -1,5 +1,4 @@
 import {
-  Box,
   TextField,
   Typography,
   Checkbox,
@@ -13,7 +12,6 @@ import CustomRepCard from './CustomRepCard';
 
 function NewRoutineLiftForm() {
   const [liftName, setLiftName] = useState();
-  const [name, setName] = useState('');
   const [index, setIndex] = useState('');
   const [position, setPosition] = useState('');
   const [weight, setWeight] = useState(1);
@@ -35,7 +33,7 @@ function NewRoutineLiftForm() {
         console.log(data);
         setAllReps(data);
       });
-  }, []);
+  }, [params.id]);
 
   function onSaveLift(liftName, index, position, weight, reps, amrap) {
     return;
