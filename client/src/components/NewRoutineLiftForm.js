@@ -176,7 +176,6 @@ export default NewRoutineLiftForm;
 // TODO:
 // test checkbox
 // Move all descriptions to NewRoutine -- or get rid of newroutine?
-// make component RepCard for saved reps
 
 // notes:
 
