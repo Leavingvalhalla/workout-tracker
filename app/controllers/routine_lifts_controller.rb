@@ -1,10 +1,13 @@
 class RoutineLiftsController < ApplicationController
 
     def create
-        routine_lift = RoutineLift.create(lift_name: params[:liftName], 
+        lift = Lift.find_by(name: params[:liftName])
+        routine_lift = RoutineLift.create!(lift_id: lift.id, 
             index: params[:index], position: params[:position], weight: params[:weight], 
             reps: params[:reps], amrap: params[:amrap], routine_id: params[:routineId])
         render json: routine_lift, status: :created
+        rescue ActiveRecord::RecordInvalid => invalid
+            render json: {errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
     end
 
 

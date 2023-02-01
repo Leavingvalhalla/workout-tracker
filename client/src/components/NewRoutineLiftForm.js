@@ -41,18 +41,21 @@ function NewRoutineLiftForm() {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(
-        params.id,
+      body: JSON.stringify({
+        routineId: params.id,
         liftName,
         index,
         position,
         weight,
         reps,
-        amrap
-      ),
+        amrap,
+      }),
     })
       .then((res) => res.json())
-      .then((data) => setAllSets([...allSets, data]));
+      .then((data) => {
+        console.log(data);
+        setAllSets([...allSets, data]);
+      });
   }
 
   return (
@@ -190,7 +193,6 @@ function NewRoutineLiftForm() {
 export default NewRoutineLiftForm;
 
 // TODO:
-// test checkbox
 // Move all descriptions to NewRoutine -- or get rid of newroutine?
 
 // notes:

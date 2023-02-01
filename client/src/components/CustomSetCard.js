@@ -1,6 +1,6 @@
 import { Card, Typography } from '@mui/material';
 
-function CustomRepCard({ liftName, index, position, weight, reps, amrap }) {
+function CustomSetCard({ liftName, index, position, weight, reps, amrap }) {
   return (
     <Card sx={{ width: '200px', margin: '2px' }}>
       <Typography>{liftName}</Typography>
@@ -13,4 +13,4 @@ function CustomRepCard({ liftName, index, position, weight, reps, amrap }) {
   );
 }
 
-export default CustomRepCard;
+export default CustomSetCard;
