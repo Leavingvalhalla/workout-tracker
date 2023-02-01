@@ -1,5 +1,14 @@
 class RoutineLiftsController < ApplicationController
 
+    def create
+        routine_lift = RoutineLift.create(lift_name: params[:liftName], 
+            index: params[:index], position: params[:position], weight: params[:weight], 
+            reps: params[:reps], amrap: params[:amrap])
+        render json: routine_lift, status: :created
+    end
+
+
+
     # retrieves all the details for next workout in user's routine
     def show
     user = User.find(session[:user_id])
@@ -19,7 +28,6 @@ class RoutineLiftsController < ApplicationController
 
     def full_lift_info_for_routine
         lifts = RoutineLift.where('routine_id = ?', params[:id])
-        print lifts
         render json: lifts, status: :ok
     end
 
