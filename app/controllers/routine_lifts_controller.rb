@@ -3,7 +3,7 @@ class RoutineLiftsController < ApplicationController
     def create
         routine_lift = RoutineLift.create(lift_name: params[:liftName], 
             index: params[:index], position: params[:position], weight: params[:weight], 
-            reps: params[:reps], amrap: params[:amrap])
+            reps: params[:reps], amrap: params[:amrap], routine_id: params[:routineId])
         render json: routine_lift, status: :created
     end
 

@@ -8,7 +8,7 @@ import {
 import { useState, useEffect } from 'react';
 import { MyConsumer } from './MyContext';
 import { useParams } from 'react-router-dom';
-import CustomRepCard from './CustomRepCard';
+import CustomSetCard from './CustomSetCard';
 
 function NewRoutineLiftForm() {
   const [liftName, setLiftName] = useState();
@@ -22,7 +22,7 @@ function NewRoutineLiftForm() {
   const [weightInfo, setWeightInfo] = useState(false);
   const [repsInfo, setRepsInfo] = useState(false);
   const [amrapInfo, setAmrapInfo] = useState(false);
-  const [allReps, setAllReps] = useState([]);
+  const [allSets, setAllSets] = useState([]);
 
   const params = useParams();
 
@@ -31,12 +31,28 @@ function NewRoutineLiftForm() {
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        setAllReps(data);
+        setAllSets(data);
       });
   }, [params.id]);
 
-  function onSaveLift(liftName, index, position, weight, reps, amrap) {
-    return;
+  function onSaveSet() {
+    fetch('/routine_lifts', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(
+        params.id,
+        liftName,
+        index,
+        position,
+        weight,
+        reps,
+        amrap
+      ),
+    })
+      .then((res) => res.json())
+      .then((data) => setAllSets([...allSets, data]));
   }
 
   return (
@@ -44,14 +60,14 @@ function NewRoutineLiftForm() {
       {(context) => (
         <div className="col">
           <div className="row">
-            {allReps.map((rep) => (
-              <CustomRepCard
-                liftName={rep.lift_id}
-                index={rep.index}
-                position={rep.position}
-                weight={rep.weight}
-                reps={rep.reps}
-                amrap={rep.amrap}
+            {allSets.map((set) => (
+              <CustomSetCard
+                liftName={set.lift_id}
+                index={set.index}
+                position={set.position}
+                weight={set.weight}
+                reps={set.reps}
+                amrap={set.amrap}
               />
             ))}
           </div>
@@ -162,7 +178,7 @@ function NewRoutineLiftForm() {
           <Button
             sx={{ width: '100px' }}
             variant="contained"
-            onClick={onSaveLift(index, position, weight, reps, amrap)}
+            onClick={() => onSaveSet(index, position, weight, reps, amrap)}
           >
             Save
           </Button>
