@@ -24,9 +24,7 @@ import NewRoutineLiftForm from './components/NewRoutineLiftForm';
 // and a Button to save the routine. After that you can edit your new routine
 // by clicking on it.
 
-// THOUGHTS:
-// Have a useEffect that keeps a hashmap of lift ids to lift names, can add to it
-// when a new lift is added. Is that faster than looking it up on the backend?
+// Add dependency to MyContext#GetLiftNames for adding new lift
 
 function App() {
   const theme = createTheme({

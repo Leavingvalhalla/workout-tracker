@@ -5,8 +5,8 @@ import {
   Button,
   Autocomplete,
 } from '@mui/material';
-import { useState, useEffect } from 'react';
-import { MyConsumer } from './MyContext';
+import { useState, useEffect, useContext } from 'react';
+import { MyConsumer, MyContext } from './MyContext';
 import { useParams } from 'react-router-dom';
 import CustomSetCard from './CustomSetCard';
 
@@ -23,16 +23,14 @@ function NewRoutineLiftForm() {
   const [repsInfo, setRepsInfo] = useState(false);
   const [amrapInfo, setAmrapInfo] = useState(false);
   const [allSets, setAllSets] = useState([]);
+  const { liftNames } = useContext(MyContext);
 
   const params = useParams();
 
   useEffect(() => {
     fetch(`/all_routine_lifts/${params.id}`)
       .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setAllSets(data);
-      });
+      .then((data) => setAllSets(data));
   }, [params.id]);
 
   function onSaveSet() {
@@ -52,11 +50,12 @@ function NewRoutineLiftForm() {
       }),
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        setAllSets([...allSets, data]);
-      });
+      .then((data) => setAllSets([...allSets, data]));
   }
+
+  console.log(
+    liftNames.filter((lift) => lift.id == allSets[0].lift_id)[0].name
+  );
 
   return (
     <MyConsumer>
@@ -65,7 +64,9 @@ function NewRoutineLiftForm() {
           <div className="row">
             {allSets.map((set) => (
               <CustomSetCard
-                liftName={set.lift_id}
+                liftName={
+                  liftNames.filter((lift) => lift.id == set.lift_id)[0].name
+                }
                 index={set.index}
                 position={set.position}
                 weight={set.weight}

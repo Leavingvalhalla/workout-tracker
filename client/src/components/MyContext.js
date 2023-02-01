@@ -5,6 +5,7 @@ const MyContext = React.createContext();
 function MyProvider(props) {
   const [user, setUser] = useState('');
   const [lifts, setLifts] = useState([]);
+  const [liftNames, setLiftNames] = useState([]);
   const [maxes, setMaxes] = useState([]);
   const [loginFailed, setLoginFailed] = useState(false);
   const [workouts, setWorkouts] = useState([]);
@@ -28,6 +29,12 @@ function MyProvider(props) {
         setWorkouts(data);
       });
   }
+
+  useEffect(() => {
+    fetch('/lifts')
+      .then((res) => res.json())
+      .then((data) => setLiftNames(data));
+  }, []);
 
   // checks if user is logged in and seeds the Autocomplete for the Workout component
   useEffect(() => {
@@ -271,17 +278,18 @@ function MyProvider(props) {
   return (
     <MyContext.Provider
       value={{
-        user: user,
-        lifts: lifts,
-        onLogout: onLogout,
-        onLogin: onLogin,
-        loginFailed: loginFailed,
-        workouts: workouts,
-        addLift: addLift,
-        getLifts: getLifts,
-        setRoutine: setRoutine,
-        todaysLifts: todaysLifts,
-        routineLifts: routineLifts,
+        user,
+        lifts,
+        liftNames,
+        onLogout,
+        onLogin,
+        loginFailed,
+        workouts,
+        addLift,
+        getLifts,
+        setRoutine,
+        todaysLifts,
+        routineLifts,
         finishRoutineWorkout,
         onLogSet,
         currentWorkout,
@@ -300,4 +308,4 @@ function MyProvider(props) {
 
 const MyConsumer = MyContext.Consumer;
 
-export { MyProvider, MyConsumer };
+export { MyProvider, MyConsumer, MyContext };
