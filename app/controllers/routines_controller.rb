@@ -1,4 +1,9 @@
 class RoutinesController < ApplicationController
+    
+    def index
+        render json: Routine.all
+    end
+    
     def get_custom_names
         routines = Routine.select('name, id').where('id > ?', 4)
         render json: routines

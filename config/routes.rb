@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   resources :workouts, only: [:create, :show]
   resources :users, except: [:destroy]
   resources :lifts, only: [:create, :index]
-  resources :routines, only: [:create]
+  resources :routines, only: [:create, :index]
   resources :routine_lifts, only: [:create, :destroy]
 
   post '/signup', to: 'users#create'
