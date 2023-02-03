@@ -23,6 +23,7 @@ function NewRoutineLiftForm() {
   const [repsInfo, setRepsInfo] = useState(false);
   const [amrapInfo, setAmrapInfo] = useState(false);
   const [allSets, setAllSets] = useState([]);
+  const [selected, setSelected] = useState('');
   const { liftNames } = useContext(MyContext);
 
   const params = useParams();
@@ -53,9 +54,11 @@ function NewRoutineLiftForm() {
       .then((data) => setAllSets([...allSets, data]));
   }
 
-  console.log(
-    liftNames.filter((lift) => lift.id == allSets[0].lift_id)[0].name
-  );
+  function onDeleteSet(id) {
+    fetch(`/routine_lifts/${id}`, {
+      method: 'DELETE',
+    }).then(setAllSets(allSets.filter((set) => set.id !== id)));
+  }
 
   return (
     <MyConsumer>
@@ -63,16 +66,37 @@ function NewRoutineLiftForm() {
         <div className="col">
           <div className="row">
             {allSets.map((set) => (
-              <CustomSetCard
-                liftName={
-                  liftNames.filter((lift) => lift.id == set.lift_id)[0].name
-                }
-                index={set.index}
-                position={set.position}
-                weight={set.weight}
-                reps={set.reps}
-                amrap={set.amrap}
-              />
+              <div className="row" key={set.id}>
+                <div className="col">
+                  <CustomSetCard
+                    selected={selected === set.id}
+                    liftName={
+                      liftNames.filter((lift) => lift.id === set.lift_id)[0]
+                        .name
+                    }
+                    index={set.index}
+                    position={set.position}
+                    weight={set.weight}
+                    reps={set.reps}
+                    amrap={set.amrap}
+                  />
+                  <div className="row">
+                    <Button
+                      onClick={() => {
+                        setIndex(set.index);
+                        setPosition(set.position);
+                        setWeight(set.weight);
+                        setReps(set.reps);
+                        setAmrap(set.amrap);
+                        setSelected(set.id);
+                      }}
+                    >
+                      edit
+                    </Button>
+                    <Button onClick={() => onDeleteSet(set.id)}>delete</Button>
+                  </div>
+                </div>
+              </div>
             ))}
           </div>
           <Button>Add lift</Button>
