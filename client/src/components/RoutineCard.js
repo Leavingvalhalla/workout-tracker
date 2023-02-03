@@ -4,7 +4,6 @@ import { MyConsumer } from './MyContext';
 
 function RoutineCard({ routine, setSignedUp }) {
   const [seeSample, setSeeSample] = useState(false);
-  const [selected, setSelected] = useState(false);
 
   return (
     <MyConsumer>
