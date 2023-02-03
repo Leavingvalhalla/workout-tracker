@@ -10,6 +10,10 @@ class RoutineLiftsController < ApplicationController
             render json: {errors: invalid.record.errors.full_messages}, status: :unprocessable_entity
     end
 
+    def destroy
+        routine_lift = RoutineLift.find(params[:id])
+        routine_lift.destroy
+    end
 
 
     # retrieves all the details for next workout in user's routine
