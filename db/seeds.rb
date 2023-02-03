@@ -42,28 +42,28 @@ Lift.create([
 Routine.create([
     {name: 'r/Fitness Beginner Routine', summary: 'Fast progression, moderate volume. Great for newcomers.', 
         sample: '
-        3×5+ Barbell Rows\n
-        3×5+ Bench Press\n
+        3×5+ Barbell Rows
+        3×5+ Bench Press
         3×5+ Squats'},
     {name: 'Strong Curves', summary: 'A good intro program with a healthy balance of strength and aesthetics.', 
         sample: '
-        3x10-20 Glute Bridge\n
-        3x10-20 Box Squat\n
-        3x10-20 Dumbbell Romanian Deadlift\n
-        1x10-30 Side Lying Abduction\n
-        1x20-120 second Front Plank\n
+        3x10-20 Glute Bridge
+        3x10-20 Box Squat
+        3x10-20 Dumbbell Romanian Deadlift
+        1x10-30 Side Lying Abduction
+        1x20-120 second Front Plank
         1x20-60 sec Side Plank From Knees (each side)'}, 
     {name: "Wendler's 5/3/1", summary: 'An excellent program for intermediate lifters.', 
         sample: '
-        3x5+ Overhead Press\n
-        1xAMRAP Overhead Press\n
+        3x5+ Overhead Press
+        1xAMRAP Overhead Press
         3x10 Close Grip Bench
         '}, 
     {name: 'German Volume Training', summary: 'Try not to die.', 
         sample: '
-        10x10 Bench Press\n
-        10x10 Barbell Row\n
-        3x10 Chest Fly\n
+        10x10 Bench Press
+        10x10 Barbell Row
+        3x10 Chest Fly
         3x10 Lat Pulldown
         '}])
 

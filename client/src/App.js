@@ -15,14 +15,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import NewRoutineLiftForm from './components/NewRoutineLiftForm';
+import { arrayIncludes } from '@mui/x-date-pickers/internals/utils/utils';
 
 // TODO:
-// "custom routines" landing page with current custom routines listed
-// for now "custom" can == routines with id > inbuilt routine ids
-// click a routine to edit, or click a "new routine" button.
-// "new routine" button renders a textInput on that page to enter a name,
-// and a Button to save the routine. After that you can edit your new routine
-// by clicking on it.
+// backend: for Routines.sample, make it an array, and have the backend parse
+// new ones where more than one space makes a new entry in the array.
 
 // Add dependency to MyContext#GetLiftNames for adding new lift
 
