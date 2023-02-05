@@ -43,7 +43,9 @@ function CustomRoutines() {
       {newRoutine && (
         <div>
           <TextField
+            sx={{ margin: '5px' }}
             onChange={(e) => setNewRoutineName(e.target.value)}
+            label="Routine Name"
             value={newRoutineName}
           />
           <Button variant="contained" onClick={onSaveRoutine}>
