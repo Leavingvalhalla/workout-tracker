@@ -30,7 +30,7 @@ function App() {
         main: '#aa2c2d',
       },
     },
-    spacing: (factor) => `${0.25 * factor}rem`,
+    spacing: (factor: number) => `${0.25 * factor}rem`,
   });
 
   return (
