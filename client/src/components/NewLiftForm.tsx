@@ -1,13 +1,14 @@
+import React from 'react'
 import { MyConsumer } from './MyContext';
 import { Box, TextField, Typography, Button, Stack } from '@mui/material';
 import { useState } from 'react';
 
-function NewLiftForm({ toggleLiftForm }) {
+function NewLiftForm() {
   const [liftName, setLiftName] = useState('');
 
   return (
     <MyConsumer>
-      {(context) => (
+      {(context: any) => (
         <div className="app">
           <Box>
             <Stack spacing={2} direction="row">

@@ -139,7 +139,7 @@ function Workout() {
           <Button sx={{ margin: '1%' }} onClick={() => toggleLiftForm()}>
             Add new lift type
           </Button>
-          {liftFormVisible && <NewLiftForm toggleLiftForm={toggleLiftForm} />}
+          {liftFormVisible && <NewLiftForm />}
           <div className="row">
             {context.currentWorkout.map((set: {lift_name: string, weight: number, reps: number},
              index: number) => (

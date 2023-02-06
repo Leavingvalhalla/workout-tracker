@@ -6,12 +6,21 @@ import {
   TextField,
   Stack,
 } from '@mui/material';
-import { MyConsumer } from './MyContext';
+import React from 'react'
 import { useState } from 'react';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import dayjs from 'dayjs';
+
+interface lift {
+  name: string,
+  id: string,
+  lift_id: string,
+  workout_id: string,
+  weight: string
+  reps: string
+}
 
 function AllWorkouts() {
   const [newLift, setNewLift] = useState('');
@@ -21,10 +30,10 @@ function AllWorkouts() {
   const [userLiftId, setUserLiftId] = useState('');
   const [workoutId, setWorkoutId] = useState('');
   const [date, setDate] = useState(dayjs('2022-10-01'));
-  const [liftsByDate, setLiftsByDate] = useState([]);
+  const [liftsByDate, setLiftsByDate] = useState<lift[]>([]);
   const [selected, setSelected] = useState('');
 
-  function fillForm(workout) {
+  function fillForm(workout: {name: string, weight: string, reps: string, lift_id: string, workout_id: string, id: string}) {
     setNewLift(workout.name);
     setNewWeight(workout.weight);
     setNewReps(workout.reps);
@@ -33,7 +42,7 @@ function AllWorkouts() {
     setUserLiftId(workout.id);
   }
 
-  function handleDateChange(newDate) {
+  function handleDateChange(newDate: any) {
     setDate(newDate);
     let parsedDate =
       newDate.$y.toString() +
@@ -49,8 +58,8 @@ function AllWorkouts() {
         setLiftsByDate(data);
       });
   }
-
-  function onUpdateUserLift(id, lift_id, workout_id, weight, reps) {
+  
+  function onUpdateUserLift(id: string, lift_id: string, workout_id: string, weight: string, reps: string) {
     fetch(`/user_lifts/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
@@ -63,8 +72,8 @@ function AllWorkouts() {
     })
       .then((res) => res.json())
       .then((data) => {
-        setLiftsByDate((liftsByDate) =>
-          liftsByDate.map((lift) =>
+        setLiftsByDate((liftsByDate: lift[]) =>
+          liftsByDate.map((lift: lift) =>
             lift.id === id
               ? {
                   name: data.name,
@@ -80,14 +89,12 @@ function AllWorkouts() {
       });
   }
 
-  function onDeleteUserLift(id) {
+  function onDeleteUserLift(id: string) {
     fetch(`/user_lifts/${id}`, { method: 'DELETE' });
     setLiftsByDate(liftsByDate.filter((lift) => lift.id !== id));
   }
 
   return (
-    <MyConsumer>
-      {(context) => (
         <div className="app">
           <Stack sx={{ margin: '1%' }} spacing={3}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -187,8 +194,5 @@ function AllWorkouts() {
             ))}
         </div>
       )}
-    </MyConsumer>
-  );
-}
 
 export default AllWorkouts;
