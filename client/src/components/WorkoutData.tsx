@@ -1,3 +1,4 @@
+import React from 'react'
 import { useState } from 'react';
 import {
   Autocomplete,
@@ -9,14 +10,18 @@ import {
 } from '@mui/material';
 import { MyConsumer } from './MyContext';
 import Chart from './Chart';
+import lift from '../types/lift';
+import userLift from '../types/userLift';
+import workout from '../types/workout';
+
 
 function WorkoutData() {
-  const [liftName, setLiftName] = useState('');
-  const [period, setPeriod] = useState('1m');
-  const [chart, setChart] = useState('Estimated 1RM');
-  const [chartInfo, setChartInfo] = useState([]);
-  const [topic, setTopic] = useState('');
-  const [chartFailed, setChartFailed] = useState(false);
+  const [liftName, setLiftName] = useState<string>('');
+  const [period, setPeriod] = useState<string>('1m');
+  const [chart, setChart] = useState<string>('Estimated 1RM');
+  const [chartInfo, setChartInfo] = useState<workout[]>([]);
+  const [topic, setTopic] = useState<string>('');
+  const [chartFailed, setChartFailed] = useState<boolean>(false);
   const [currentWorkout, setCurrentWorkout] = useState([]);
 
   const periods = ['1m', '3m', '6m', '1y', 'all'];
@@ -33,7 +38,7 @@ function WorkoutData() {
       });
   }
 
-  function dataResponse(data) {
+  function dataResponse(data: workout[]) {
     setChartFailed(false);
     setChartInfo(data);
     setTopic(chart);
@@ -41,17 +46,16 @@ function WorkoutData() {
 
   return (
     <MyConsumer>
-      {(context) => (
+      {(context: any) => (
         <div className="app">
           <div className="row">
             <div className="column">
               <p>Lift</p>
               <Autocomplete
                 sx={{ maxWidth: 275 }}
-                getOptionLabel={(option) => option.name}
+                getOptionLabel={(option: lift) => option.name}
                 options={context.lifts}
                 inputValue={liftName}
-                label="lift"
                 onInputChange={(e, val) => setLiftName(val)}
                 renderInput={(params) => <TextField {...params} />}
               />
@@ -61,7 +65,6 @@ function WorkoutData() {
                 getOptionLabel={(option) => option}
                 options={periods}
                 inputValue={period}
-                label="period"
                 onInputChange={(e, val) => setPeriod(val)}
                 renderInput={(params) => <TextField {...params} />}
               />
@@ -71,7 +74,6 @@ function WorkoutData() {
                 getOptionLabel={(option) => option}
                 options={charts}
                 inputValue={chart}
-                label="period"
                 onInputChange={(e, val) => setChart(val)}
                 renderInput={(params) => <TextField {...params} />}
               />
@@ -85,7 +87,7 @@ function WorkoutData() {
             </div>
             <div className="column">
               <div className="row">
-                {currentWorkout.map((lift, i) => (
+                {currentWorkout.map((lift: userLift, i) => (
                   <Card
                     sx={{ width: '15%', margin: '2%', display: 'inline-block' }}
                     key={i}

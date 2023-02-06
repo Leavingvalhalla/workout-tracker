@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -19,8 +20,22 @@ ChartJS.register(
   Legend
 );
 
-function Chart({ chartInfo, chartTopic, setCurrentWorkout }) {
-  function parseInfo(workout) {
+interface chartWorkout {
+  id: string
+  weight: number,
+  reps: number,
+  volume: number,
+  date: string
+}
+
+interface ChartProps {
+  chartInfo: chartWorkout[];
+  chartTopic: string;
+  setCurrentWorkout: React.Dispatch<React.SetStateAction<chartWorkout[]>>;
+}
+
+function Chart({chartInfo, chartTopic, setCurrentWorkout}: ChartProps) {
+  function parseInfo(workout: chartWorkout) {
     if (chartTopic === 'Estimated 1RM') {
       return workout.weight * workout.reps * 0.0333 + workout.weight;
     } else if (chartTopic === 'Max Weight') {
@@ -40,7 +55,7 @@ function Chart({ chartInfo, chartTopic, setCurrentWorkout }) {
           display: 'top',
         },
       },
-      onClick: (e, legendItem) => {
+      onClick: (e, legendItem: any) => {
         let id = chartInfo[legendItem[0].index].id;
         fetch(`/workout_by_lift_id/${id}`, {
           method: 'GET',
@@ -50,11 +65,11 @@ function Chart({ chartInfo, chartTopic, setCurrentWorkout }) {
       },
     },
 
-    labels: chartInfo.map((workout) => workout.date.slice(5)),
+    labels: chartInfo.map((workout: chartWorkout) => workout.date.slice(5)),
     datasets: [
       {
         label: chartTopic,
-        data: chartInfo.map((workout) => parseInfo(workout)),
+        data: chartInfo.map((workout: chartWorkout) => parseInfo(workout)),
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
