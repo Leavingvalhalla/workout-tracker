@@ -18,6 +18,10 @@ import CssBaseline from '@mui/material/CssBaseline';
 import NewRoutineLiftForm from './components/NewRoutineLiftForm';
 
 // TODO:
+
+// TS: Once app renders again, check how to destruct Autcomplete OnInputChanges (WorkoutData, Chart)
+
+
 // backend: for Routines.sample, make it an array, and have the backend parse
 // new ones where more than one space makes a new entry in the array.
 
