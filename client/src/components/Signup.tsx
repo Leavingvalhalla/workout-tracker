@@ -1,3 +1,4 @@
+import React from 'react'
 import { TextField, Box, Button } from '@mui/material';
 import { useState } from 'react';
 
@@ -8,7 +9,7 @@ function Signup() {
   const [signedUp, setSignedup] = useState(false);
   const [errors, setErrors] = useState('');
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.SyntheticEvent) {
     e.preventDefault();
     setSignedup(false);
     setErrors('');

@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   Box,
   TextField,
@@ -13,15 +14,15 @@ import { MyConsumer } from './MyContext';
 import NewLiftForm from './NewLiftForm';
 
 function Workout() {
-  const [liftName, setLiftName] = useState('');
-  const [weight, setWeight] = useState('');
-  const [reps, setReps] = useState('');
-  const [liftFormVisible, setLiftFormVisible] = useState(false);
+  const [liftName, setLiftName] = useState<string>('');
+  const [weight, setWeight] = useState<number | undefined>(undefined);
+  const [reps, setReps] = useState<number | undefined>(undefined);
+  const [liftFormVisible, setLiftFormVisible] = useState<boolean>(false);
 
   function clearForm() {
     setLiftName('');
-    setWeight('');
-    setReps('');
+    setWeight(undefined);
+    setReps(undefined);
   }
 
   function toggleLiftForm() {
@@ -29,33 +30,32 @@ function Workout() {
   }
 
   function decreaseWeight() {
-    setWeight((weight) => (weight === '' || weight === 0 ? 0 : weight - 5));
+    setWeight((weight) => (weight === undefined || weight === 0 ? 0 : weight - 5));
   }
 
   function increaseWeight() {
-    setWeight((weight) => (weight === '' ? 5 : parseInt(weight) + 5));
+    setWeight((weight) => (weight === undefined ? 5 : weight + 5));
   }
 
   function decreaseReps() {
-    setReps((reps) => (reps === '' || reps === 0 ? 0 : reps - 1));
+    setReps((reps) => (reps === undefined || reps === 0 ? 0 : reps - 1));
   }
 
   function increaseReps() {
-    setReps((reps) => (reps === '' ? 1 : parseInt(reps) + 1));
+    setReps((reps) => (reps === undefined ? 1 : reps + 1));
   }
 
   return (
     <MyConsumer>
-      {(context) => (
+      {(context: any) => (
         <div className="app">
           <Box>
             <Autocomplete
               sx={{ maxWidth: 275, margin: '1% 1% 1% 5%' }}
-              getOptionLabel={(option) => option.name}
+              getOptionLabel={(option: {id: number, name: string}) => option.name}
               options={context.lifts}
               inputValue={liftName}
-              label="lift"
-              onInputChange={(e, val) => setLiftName(val)}
+              // onInputChange={(e: React.ChangeEvent<HTMLInputElement>, val) => setLiftName(val)}
               renderInput={(params) => <TextField label="lift" {...params} />}
             />
             {context.userLiftError === 'no lift selected' && (
@@ -85,7 +85,7 @@ function Workout() {
                 sx={{ margin: '1%' }}
                 value={weight}
                 label="weight"
-                onChange={(e) => setWeight(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setWeight(parseInt(e.target.value))}
                 helperText={
                   context.userLiftError === 'no weight selected' &&
                   "Weight can't be blank."
@@ -110,7 +110,7 @@ function Workout() {
                 }
                 value={reps}
                 label="reps"
-                onChange={(e) => setReps(e.target.value)}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setReps(parseInt(e.currentTarget.value))}
                 helperText={
                   context.userLiftError === 'no reps selected' &&
                   "Reps can't be blank."
@@ -141,7 +141,8 @@ function Workout() {
           </Button>
           {liftFormVisible && <NewLiftForm toggleLiftForm={toggleLiftForm} />}
           <div className="row">
-            {context.currentWorkout.map((set, index) => (
+            {context.currentWorkout.map((set: {lift_name: string, weight: number, reps: number},
+             index: number) => (
               <Card
                 variant="outlined"
                 key={`set ${index}`}
@@ -151,7 +152,7 @@ function Workout() {
                   <Typography variant="h6" gutterBottom>
                     {set.lift_name}
                   </Typography>
-                  <Typography variant="7">
+                  <Typography variant="h6">
                     {set.weight} lbs x {set.reps}
                   </Typography>
                 </CardContent>

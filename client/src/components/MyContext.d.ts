@@ -21,3 +21,6 @@ export const deloads: number[];
 export const increases: number[];
 export const liftNameError: string;
 export const userLiftError: string;
+export const MyContext: any
+export const MyConsumer: any
+export const MyProvider: any

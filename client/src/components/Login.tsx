@@ -1,3 +1,4 @@
+import React from 'react'
 import { TextField, Box, Button } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -14,7 +15,7 @@ function Login() {
 
   return (
     <MyConsumer>
-      {(context) => (
+      {(context: any) => (
         <Box
           className="app"
           component="form"
