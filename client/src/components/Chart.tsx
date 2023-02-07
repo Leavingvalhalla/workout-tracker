@@ -55,7 +55,7 @@ function Chart({chartInfo, chartTopic, setCurrentWorkout}: ChartProps) {
           display: 'top',
         },
       },
-      onClick: (e: React.SyntheticEvent, legendItem: any) => {
+      onClick: (e, legendItem: any) => {
         let id = chartInfo[legendItem[0].index].id;
         fetch(`/workout_by_lift_id/${id}`, {
           method: 'GET',

@@ -12,15 +12,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import dayjs from 'dayjs';
+import userLift from '../types/userLift';
 
-interface lift {
-  name: string,
-  id: string,
-  lift_id: string,
-  workout_id: string,
-  weight: string
-  reps: string
-}
 
 function AllWorkouts() {
   const [newLift, setNewLift] = useState('');
@@ -30,7 +23,7 @@ function AllWorkouts() {
   const [userLiftId, setUserLiftId] = useState('');
   const [workoutId, setWorkoutId] = useState('');
   const [date, setDate] = useState(dayjs('2022-10-01'));
-  const [liftsByDate, setLiftsByDate] = useState<lift[]>([]);
+  const [liftsByDate, setLiftsByDate] = useState<userLift[]>([]);
   const [selected, setSelected] = useState('');
 
   function fillForm(workout: {name: string, weight: string, reps: string, lift_id: string, workout_id: string, id: string}) {
@@ -72,8 +65,8 @@ function AllWorkouts() {
     })
       .then((res) => res.json())
       .then((data) => {
-        setLiftsByDate((liftsByDate: lift[]) =>
-          liftsByDate.map((lift: lift) =>
+        setLiftsByDate((liftsByDate: userLift[]) =>
+          liftsByDate.map((lift: userLift) =>
             lift.id === id
               ? {
                   name: data.name,
@@ -163,7 +156,7 @@ function AllWorkouts() {
             </Button>
           </Stack>
           {liftsByDate.length > 1 &&
-            liftsByDate.map((lift, index) => (
+            liftsByDate.map((lift: userLift, index) => (
               <Card
                 onClick={() => {
                   setSelected(lift.id);

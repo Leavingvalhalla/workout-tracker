@@ -1,7 +1,8 @@
   interface userLift {
     id: string,
-    liftId: string,
-    workoutId: string,
+    name: string,
+    lift_id: string,
+    workout_id: string,
     weight: string,
     reps: string
   }
