@@ -1,3 +1,4 @@
+import React from 'react'
 import { Typography } from '@mui/material';
 import RoutineCard from './RoutineCard';
 import { useState, useEffect } from 'react';
@@ -13,10 +14,17 @@ function Routines() {
       .then((data) => setRoutines(data));
   }, []);
 
+interface routine {
+  id: string,
+  name: string,
+  summary: string,
+  sample: string
+}
+
   return (
     <div className="row">
       <div className="column">
-        {routines.map((routine) => (
+        {routines.map((routine: routine) => (
           <RoutineCard
             key={routine.id}
             routine={routine}
@@ -24,7 +32,7 @@ function Routines() {
           />
         ))}
       </div>
-      <div sx={{ width: '50%' }} className="column">
+      <div style={{ width: '50%' }} className="column">
         {signedUp && (
           <Typography variant="h5">
             Great, you're all set! Don't forget to
