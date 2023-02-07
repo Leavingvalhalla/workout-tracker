@@ -12,6 +12,7 @@ import {
 import { useState } from 'react';
 import { MyConsumer } from './MyContext';
 import NewLiftForm from './NewLiftForm';
+import userLift from '../types/userLift';
 
 function Workout() {
   const [liftName, setLiftName] = useState<string>('');
@@ -139,9 +140,9 @@ function Workout() {
           <Button sx={{ margin: '1%' }} onClick={() => toggleLiftForm()}>
             Add new lift type
           </Button>
-          {liftFormVisible && <NewLiftForm toggleLiftForm={toggleLiftForm} />}
+          {liftFormVisible && <NewLiftForm />}
           <div className="row">
-            {context.currentWorkout.map((set, index) => (
+            {context.currentWorkout.map((set: userLift, index: string) => (
               <Card
                 variant="outlined"
                 key={`set ${index}`}

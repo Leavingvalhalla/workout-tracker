@@ -2,10 +2,11 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 import { Typography, Button, TextField } from '@mui/material';
 import { Link } from 'react-router-dom';
+import routine from '../types/routine';
 
 function CustomRoutines() {
-  const [newRoutineName, setNewRoutineName] = useState('');
-  const [customRoutines, setCustomRoutines] = useState([]);
+  const [newRoutineName, setNewRoutineName] = useState<string>('');
+  const [customRoutines, setCustomRoutines] = useState<routine[]>([]);
   const [newRoutine, setNewRoutine] = useState(false);
 
   useEffect(() => {

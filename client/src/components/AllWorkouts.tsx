@@ -26,8 +26,8 @@ function AllWorkouts() {
   const [liftsByDate, setLiftsByDate] = useState<userLift[]>([]);
   const [selected, setSelected] = useState<string>('');
 
-  function fillForm(workout: {name: string, weight: string, reps: string, lift_id: string, workout_id: string, id: string}) {
-    setNewLift(workout.name);
+  function fillForm(workout: {lift_name: string, weight: string, reps: string, lift_id: string, workout_id: string, id: string}) {
+    setNewLift(workout.lift_name);
     setNewWeight(workout.weight);
     setNewReps(workout.reps);
     setLiftId(workout.lift_id);
@@ -69,7 +69,7 @@ function AllWorkouts() {
           liftsByDate.map((lift: userLift) =>
             lift.id === id
               ? {
-                  name: data.name,
+                  lift_name: data.name,
                   id: data.id,
                   lift_id: data.lift_id,
                   workout_id: data.workout_id,
@@ -170,7 +170,7 @@ function AllWorkouts() {
                   <Typography
                     sx={{ color: selected === lift.id ? '#aa2c2d' : 'black' }}
                   >
-                    {lift.name}
+                    {lift.lift_name}
                   </Typography>
                   <Typography
                     sx={{ color: selected === lift.id ? '#aa2c2d' : 'black' }}
