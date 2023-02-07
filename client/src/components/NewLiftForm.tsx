@@ -4,7 +4,7 @@ import { Box, TextField, Typography, Button, Stack } from '@mui/material';
 import { useState } from 'react';
 
 function NewLiftForm() {
-  const [liftName, setLiftName] = useState('');
+  const [liftName, setLiftName] = useState<string>('');
 
   return (
     <MyConsumer>

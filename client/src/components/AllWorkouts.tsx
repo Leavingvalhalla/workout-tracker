@@ -16,15 +16,15 @@ import userLift from '../types/userLift';
 
 
 function AllWorkouts() {
-  const [newLift, setNewLift] = useState('');
-  const [newWeight, setNewWeight] = useState('');
-  const [newReps, setNewReps] = useState('');
-  const [liftId, setLiftId] = useState('');
-  const [userLiftId, setUserLiftId] = useState('');
-  const [workoutId, setWorkoutId] = useState('');
+  const [newLift, setNewLift] = useState<string>('');
+  const [newWeight, setNewWeight] = useState<string>('');
+  const [newReps, setNewReps] = useState<string>('');
+  const [liftId, setLiftId] = useState<string>('');
+  const [userLiftId, setUserLiftId] = useState<string>('');
+  const [workoutId, setWorkoutId] = useState<string>('');
   const [date, setDate] = useState(dayjs('2022-10-01'));
   const [liftsByDate, setLiftsByDate] = useState<userLift[]>([]);
-  const [selected, setSelected] = useState('');
+  const [selected, setSelected] = useState<string>('');
 
   function fillForm(workout: {name: string, weight: string, reps: string, lift_id: string, workout_id: string, id: string}) {
     setNewLift(workout.name);

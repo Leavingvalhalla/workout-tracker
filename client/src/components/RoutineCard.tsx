@@ -10,7 +10,7 @@ interface routineCardProps {
 }
 
 function RoutineCard({ routine, setSignedUp }: routineCardProps) {
-  const [seeSample, setSeeSample] = useState(false);
+  const [seeSample, setSeeSample] = useState<boolean>(false);
 
   return (
     <MyConsumer>

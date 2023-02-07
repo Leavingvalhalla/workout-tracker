@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 import routine from '../types/routine';
 
 function Routines() {
-  const [signedUp, setSignedUp] = useState(false);
-  const [routines, setRoutines] = useState([]);
+  const [signedUp, setSignedUp] = useState<boolean>(false);
+  const [routines, setRoutines] = useState<routine[]>([]);
 
   useEffect(() => {
     fetch('/routines')

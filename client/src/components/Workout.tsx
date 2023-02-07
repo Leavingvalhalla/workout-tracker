@@ -15,14 +15,14 @@ import NewLiftForm from './NewLiftForm';
 
 function Workout() {
   const [liftName, setLiftName] = useState<string>('');
-  const [weight, setWeight] = useState<number | undefined>(undefined);
-  const [reps, setReps] = useState<number | undefined>(undefined);
+  const [weight, setWeight] = useState<string>('');
+  const [reps, setReps] = useState<string>('');
   const [liftFormVisible, setLiftFormVisible] = useState<boolean>(false);
 
   function clearForm() {
     setLiftName('');
-    setWeight(undefined);
-    setReps(undefined);
+    setWeight('');
+    setReps('');
   }
 
   function toggleLiftForm() {
@@ -30,19 +30,19 @@ function Workout() {
   }
 
   function decreaseWeight() {
-    setWeight((weight) => (weight === undefined || weight === 0 ? 0 : weight - 5));
+    setWeight((weight) => (weight === '' || parseInt(weight) === 0 ? '0' : (parseInt(weight) - 5).toString()));
   }
 
   function increaseWeight() {
-    setWeight((weight) => (weight === undefined ? 5 : weight + 5));
+    setWeight((weight) => (weight === '' ? '5' : (parseInt(weight) + 5).toString()));
   }
 
   function decreaseReps() {
-    setReps((reps) => (reps === undefined || reps === 0 ? 0 : reps - 1));
+    setReps((reps) => (reps === '' || parseInt(reps) === 0 ? '0' : (parseInt(reps) - 1).toString()));
   }
 
   function increaseReps() {
-    setReps((reps) => (reps === undefined ? 1 : reps + 1));
+    setReps((reps) => (reps === '' ? '1' : (parseInt(reps) + 1).toString()));
   }
 
   return (
@@ -52,10 +52,10 @@ function Workout() {
           <Box>
             <Autocomplete
               sx={{ maxWidth: 275, margin: '1% 1% 1% 5%' }}
-              getOptionLabel={(option: {id: number, name: string}) => option.name}
+              getOptionLabel={(option: any) => option.name}
               options={context.lifts}
               inputValue={liftName}
-              // onInputChange={(e: React.ChangeEvent<HTMLInputElement>, val) => setLiftName(val)}
+              onInputChange={(e, val) => setLiftName(val)}
               renderInput={(params) => <TextField label="lift" {...params} />}
             />
             {context.userLiftError === 'no lift selected' && (
@@ -85,7 +85,7 @@ function Workout() {
                 sx={{ margin: '1%' }}
                 value={weight}
                 label="weight"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setWeight(parseInt(e.target.value))}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setWeight(e.target.value)}
                 helperText={
                   context.userLiftError === 'no weight selected' &&
                   "Weight can't be blank."
@@ -110,7 +110,7 @@ function Workout() {
                 }
                 value={reps}
                 label="reps"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setReps(parseInt(e.currentTarget.value))}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setReps(e.target.value)}
                 helperText={
                   context.userLiftError === 'no reps selected' &&
                   "Reps can't be blank."
@@ -139,10 +139,9 @@ function Workout() {
           <Button sx={{ margin: '1%' }} onClick={() => toggleLiftForm()}>
             Add new lift type
           </Button>
-          {liftFormVisible && <NewLiftForm />}
+          {liftFormVisible && <NewLiftForm toggleLiftForm={toggleLiftForm} />}
           <div className="row">
-            {context.currentWorkout.map((set: {lift_name: string, weight: number, reps: number},
-             index: number) => (
+            {context.currentWorkout.map((set, index) => (
               <Card
                 variant="outlined"
                 key={`set ${index}`}
