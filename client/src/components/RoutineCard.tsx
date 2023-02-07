@@ -5,7 +5,8 @@ import { MyConsumer } from './MyContext';
 import routine from '../types/routine';
 
 interface routineCardProps {
-  routine: routine, setSignedup: 
+  routine: routine, setSignedUp: React.Dispatch<React.SetStateAction<boolean>>;
+
 }
 
 function RoutineCard({ routine, setSignedUp }: routineCardProps) {
