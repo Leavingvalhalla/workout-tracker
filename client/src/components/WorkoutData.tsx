@@ -43,22 +43,23 @@ function WorkoutData() {
     setChartInfo(data);
     setTopic(chart);
   }
-
-  function onLiftChange(e:any, val:any) {
-    console.log(e, val)
-    setLiftName(val)
-  }
-  
-  function onPeriodChange(e:any, val:any) {
-    setPeriod(val)
-    console.log(e, val);
-  }
   
   function onChartChange(e:any, val:any) {
     console.log(e, val)
   setChart(val)
   }
 
+  function onLiftChange(e: React.SyntheticEvent) {
+    if (e) {
+      const target = e.target as HTMLInputElement;
+      setLiftName(target.value)}
+  }
+
+  function onPeriodChange(e: React.SyntheticEvent) {
+    if (e) {
+      const target = e.target as HTMLInputElement;
+      setPeriod(target.value)}
+  }
 
   return (
     <MyConsumer>
@@ -72,7 +73,7 @@ function WorkoutData() {
                 getOptionLabel={(option: lift) => option.name}
                 options={context.lifts}
                 inputValue={liftName}
-                onInputChange={(e, val) => onLiftChange(e, val)}
+                onInputChange={(e) => onLiftChange(e)}
                 renderInput={(params) => <TextField {...params} />}
               />
               <p>Period</p>
@@ -81,7 +82,7 @@ function WorkoutData() {
                 getOptionLabel={(option) => option}
                 options={periods}
                 inputValue={period}
-                onInputChange={(e, val) => onPeriodChange(e, val)}
+                onInputChange={(e) => onPeriodChange(e)}
                 renderInput={(params) => <TextField {...params} />}
               />
               <p>Graph</p>
