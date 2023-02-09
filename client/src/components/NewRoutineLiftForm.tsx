@@ -62,6 +62,11 @@ function NewRoutineLiftForm() {
     }).then(() => setAllSets(allSets.filter((set) => set.id !== id)));
   }
 
+  function onInputChange(e: any, val: any) {
+    console.log(e, val);
+    setLift_name(val)
+  }
+
   return (
     <MyConsumer>
       {(context: any) => (
@@ -71,7 +76,7 @@ function NewRoutineLiftForm() {
               <div className="col" key={set.id}>
                 <CustomSetCard
                   selected={selected === set.id}
-                  lift_name={
+                  liftName={
                     lift_names.filter((lift: lift) => lift.id === set.lift_id)[0].name
                   }
                   index={set.index}
@@ -104,7 +109,7 @@ function NewRoutineLiftForm() {
             getOptionLabel={(option: any) => option.name}
             options={context.lifts}
             inputValue={lift_name}
-            onInputChange={(e, val) => setLift_name(val)}
+            onInputChange={(e, val) => onInputChange(e, val)}
             renderInput={(params) => <TextField {...params} />}
           />
           <div className="row">
@@ -187,7 +192,7 @@ function NewRoutineLiftForm() {
             )}
           </div>
           <div className="row">
-            <Checkbox onChange={(e) => setAmrap((amrap) => (amrap = !amrap))} />
+            <Checkbox onChange={() => setAmrap((amrap) => (amrap = !amrap))} />
             <Typography>AMRAP?</Typography>
             <Button onClick={() => setAmrapInfo((amrapInfo) => !amrapInfo)}>
               What's this?

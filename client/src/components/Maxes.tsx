@@ -39,6 +39,11 @@ function Maxes() {
     max: string
   }
 
+  function onChangeInput(e:any, val:any) {
+    console.log(e);
+    setLiftName(val)
+  }
+
   return (
     <MyConsumer>
       {(context: any) => (
@@ -49,7 +54,7 @@ function Maxes() {
               getOptionLabel={(option: any) => option.name}
               options={context.lifts}
               inputValue={liftName}
-              onInputChange={(e, val) => setLiftName(val)}
+              onInputChange={(e: any, val) => onChangeInput(e, val)}
               renderInput={(params) => <TextField label="Lift" {...params} />}
             />
             <Button

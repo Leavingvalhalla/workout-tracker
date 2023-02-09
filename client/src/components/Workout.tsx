@@ -20,6 +20,10 @@ function Workout() {
   const [reps, setReps] = useState<string>('');
   const [liftFormVisible, setLiftFormVisible] = useState<boolean>(false);
 
+  function onWorkoutChange(e:any, val:any){
+  console.log(e, val)
+  setLiftName(val)}
+
   function clearForm() {
     setLiftName('');
     setWeight('');
@@ -56,7 +60,7 @@ function Workout() {
               getOptionLabel={(option: any) => option.name}
               options={context.lifts}
               inputValue={liftName}
-              onInputChange={(e, val) => setLiftName(val)}
+              onInputChange={(e: any, val) => onWorkoutChange(e, val)}
               renderInput={(params) => <TextField label="lift" {...params} />}
             />
             {context.userLiftError === 'no lift selected' && (

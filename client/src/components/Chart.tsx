@@ -52,10 +52,11 @@ function Chart({chartInfo, chartTopic, setCurrentWorkout}: ChartProps) {
       responsive: true,
       plugins: {
         legend: {
-          display: 'top',
+          display: true,
         },
       },
-      onClick: (e, legendItem: any) => {
+      onClick: (e: any, legendItem: any) => {
+        console.log(e, legendItem);
         let id = chartInfo[legendItem[0].index].id;
         fetch(`/workout_by_lift_id/${id}`, {
           method: 'GET',
@@ -75,6 +76,7 @@ function Chart({chartInfo, chartTopic, setCurrentWorkout}: ChartProps) {
       },
     ],
   };
+  
 
   return <Line options={data.options} data={data} />;
 }
