@@ -10,6 +10,8 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import chartWorkout from '../types/chartWorkout';
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -20,13 +22,6 @@ ChartJS.register(
   Legend
 );
 
-interface chartWorkout {
-  id: string
-  weight: number,
-  reps: number,
-  volume: number,
-  date: string
-}
 
 interface ChartProps {
   chartInfo: chartWorkout[];

@@ -11,7 +11,7 @@ import {
 import { MyConsumer } from './MyContext';
 import Chart from './Chart';
 import lift from '../types/lift';
-import userLift from '../types/userLift';
+import chartWorkout from '../types/chartWorkout';
 import workout from '../types/workout';
 
 
@@ -22,7 +22,7 @@ function WorkoutData() {
   const [chartInfo, setChartInfo] = useState<workout[]>([]);
   const [topic, setTopic] = useState<string>('');
   const [chartFailed, setChartFailed] = useState<boolean>(false);
-  const [currentWorkout, setCurrentWorkout] = useState([]);
+  const [currentWorkout, setCurrentWorkout] = useState<chartWorkout[]>([]);
 
   const periods = ['1m', '3m', '6m', '1y', 'all'];
 
@@ -44,6 +44,22 @@ function WorkoutData() {
     setTopic(chart);
   }
 
+  function onLiftChange(e:any, val:any) {
+    console.log(e, val)
+    setLiftName(val)
+  }
+  
+  function onPeriodChange(e:any, val:any) {
+    setPeriod(val)
+    console.log(e, val);
+  }
+  
+  function onChartChange(e:any, val:any) {
+    console.log(e, val)
+  setChart(val)
+  }
+
+
   return (
     <MyConsumer>
       {(context: any) => (
@@ -56,7 +72,7 @@ function WorkoutData() {
                 getOptionLabel={(option: lift) => option.name}
                 options={context.lifts}
                 inputValue={liftName}
-                onInputChange={(e, val) => setLiftName(val)}
+                onInputChange={(e, val) => onLiftChange(e, val)}
                 renderInput={(params) => <TextField {...params} />}
               />
               <p>Period</p>
@@ -65,7 +81,7 @@ function WorkoutData() {
                 getOptionLabel={(option) => option}
                 options={periods}
                 inputValue={period}
-                onInputChange={(e, val) => setPeriod(val)}
+                onInputChange={(e, val) => onPeriodChange(e, val)}
                 renderInput={(params) => <TextField {...params} />}
               />
               <p>Graph</p>
@@ -74,7 +90,7 @@ function WorkoutData() {
                 getOptionLabel={(option) => option}
                 options={charts}
                 inputValue={chart}
-                onInputChange={(e, val) => setChart(val)}
+                onInputChange={(e, val) => onChartChange(e, val)}
                 renderInput={(params) => <TextField {...params} />}
               />
               <Button
@@ -87,7 +103,7 @@ function WorkoutData() {
             </div>
             <div className="column">
               <div className="row">
-                {currentWorkout.map((lift: userLift, i) => (
+                {currentWorkout.map((lift: chartWorkout, i) => (
                   <Card
                     sx={{ width: '15%', margin: '2%', display: 'inline-block' }}
                     key={i}
