@@ -1,5 +1,4 @@
 import './App.css';
-import React from 'react'
 import Header from './components/Header';
 import Home from './components/Home';
 import Signup from './components/Signup';
@@ -16,6 +15,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import NewRoutineLiftForm from './components/NewRoutineLiftForm';
+import { arrayIncludes } from '@mui/x-date-pickers/internals/utils/utils';
 
 // TODO:
 
@@ -43,6 +43,7 @@ function App() {
 
       <Routes>
         <Route
+          index
           path="/"
           element={
             <ThemeProvider theme={theme}>
