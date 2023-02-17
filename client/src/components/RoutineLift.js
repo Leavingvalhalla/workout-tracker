@@ -1,22 +1,16 @@
 import { TextField, Button, Typography, Card, Stack } from '@mui/material';
 import { useState } from 'react';
-import React from 'react'
-import userRoutineLift from '../types/userRoutineLift';
 
-interface routineLiftProps {
-  lift: userRoutineLift, index: number, context: any
-}
-
-function RoutineLift({ lift, index, context }: routineLiftProps) {
-  const [reps, setReps] = useState<string>('');
-  const [saved, setSaved] = useState<boolean>(false);
+function RoutineLift({ lift, index, context }) {
+  const [reps, setReps] = useState('');
+  const [saved, setSaved] = useState(false);
 
   function decreaseReps() {
-    setReps((reps) => (reps === '' || parseInt(reps) === 0 ? '0' : (parseInt(reps) - 1).toString()));
+    setReps((reps) => (reps === '' || reps === 0 ? 0 : reps - 1));
   }
 
   function increaseReps() {
-    setReps((reps) => (reps === '' ? '1' : (parseInt(reps) + 1).toString()));
+    setReps((reps) => (reps === '' ? 1 : parseInt(reps) + 1));
   }
 
   return (
@@ -26,7 +20,7 @@ function RoutineLift({ lift, index, context }: routineLiftProps) {
         margin: '1%',
         width: 250,
         display: 'inline-block',
-        opacity: saved ? 0.5 : 1,
+        opacity: saved && 0.5,
       }}
       key={`lift ${index}`}
     >
@@ -35,7 +29,7 @@ function RoutineLift({ lift, index, context }: routineLiftProps) {
           {lift.name}
         </Typography>
         <Typography sx={{ margin: '2% 1%' }} variant="h6">
-          {Math.floor((parseInt(lift.weight) * parseInt(lift.lift_max)) / 5) * 5} lbs
+          {Math.floor((lift.weight * lift.lift_max) / 5) * 5} lbs
         </Typography>
       </Stack>
       <Stack sx={{ margin: '1%' }} spacing={2} direction="row">
@@ -62,7 +56,7 @@ function RoutineLift({ lift, index, context }: routineLiftProps) {
             setSaved(true);
             context.onLogSet(
               lift.name,
-              Math.floor((parseInt(lift.weight) * parseInt(lift.lift_max)) / 5) * 5,
+              Math.floor((lift.weight * lift.lift_max) / 5) * 5,
               reps
             );
           }}

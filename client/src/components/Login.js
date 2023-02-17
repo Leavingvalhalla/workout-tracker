@@ -1,12 +1,11 @@
-import React from 'react'
 import { TextField, Box, Button } from '@mui/material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { MyConsumer } from './MyContext';
 
 function Login() {
-  const [username, setUsername] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
   let navigate = useNavigate();
   function routeChange() {
     let path = '/';
@@ -15,13 +14,13 @@ function Login() {
 
   return (
     <MyConsumer>
-      {(context: any) => (
+      {(context) => (
         <Box
           className="app"
           component="form"
           noValidate
           autoComplete="off"
-          onSubmit={(e: any) => {
+          onSubmit={(e) => {
             routeChange();
             context.onLogin(e, username, password);
           }}

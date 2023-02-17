@@ -1,4 +1,3 @@
-import React from 'react'
 import { useState } from 'react';
 import {
   Autocomplete,
@@ -10,19 +9,15 @@ import {
 } from '@mui/material';
 import { MyConsumer } from './MyContext';
 import Chart from './Chart';
-import lift from '../types/lift';
-import chartWorkout from '../types/chartWorkout';
-import workout from '../types/workout';
-
 
 function WorkoutData() {
-  const [liftName, setLiftName] = useState<string>('');
-  const [period, setPeriod] = useState<string>('1m');
-  const [chart, setChart] = useState<string>('Estimated 1RM');
-  const [chartInfo, setChartInfo] = useState<workout[]>([]);
-  const [topic, setTopic] = useState<string>('');
-  const [chartFailed, setChartFailed] = useState<boolean>(false);
-  const [currentWorkout, setCurrentWorkout] = useState<chartWorkout[]>([]);
+  const [liftName, setLiftName] = useState('');
+  const [period, setPeriod] = useState('1m');
+  const [chart, setChart] = useState('Estimated 1RM');
+  const [chartInfo, setChartInfo] = useState([]);
+  const [topic, setTopic] = useState('');
+  const [chartFailed, setChartFailed] = useState(false);
+  const [currentWorkout, setCurrentWorkout] = useState([]);
 
   const periods = ['1m', '3m', '6m', '1y', 'all'];
 
@@ -38,42 +33,26 @@ function WorkoutData() {
       });
   }
 
-  function dataResponse(data: workout[]) {
+  function dataResponse(data) {
     setChartFailed(false);
     setChartInfo(data);
     setTopic(chart);
   }
-  
-  function onChartChange(e:any, val:any) {
-    console.log(e, val)
-  setChart(val)
-  }
-
-  function onLiftChange(e: React.SyntheticEvent) {
-    if (e) {
-      const target = e.target as HTMLInputElement;
-      setLiftName(target.value)}
-  }
-
-  function onPeriodChange(e: React.SyntheticEvent) {
-    if (e) {
-      const target = e.target as HTMLInputElement;
-      setPeriod(target.value)}
-  }
 
   return (
     <MyConsumer>
-      {(context: any) => (
+      {(context) => (
         <div className="app">
           <div className="row">
             <div className="column">
               <p>Lift</p>
               <Autocomplete
                 sx={{ maxWidth: 275 }}
-                getOptionLabel={(option: lift) => option.name}
+                getOptionLabel={(option) => option.name}
                 options={context.lifts}
                 inputValue={liftName}
-                onInputChange={(e) => onLiftChange(e)}
+                label="lift"
+                onInputChange={(e, val) => setLiftName(val)}
                 renderInput={(params) => <TextField {...params} />}
               />
               <p>Period</p>
@@ -82,7 +61,8 @@ function WorkoutData() {
                 getOptionLabel={(option) => option}
                 options={periods}
                 inputValue={period}
-                onInputChange={(e) => onPeriodChange(e)}
+                label="period"
+                onInputChange={(e, val) => setPeriod(val)}
                 renderInput={(params) => <TextField {...params} />}
               />
               <p>Graph</p>
@@ -91,7 +71,8 @@ function WorkoutData() {
                 getOptionLabel={(option) => option}
                 options={charts}
                 inputValue={chart}
-                onInputChange={(e, val) => onChartChange(e, val)}
+                label="period"
+                onInputChange={(e, val) => setChart(val)}
                 renderInput={(params) => <TextField {...params} />}
               />
               <Button
@@ -104,7 +85,7 @@ function WorkoutData() {
             </div>
             <div className="column">
               <div className="row">
-                {currentWorkout.map((lift: chartWorkout, i) => (
+                {currentWorkout.map((lift, i) => (
                   <Card
                     sx={{ width: '15%', margin: '2%', display: 'inline-block' }}
                     key={i}

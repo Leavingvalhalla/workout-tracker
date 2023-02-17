@@ -1,13 +1,11 @@
-import React from 'react'
 import { Typography } from '@mui/material';
 import RoutineCard from './RoutineCard';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import routine from '../types/routine';
 
 function Routines() {
-  const [signedUp, setSignedUp] = useState<boolean>(false);
-  const [routines, setRoutines] = useState<routine[]>([]);
+  const [signedUp, setSignedUp] = useState(false);
+  const [routines, setRoutines] = useState([]);
 
   useEffect(() => {
     fetch('/routines')
@@ -18,7 +16,7 @@ function Routines() {
   return (
     <div className="row">
       <div className="column">
-        {routines.map((routine: routine) => (
+        {routines.map((routine) => (
           <RoutineCard
             key={routine.id}
             routine={routine}
@@ -26,7 +24,7 @@ function Routines() {
           />
         ))}
       </div>
-      <div style={{ width: '50%' }} className="column">
+      <div sx={{ width: '50%' }} className="column">
         {signedUp && (
           <Typography variant="h5">
             Great, you're all set! Don't forget to

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import Login from './Login';
 import { MyConsumer } from './MyContext';
@@ -7,7 +6,7 @@ import { Stack } from '@mui/material';
 function Header() {
   return (
     <MyConsumer>
-      {(context: any) => (
+      {(context) => (
         <div className="header">
           <Stack>
             <Link to="/">

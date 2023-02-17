@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router-dom';
 import { Button, Stack, Box } from '@mui/material';
 import { MyConsumer } from './MyContext';
@@ -6,7 +5,7 @@ import { MyConsumer } from './MyContext';
 function Home() {
   return (
     <MyConsumer>
-      {(context: any) => (
+      {(context) => (
         <div className="app">
           {context.user && (
             <Box>

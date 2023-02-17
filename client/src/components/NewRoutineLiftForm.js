@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   TextField,
   Typography,
@@ -10,24 +9,23 @@ import { useState, useEffect, useContext } from 'react';
 import { MyConsumer, MyContext } from './MyContext';
 import { useParams } from 'react-router-dom';
 import CustomSetCard from './CustomSetCard';
-import userRoutineLift from '../types/userRoutineLift';
-import lift from '../types/lift';
 
 function NewRoutineLiftForm() {
-  const [lift_name, setLift_name] = useState<string>('');
-  const [index, setIndex] = useState<string>('');
-  const [position, setPosition] = useState<string>('');
-  const [weight, setWeight] = useState<string>('1');
-  const [reps, setReps] = useState<string>('');
+  const [liftName, setLiftName] = useState();
+  const [index, setIndex] = useState('');
+  const [position, setPosition] = useState('');
+  const [weight, setWeight] = useState(1);
+  const [reps, setReps] = useState('');
   const [amrap, setAmrap] = useState(false);
-  const [indexInfo, setIndexInfo] = useState<boolean>(false);
-  const [positionInfo, setPositionInfo] = useState<boolean>(false);
-  const [weightInfo, setWeightInfo] = useState<boolean>(false);
-  const [repsInfo, setRepsInfo] = useState<boolean>(false);
-  const [amrapInfo, setAmrapInfo] = useState<boolean>(false);
-  const [allSets, setAllSets] = useState<userRoutineLift[]>([]);
-  const [selected, setSelected] = useState<string>('');
-  const { lift_names } = useContext<any>(MyContext);
+  const [indexInfo, setIndexInfo] = useState(false);
+  const [positionInfo, setPositionInfo] = useState(false);
+  const [weightInfo, setWeightInfo] = useState(false);
+  const [repsInfo, setRepsInfo] = useState(false);
+  const [amrapInfo, setAmrapInfo] = useState(false);
+  const [allSets, setAllSets] = useState([]);
+  const [selected, setSelected] = useState('');
+  const { liftNames } = useContext(MyContext);
+
   const params = useParams();
 
   useEffect(() => {
@@ -44,7 +42,7 @@ function NewRoutineLiftForm() {
       },
       body: JSON.stringify({
         routineId: params.id,
-        lift_name,
+        liftName,
         index,
         position,
         weight,
@@ -56,20 +54,15 @@ function NewRoutineLiftForm() {
       .then((data) => setAllSets([...allSets, data]));
   }
 
-  function onDeleteSet(id: string) {
+  function onDeleteSet(id) {
     fetch(`/routine_lifts/${id}`, {
       method: 'DELETE',
-    }).then(() => setAllSets(allSets.filter((set) => set.id !== id)));
-  }
-
-  function onInputChange(e: any, val: any) {
-    console.log(e, val);
-    setLift_name(val)
+    }).then(setAllSets(allSets.filter((set) => set.id !== id)));
   }
 
   return (
     <MyConsumer>
-      {(context: any) => (
+      {(context) => (
         <div className="col">
           <div className="row">
             {allSets.map((set) => (
@@ -77,7 +70,7 @@ function NewRoutineLiftForm() {
                 <CustomSetCard
                   selected={selected === set.id}
                   liftName={
-                    lift_names.filter((lift: lift) => lift.id === set.lift_id)[0].name
+                    liftNames.filter((lift) => lift.id === set.lift_id)[0].name
                   }
                   index={set.index}
                   position={set.position}
@@ -106,10 +99,11 @@ function NewRoutineLiftForm() {
           <Button>Add lift</Button>
           <Autocomplete
             sx={{ maxWidth: 275 }}
-            getOptionLabel={(option: any) => option.name}
+            getOptionLabel={(option) => option.name}
             options={context.lifts}
-            inputValue={lift_name}
-            onInputChange={(e, val) => onInputChange(e, val)}
+            inputValue={liftName}
+            label="lift"
+            onInputChange={(e, val) => setLiftName(val)}
             renderInput={(params) => <TextField {...params} />}
           />
           <div className="row">
@@ -192,7 +186,7 @@ function NewRoutineLiftForm() {
             )}
           </div>
           <div className="row">
-            <Checkbox onChange={() => setAmrap((amrap) => (amrap = !amrap))} />
+            <Checkbox onChange={(e) => setAmrap((amrap) => (amrap = !amrap))} />
             <Typography>AMRAP?</Typography>
             <Button onClick={() => setAmrapInfo((amrapInfo) => !amrapInfo)}>
               What's this?
@@ -209,7 +203,7 @@ function NewRoutineLiftForm() {
           <Button
             sx={{ width: '100px' }}
             variant="contained"
-            onClick={() => onSaveSet()}
+            onClick={() => onSaveSet(index, position, weight, reps, amrap)}
           >
             Save
           </Button>

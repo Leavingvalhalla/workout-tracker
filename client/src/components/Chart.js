@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,8 +9,6 @@ import {
   Legend,
 } from 'chart.js';
 import { Line } from 'react-chartjs-2';
-import chartWorkout from '../types/chartWorkout';
-
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -22,15 +19,8 @@ ChartJS.register(
   Legend
 );
 
-
-interface ChartProps {
-  chartInfo: chartWorkout[];
-  chartTopic: string;
-  setCurrentWorkout: React.Dispatch<React.SetStateAction<chartWorkout[]>>;
-}
-
-function Chart({chartInfo, chartTopic, setCurrentWorkout}: ChartProps) {
-  function parseInfo(workout: chartWorkout) {
+function Chart({ chartInfo, chartTopic, setCurrentWorkout }) {
+  function parseInfo(workout) {
     if (chartTopic === 'Estimated 1RM') {
       return workout.weight * workout.reps * 0.0333 + workout.weight;
     } else if (chartTopic === 'Max Weight') {
@@ -47,11 +37,10 @@ function Chart({chartInfo, chartTopic, setCurrentWorkout}: ChartProps) {
       responsive: true,
       plugins: {
         legend: {
-          display: true,
+          display: 'top',
         },
       },
-      onClick: (e: any, legendItem: any) => {
-        console.log(e, legendItem);
+      onClick: (e, legendItem) => {
         let id = chartInfo[legendItem[0].index].id;
         fetch(`/workout_by_lift_id/${id}`, {
           method: 'GET',
@@ -61,17 +50,16 @@ function Chart({chartInfo, chartTopic, setCurrentWorkout}: ChartProps) {
       },
     },
 
-    labels: chartInfo.map((workout: chartWorkout) => workout.date.slice(5)),
+    labels: chartInfo.map((workout) => workout.date.slice(5)),
     datasets: [
       {
         label: chartTopic,
-        data: chartInfo.map((workout: chartWorkout) => parseInfo(workout)),
+        data: chartInfo.map((workout) => parseInfo(workout)),
         borderColor: 'rgb(255, 99, 132)',
         backgroundColor: 'rgba(255, 99, 132, 0.5)',
       },
     ],
   };
-  
 
   return <Line options={data.options} data={data} />;
 }

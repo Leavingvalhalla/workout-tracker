@@ -1,15 +1,14 @@
-import React from 'react'
 import { TextField, Box, Button } from '@mui/material';
 import { useState } from 'react';
 
 function Signup() {
-  const [username, setUsername] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
-  const [passwordConfirmation, setPasswordConfirmation] = useState<string>('');
-  const [signedUp, setSignedup] = useState<boolean>(false);
-  const [errors, setErrors] = useState<string>('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConfirmation, setPasswordConfirmation] = useState('');
+  const [signedUp, setSignedup] = useState(false);
+  const [errors, setErrors] = useState('');
 
-  function handleSubmit(e: React.SyntheticEvent) {
+  function handleSubmit(e) {
     e.preventDefault();
     setSignedup(false);
     setErrors('');

@@ -6,28 +6,26 @@ import {
   TextField,
   Stack,
 } from '@mui/material';
-import React from 'react'
+import { MyConsumer } from './MyContext';
 import { useState } from 'react';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import dayjs from 'dayjs';
-import userLift from '../types/userLift';
-
 
 function AllWorkouts() {
-  const [newLift, setNewLift] = useState<string>('');
-  const [newWeight, setNewWeight] = useState<string>('');
-  const [newReps, setNewReps] = useState<string>('');
-  const [liftId, setLiftId] = useState<string>('');
-  const [userLiftId, setUserLiftId] = useState<string>('');
-  const [workoutId, setWorkoutId] = useState<string>('');
+  const [newLift, setNewLift] = useState('');
+  const [newWeight, setNewWeight] = useState('');
+  const [newReps, setNewReps] = useState('');
+  const [liftId, setLiftId] = useState('');
+  const [userLiftId, setUserLiftId] = useState('');
+  const [workoutId, setWorkoutId] = useState('');
   const [date, setDate] = useState(dayjs('2022-10-01'));
-  const [liftsByDate, setLiftsByDate] = useState<userLift[]>([]);
-  const [selected, setSelected] = useState<string>('');
+  const [liftsByDate, setLiftsByDate] = useState([]);
+  const [selected, setSelected] = useState('');
 
-  function fillForm(workout: {lift_name: string, weight: string, reps: string, lift_id: string, workout_id: string, id: string}) {
-    setNewLift(workout.lift_name);
+  function fillForm(workout) {
+    setNewLift(workout.name);
     setNewWeight(workout.weight);
     setNewReps(workout.reps);
     setLiftId(workout.lift_id);
@@ -35,7 +33,7 @@ function AllWorkouts() {
     setUserLiftId(workout.id);
   }
 
-  function handleDateChange(newDate: any) {
+  function handleDateChange(newDate) {
     setDate(newDate);
     let parsedDate =
       newDate.$y.toString() +
@@ -51,8 +49,8 @@ function AllWorkouts() {
         setLiftsByDate(data);
       });
   }
-  
-  function onUpdateUserLift(id: string, lift_id: string, workout_id: string, weight: string, reps: string) {
+
+  function onUpdateUserLift(id, lift_id, workout_id, weight, reps) {
     fetch(`/user_lifts/${id}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
@@ -65,11 +63,11 @@ function AllWorkouts() {
     })
       .then((res) => res.json())
       .then((data) => {
-        setLiftsByDate((liftsByDate: userLift[]) =>
-          liftsByDate.map((lift: userLift) =>
+        setLiftsByDate((liftsByDate) =>
+          liftsByDate.map((lift) =>
             lift.id === id
               ? {
-                  lift_name: data.name,
+                  name: data.name,
                   id: data.id,
                   lift_id: data.lift_id,
                   workout_id: data.workout_id,
@@ -82,12 +80,14 @@ function AllWorkouts() {
       });
   }
 
-  function onDeleteUserLift(id: string) {
+  function onDeleteUserLift(id) {
     fetch(`/user_lifts/${id}`, { method: 'DELETE' });
     setLiftsByDate(liftsByDate.filter((lift) => lift.id !== id));
   }
 
   return (
+    <MyConsumer>
+      {(context) => (
         <div className="app">
           <Stack sx={{ margin: '1%' }} spacing={3}>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
@@ -156,7 +156,7 @@ function AllWorkouts() {
             </Button>
           </Stack>
           {liftsByDate.length > 1 &&
-            liftsByDate.map((lift: userLift, index) => (
+            liftsByDate.map((lift, index) => (
               <Card
                 onClick={() => {
                   setSelected(lift.id);
@@ -170,7 +170,7 @@ function AllWorkouts() {
                   <Typography
                     sx={{ color: selected === lift.id ? '#aa2c2d' : 'black' }}
                   >
-                    {lift.lift_name}
+                    {lift.name}
                   </Typography>
                   <Typography
                     sx={{ color: selected === lift.id ? '#aa2c2d' : 'black' }}
@@ -187,5 +187,8 @@ function AllWorkouts() {
             ))}
         </div>
       )}
+    </MyConsumer>
+  );
+}
 
 export default AllWorkouts;

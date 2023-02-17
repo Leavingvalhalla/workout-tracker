@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   Box,
   TextField,
@@ -12,17 +11,12 @@ import {
 import { useState } from 'react';
 import { MyConsumer } from './MyContext';
 import NewLiftForm from './NewLiftForm';
-import userLift from '../types/userLift';
 
 function Workout() {
-  const [liftName, setLiftName] = useState<string>('');
-  const [weight, setWeight] = useState<string>('');
-  const [reps, setReps] = useState<string>('');
-  const [liftFormVisible, setLiftFormVisible] = useState<boolean>(false);
-
-  function onWorkoutChange(e:any, val:any){
-  console.log(e, val)
-  setLiftName(val)}
+  const [liftName, setLiftName] = useState('');
+  const [weight, setWeight] = useState('');
+  const [reps, setReps] = useState('');
+  const [liftFormVisible, setLiftFormVisible] = useState(false);
 
   function clearForm() {
     setLiftName('');
@@ -35,32 +29,33 @@ function Workout() {
   }
 
   function decreaseWeight() {
-    setWeight((weight) => (weight === '' || parseInt(weight) === 0 ? '0' : (parseInt(weight) - 5).toString()));
+    setWeight((weight) => (weight === '' || weight === 0 ? 0 : weight - 5));
   }
 
   function increaseWeight() {
-    setWeight((weight) => (weight === '' ? '5' : (parseInt(weight) + 5).toString()));
+    setWeight((weight) => (weight === '' ? 5 : parseInt(weight) + 5));
   }
 
   function decreaseReps() {
-    setReps((reps) => (reps === '' || parseInt(reps) === 0 ? '0' : (parseInt(reps) - 1).toString()));
+    setReps((reps) => (reps === '' || reps === 0 ? 0 : reps - 1));
   }
 
   function increaseReps() {
-    setReps((reps) => (reps === '' ? '1' : (parseInt(reps) + 1).toString()));
+    setReps((reps) => (reps === '' ? 1 : parseInt(reps) + 1));
   }
 
   return (
     <MyConsumer>
-      {(context: any) => (
+      {(context) => (
         <div className="app">
           <Box>
             <Autocomplete
               sx={{ maxWidth: 275, margin: '1% 1% 1% 5%' }}
-              getOptionLabel={(option: any) => option.name}
+              getOptionLabel={(option) => option.name}
               options={context.lifts}
               inputValue={liftName}
-              onInputChange={(e: any, val) => onWorkoutChange(e, val)}
+              label="lift"
+              onInputChange={(e, val) => setLiftName(val)}
               renderInput={(params) => <TextField label="lift" {...params} />}
             />
             {context.userLiftError === 'no lift selected' && (
@@ -90,7 +85,7 @@ function Workout() {
                 sx={{ margin: '1%' }}
                 value={weight}
                 label="weight"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setWeight(e.target.value)}
+                onChange={(e) => setWeight(e.target.value)}
                 helperText={
                   context.userLiftError === 'no weight selected' &&
                   "Weight can't be blank."
@@ -115,7 +110,7 @@ function Workout() {
                 }
                 value={reps}
                 label="reps"
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setReps(e.target.value)}
+                onChange={(e) => setReps(e.target.value)}
                 helperText={
                   context.userLiftError === 'no reps selected' &&
                   "Reps can't be blank."
@@ -144,9 +139,9 @@ function Workout() {
           <Button sx={{ margin: '1%' }} onClick={() => toggleLiftForm()}>
             Add new lift type
           </Button>
-          {liftFormVisible && <NewLiftForm />}
+          {liftFormVisible && <NewLiftForm toggleLiftForm={toggleLiftForm} />}
           <div className="row">
-            {context.currentWorkout.map((set: userLift, index: string) => (
+            {context.currentWorkout.map((set, index) => (
               <Card
                 variant="outlined"
                 key={`set ${index}`}
@@ -156,7 +151,7 @@ function Workout() {
                   <Typography variant="h6" gutterBottom>
                     {set.lift_name}
                   </Typography>
-                  <Typography variant="h6">
+                  <Typography variant="7">
                     {set.weight} lbs x {set.reps}
                   </Typography>
                 </CardContent>

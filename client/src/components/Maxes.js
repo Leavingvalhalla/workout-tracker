@@ -1,4 +1,3 @@
-import React from 'react'
 import {
   Box,
   TextField,
@@ -10,51 +9,40 @@ import {
 } from '@mui/material';
 import { useState } from 'react';
 import { MyConsumer } from './MyContext';
-import userRoutineLift from '../types/userRoutineLift';
 
 function Maxes() {
-  const [liftName, setLiftName] = useState<string>('');
-  const [weight, setWeight] = useState<string>('');
-  const [reps, setReps] = useState<string>('');
-  const [max, setMax] = useState<string>('');
-  const [startingWeight, setStartingWeight] = useState<string>('');
+  const [liftName, setLiftName] = useState('');
+  const [weight, setWeight] = useState('');
+  const [reps, setReps] = useState('');
+  const [max, setMax] = useState('');
+  const [startingWeight, setStartingWeight] = useState('');
   // const [goalWeight, setGoalWeight] = useState('');
-  const [maxCalculated, setMaxCalculated] = useState<boolean>(false);
-  const [expandInstructions, setExpandInstructions] = useState<boolean>(false);
+  const [maxCalculated, setMaxCalculated] = useState(false);
+  const [expandInstructions, setExpandInstructions] = useState(false);
 
   function calculateMax() {
     let oneRepMax;
-    if (reps === '1') {
+    if (reps === 1) {
       oneRepMax = weight;
     } else {
-      oneRepMax = (Math.floor(parseInt(weight) * parseInt(reps) * 0.0333 + parseInt(weight)).toString());
+      oneRepMax = Math.floor(weight * reps * 0.0333 + weight);
     }
     setMax(oneRepMax);
     setMaxCalculated(true);
   }
 
-  interface max {
-    id: string,
-    lift_id: string,
-    max: string
-  }
-
-  function onChangeInput(e:any, val:any) {
-    console.log(e);
-    setLiftName(val)
-  }
-
   return (
     <MyConsumer>
-      {(context: any) => (
+      {(context) => (
         <div>
           <Box sx={{ margin: '1%' }}>
             <Autocomplete
               sx={{ maxWidth: 275, margin: '1% 1% 1% 5%' }}
-              getOptionLabel={(option: any) => option.name}
+              getOptionLabel={(option) => option.name}
               options={context.lifts}
               inputValue={liftName}
-              onInputChange={(e: any, val) => onChangeInput(e, val)}
+              label="Lift"
+              onInputChange={(e, val) => setLiftName(val)}
               renderInput={(params) => <TextField label="Lift" {...params} />}
             />
             <Button
@@ -68,7 +56,7 @@ function Maxes() {
             </Button>
             {expandInstructions && (
               <div>
-                <Card variant="outlined" sx={{ width: '50%' }}>
+                <Card variant="contained" sx={{ width: '50%' }}>
                   <Typography>
                     If you don't know what weights to start with for your
                     program, start with an empty barbell and perform the number
@@ -86,13 +74,13 @@ function Maxes() {
                     sx={{ margin: '1%', width: 150 }}
                     value={weight}
                     label="Weight"
-                    onChange={(e) => setWeight(e.target.value)}
+                    onChange={(e) => setWeight(parseInt(e.target.value))}
                   />
                   <TextField
                     sx={{ margin: '1%', width: 150 }}
                     value={reps}
                     label="Reps"
-                    onChange={(e) => setReps(e.target.value)}
+                    onChange={(e) => setReps(parseInt(e.target.value))}
                   />
                   <Button
                     sx={{ margin: '1%', width: 150 }}
@@ -132,10 +120,10 @@ function Maxes() {
           </Stack>
           <Stack>
             <Typography>Your routine includes these lifts:</Typography>
-            {context.routineLifts.map((lift: userRoutineLift) => (
+            {context.routineLifts.map((lift) => (
               <Typography key={lift.name}>
                 {lift.name}
-                {context.maxes.filter((max: max) => max.lift_id === lift.id)[0] &&
+                {context.maxes.filter((max) => max.lift_id === lift.id)[0] &&
                   ' ✓'}
               </Typography>
             ))}

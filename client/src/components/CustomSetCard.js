@@ -1,16 +1,4 @@
-import React from 'react'
 import { Card, Typography } from '@mui/material';
-
-interface CustomSetCardProps {
-  liftName: string,
-  index: string,
-  position: string,
-  weight: string,
-  reps: string,
-  amrap: boolean
-  selected: boolean
-}
-
 
 function CustomSetCard({
   liftName,
@@ -20,7 +8,7 @@ function CustomSetCard({
   reps,
   amrap,
   selected,
-}: CustomSetCardProps) {
+}) {
   return (
     <Card
       variant="outlined"

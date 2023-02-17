@@ -1,15 +1,13 @@
-import React from 'react'
 import { Box, Button, Typography, Card, CardContent } from '@mui/material';
 import { MyConsumer } from './MyContext';
 import Workout from './Workout';
 import RoutineLift from './RoutineLift';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import userRoutineLift from '../types/userRoutineLift';
 
 function ContinueRoutine() {
-  const [expandLiftForm, setExpandLiftForm] = useState<boolean>(false);
-  const [expandInstructions, setExpandInstructions] = useState<boolean>(false);
+  const [expandLiftForm, setExpandLiftForm] = useState(false);
+  const [expandInstructions, setExpandInstructions] = useState(false);
 
   function clickAccessoryButton() {
     setExpandLiftForm((expandLiftForm) => !expandLiftForm);
@@ -17,9 +15,9 @@ function ContinueRoutine() {
 
   return (
     <MyConsumer>
-      {(context: any) => (
+      {(context) => (
         <div className="app">
-          <Card variant="outlined" sx={{ width: '50%' }}>
+          <Card variant="contained" sx={{ width: '50%' }}>
             <CardContent>
               <Typography variant="h5">
                 You are on day {context.user.routine_position} of{' '}
@@ -44,7 +42,7 @@ function ContinueRoutine() {
             New to this?
           </Button>
           {expandInstructions && (
-            <Card variant="outlined" sx={{ width: '50%' }}>
+            <Card variant="contained" sx={{ width: '50%' }}>
               <CardContent>
                 <Typography>
                   Complete each rep, in order. If there is a '+' next to the rep
@@ -55,7 +53,7 @@ function ContinueRoutine() {
             </Card>
           )}
           <Box>
-            {context.todaysLifts.map((lift: userRoutineLift, index: number) => (
+            {context.todaysLifts.map((lift, index) => (
               <RoutineLift
                 key={`routineLift ${index}`}
                 lift={lift}
@@ -68,7 +66,7 @@ function ContinueRoutine() {
             Doing some accessory work?
           </Button>
           {expandLiftForm && <Workout />}
-          <Link style={{ textDecoration: 'none' }} to="/finished">
+          <Link sx={{ textDecoration: 'none' }} to="/finished">
             <Button
               sx={{ margin: '1%', textDecoration: 'none' }}
               variant="contained"

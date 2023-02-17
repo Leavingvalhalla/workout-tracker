@@ -18,7 +18,6 @@ import NewRoutineLiftForm from './components/NewRoutineLiftForm';
 import { arrayIncludes } from '@mui/x-date-pickers/internals/utils/utils';
 
 // TODO:
-
 // backend: for Routines.sample, make it an array, and have the backend parse
 // new ones where more than one space makes a new entry in the array.
 
@@ -31,7 +30,7 @@ function App() {
         main: '#aa2c2d',
       },
     },
-    spacing: (factor: number) => `${0.25 * factor}rem`,
+    spacing: (factor) => `${0.25 * factor}rem`,
   });
 
   return (
